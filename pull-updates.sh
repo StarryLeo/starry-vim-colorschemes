@@ -22,14 +22,18 @@ function _dl() {
 function _main() {
         _dl ajmwagar/vim-deus
         _dl arcticicestudio/nord-vim
+        _dl atelierbram/vim-colors_atelier-schemes
         _dl ayu-theme/ayu-vim
         _dl cocopon/iceberg.vim
         _dl danilo-augusto/vim-afterglow
         _dl endel/vim-github-colorscheme
         _dl jacoborus/tender.vim
+        _dl jnurmine/Zenburn
         _dl joshdick/onedark.vim
+        _dl josuegaleas/jay
         _dl junegunn/seoul256.vim
         _dl kristijanhusak/vim-hybrid-material
+        _dl KeitaNakamura/neodark.vim
         _dl lifepillar/vim-solarized8
         _dl mhartington/oceanic-next
         _dl morhetz/gruvbox
@@ -38,13 +42,18 @@ function _main() {
         _dl nightsense/stellarized
         _dl NLKNguyen/papercolor-theme
         _dl rakr/vim-one
+        _dl raphamorim/lucario
+        _dl reedes/vim-colors-pencil
         _dl romainl/Apprentice
         _dl romainl/flattened
         _dl scheakur/vim-scheakur
+        _dl srcery-colors/srcery-vim
         _dl tomasr/molokai
         _dl tyrannicaltoucan/vim-deep-space
+        _dl tyrannicaltoucan/vim-quantum
         _dl w0ng/vim-hybrid
         _dl whatyouhide/vim-gotham
+        _dl zanglg/nova.vim
 
         chmod -x colors/*vim
 }
