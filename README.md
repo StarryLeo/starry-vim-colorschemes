@@ -31,7 +31,9 @@ Use your favorite package-manager to install, and enjoy!
 | [papercolor] | Light and Dark color schemes inspired by Google's Material Design | ✓ | ✓ |
 | [scheakur] | A light/dark colorscheme  | ✓ | ✓ |
 | [seoul256] | Low-contrast color scheme based on Seoul Colors | ✓ | ✓ |
+| [snow] | A blue-tinted winter vimscape | ✓ | ✓ |
 | [solarized8] | Optimized Solarized colorschemes | ✓ (16) | ✓ |
+| [stellarized] | Paint vim with the stars | ✓ | ✓ |
 | [tender] | 24bit colorscheme for Vim | ✓ | ✓ |
 
 [afterglow]: https://github.com/danilo-augusto/vim-afterglow
@@ -55,5 +57,7 @@ Use your favorite package-manager to install, and enjoy!
 [papercolor]: https://github.com/NLKNguyen/papercolor-theme
 [scheakur]: https://github.com/scheakur/vim-scheakur
 [seoul256]: https://github.com/junegunn/seoul256.vim
+[snow]: https://github.com/nightsense/snow
 [solarized8]: https://github.com/lifepillar/vim-solarized8
+[stellarized]: https://github.com/nightsense/stellarized
 [tender]: https://github.com/jacoborus/tender.vim
