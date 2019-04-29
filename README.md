@@ -11,12 +11,14 @@ Use your favorite package-manager to install, and enjoy!
 | Scheme | Description | Terminal | GUI |
 | -------------- | ------------|:--------:|:---:|
 | [afterglow] | Adaptation from Sublime Text | ✓ | ✓ |
+| [allomancer] | A dark, medium contrast vim colorscheme inspired by apprentice and two-firewatch | ✓ | ✓ |
 | [atelier] | Dark and Light Atelier Schemes | ✓ | ✓ |
 | [ayu-vim] | Simple, bright and elegant theme |   | ✓ |
 | [Apprentice] | Dark, low-contrast colorscheme | ✓ | ✓ |
 | [deep-space] | Intergalactic friendly color scheme based off Hybrid | ✓ | ✓ |
 | [deus] | For the late night coder | ✓ | ✓ |
 | [flattened] | Solarized, without the bullshit | ✓ (16) | ✓ |
+| [forest-night] | low-contrast & elegant vim color scheme | ✓ | ✓ |
 | [github] | Based on Github's syntax highlighting | ✓ | ✓ |
 | [gotham] | Very dark vim colorscheme | ✓ | ✓ |
 | [gruvbox] | Retro groove color scheme | ✓ | ✓ |
@@ -26,6 +28,7 @@ Use your favorite package-manager to install, and enjoy!
 | [jay] | Dark and Light color schemes inspired by Molokai | ✓ | ✓ |
 | [jellybeans] | Colorful, dark color scheme | ✓ | ✓ |
 | [lucario] | Colorful, flat theme | ✓ | ✓ |
+| [material] | A Material color scheme | ✓ | ✓ |
 | [molokai] | Molokai color scheme | ✓ | ✓ |
 | [neodark] | A dark color scheme | ✓ | ✓ |
 | [nord] | An arctic, north-bluish clean and elegant theme | ✓ (16) | ✓ |
@@ -43,6 +46,8 @@ Use your favorite package-manager to install, and enjoy!
 | [srcery] | Clearly defined contrasting colors and a slightly earthy tone | ✓ | ✓ |
 | [stellarized] | Paint vim with the stars | ✓ | ✓ |
 | [tender] | 24bit colorscheme for Vim | ✓ | ✓ |
+| [vim-material] | equinusocio's Material Theme port for vim | ✓ | ✓ |
+| [yowish] | A dark & yellowish vim colorscheme | ✓ | ✓ |
 | [Zenburn] | A low-contrast color scheme | ✓ | ✓ |
 
 [afterglow]: https://github.com/danilo-augusto/vim-afterglow
@@ -52,6 +57,7 @@ Use your favorite package-manager to install, and enjoy!
 [deep-space]: https://github.com/tyrannicaltoucan/vim-deep-space
 [deus]: https://github.com/ajmwagar/vim-deus
 [flattened]: https://github.com/romainl/flattened
+[forest-night]: https://github.com/sainnhe/vim-color-forest-night
 [github]: https://github.com/endel/vim-github-colorscheme
 [gotham]: https://github.com/whatyouhide/vim-gotham
 [gruvbox]: https://github.com/morhetz/gruvbox
@@ -61,6 +67,7 @@ Use your favorite package-manager to install, and enjoy!
 [jay]: https://github.com/josuegaleas/jay
 [jellybeans]: https://github.com/nanotech/jellybeans.vim
 [lucario]: https://github.com/raphamorim/lucario
+[material]: https://github.com/kaicataldo/material.vim
 [molokai]: https://github.com/tomasr/molokai
 [neodark]: https://github.com/KeitaNakamura/neodark.vim
 [nord]: https://github.com/arcticicestudio/nord-vim
@@ -78,4 +85,7 @@ Use your favorite package-manager to install, and enjoy!
 [srcery]: https://github.com/srcery-colors/srcery-vim
 [stellarized]: https://github.com/nightsense/stellarized
 [tender]: https://github.com/jacoborus/tender.vim
+[allomancer]: https://github.com/Nequo/vim-allomancer
+[vim-material]: https://github.com/hzchirs/vim-material
+[yowish]: https://github.com/KabbAmine/yowish.vim
 [Zenburn]: https://github.com/jnurmine/Zenburn

@@ -27,12 +27,15 @@ function _main() {
         _dl cocopon/iceberg.vim
         _dl danilo-augusto/vim-afterglow
         _dl endel/vim-github-colorscheme
+        _dl hzchirs/vim-material
         _dl jacoborus/tender.vim
         _dl jnurmine/Zenburn
         _dl joshdick/onedark.vim
         _dl josuegaleas/jay
         _dl junegunn/seoul256.vim
+        _dl kaicataldo/material.vim
         _dl kristijanhusak/vim-hybrid-material
+        _dl KabbAmine/yowish.vim
         _dl KeitaNakamura/neodark.vim
         _dl lifepillar/vim-solarized8
         _dl mhartington/oceanic-next
@@ -40,12 +43,14 @@ function _main() {
         _dl nanotech/jellybeans.vim
         _dl nightsense/snow
         _dl nightsense/stellarized
+        _dl Nequo/vim-allomancer
         _dl NLKNguyen/papercolor-theme
         _dl rakr/vim-one
         _dl raphamorim/lucario
         _dl reedes/vim-colors-pencil
         _dl romainl/Apprentice
         _dl romainl/flattened
+        _dl sainnhe/vim-color-forest-night
         _dl scheakur/vim-scheakur
         _dl srcery-colors/srcery-vim
         _dl tomasr/molokai
