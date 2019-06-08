@@ -30,6 +30,7 @@ Use your favorite package-manager to install, and enjoy!
 | [lucario] | Colorful, flat theme | ✓ | ✓ |
 | [material] | A Material color scheme | ✓ | ✓ |
 | [molokai] | Molokai color scheme | ✓ | ✓ |
+| [mysticaltutor] | A dark, low-contrast, flat colorscheme for Vim | ✓ | ✓ |
 | [neodark] | A dark color scheme | ✓ | ✓ |
 | [nord] | An arctic, north-bluish clean and elegant theme | ✓ (16) | ✓ |
 | [nova] | 24bit true color | ✓ | ✓ |
@@ -41,6 +42,7 @@ Use your favorite package-manager to install, and enjoy!
 | [quantum] | A Material color scheme  | ✓ | ✓ |
 | [scheakur] | A light/dark colorscheme  | ✓ | ✓ |
 | [seoul256] | Low-contrast color scheme based on Seoul Colors | ✓ | ✓ |
+| [shades-of-purple] | A 24bit dark Vim colorscheme based on shades-of-purple-vscode | ✓ | ✓ |
 | [snow] | A blue-tinted winter vimscape | ✓ | ✓ |
 | [solarized8] | Optimized Solarized colorschemes | ✓ (16) | ✓ |
 | [srcery] | Clearly defined contrasting colors and a slightly earthy tone | ✓ | ✓ |
@@ -69,6 +71,7 @@ Use your favorite package-manager to install, and enjoy!
 [lucario]: https://github.com/raphamorim/lucario
 [material]: https://github.com/kaicataldo/material.vim
 [molokai]: https://github.com/tomasr/molokai
+[mysticaltutor]: https://github.com/caksoylar/vim-mysticaltutor
 [neodark]: https://github.com/KeitaNakamura/neodark.vim
 [nord]: https://github.com/arcticicestudio/nord-vim
 [nova]: https://github.com/zanglg/nova.vim
@@ -80,6 +83,7 @@ Use your favorite package-manager to install, and enjoy!
 [quantum]: https://github.com/tyrannicaltoucan/vim-quantum
 [scheakur]: https://github.com/scheakur/vim-scheakur
 [seoul256]: https://github.com/junegunn/seoul256.vim
+[shades-of-purple]: https://github.com/Rigellute/shades-of-purple.vim
 [snow]: https://github.com/nightsense/snow
 [solarized8]: https://github.com/lifepillar/vim-solarized8
 [srcery]: https://github.com/srcery-colors/srcery-vim

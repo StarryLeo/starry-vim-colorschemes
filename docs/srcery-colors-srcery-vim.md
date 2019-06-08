@@ -1,6 +1,6 @@
 ![logo](assets/title.png)
 
-[![Build Status](https://travis-ci.org/srcery-colors/srcery-vim.svg?branch=master)](https://travis-ci.org/srcery-colors/srcery-vim)
+[![Build Status](https://travis-ci.com/srcery-colors/srcery-vim.svg?branch=master)](https://travis-ci.com/srcery-colors/srcery-vim)
 
 Color scheme with clearly defined contrasting colors and a slightly earthy tone.
 
@@ -34,15 +34,22 @@ brightmagenta | 13 | #FF5C8F | 255, 92, 143
 brightcyan    | 14 | #53FDE9 | 83, 253, 233
 brightwhite   | 15 | #FCE8C3 | 252, 232, 195
 
-If the colors still don't look right, ensure that 256 colors are enabled in vim by setting this option **before** setting the colorscheme.
-```viml
-set t_Co=256
-```
-
 ## Installation
 
 ### Manually
 Put `srcery.vim` in `~/.vim/colors/` (on unix-like systems) or `%userprofile%\vimfiles\colors\` (on Windows).
+
+### Vim 8
+
+Vim 8 has native support for loading plugins. All you need to do to is to clone
+this repository into `~/.vim/plug/default/opt`.
+
+    git clone https://github.com/srcery-colors/srcery-vim ~/.vim/plug/default/opt
+
+The same works for NeoVim, but you have to clone it into a path where NeoVim can
+find it.
+
+    git clone https://github.com/srcery-colors/srcery-vim ~/.config/nvim/plug/default/opt
 
 ### [dein.vim](https://github.com/Shougo/dein.vim)
 ```vim
@@ -62,7 +69,7 @@ Plug 'srcery-colors/srcery-vim'
 
 ## Configuration
 
-I've included a few toggles due to discrepancies in the various setups possible.
+Srcery includes a few toggles due to discrepancies in the various setups possible.
 To change any of these you'd put something like this in your `.vimrc`
 
 ```viml
@@ -188,7 +195,7 @@ to pad out the color selection:
 
    TERMCOL   |  NR  |   HEX   |    RGB
 ------------ | ---- |  -------| ----------
-orange       | 166  | #D75F00 | 215, 95, 0
+orange       | 202  | #FF5F00 | 255, 95, 0
 brightorange | 208  | #FF8700 | 255, 135, 0
 hard_black   | 233  | #121212 | 18, 18, 18
 xgrey1       | 235  | #262626 | 38, 38, 38
@@ -197,13 +204,6 @@ xgrey3       | 237  | #3A3A3A | 58, 58, 58
 xgrey4       | 238  | #444444 | 68, 68, 68
 xgrey5       | 239  | #4E4E4E | 78, 78, 78
 
-
-## Contributors
-
- * [roosta](https://github.com/roosta)
- * [MindTooth](https://github.com/MindTooth)
- * [schtibe](https://github.com/schtibe)
- * [jswinarton](https://github.com/jswinarton)
 
 ## Attribution
 
@@ -219,6 +219,40 @@ Srcery:
  * [Badwolf](https://github.com/sjl/badwolf)
  * [Jellybeans](https://github.com/nanotech/jellybeans.vim)
  * [Molokai](https://github.com/tomasr/molokai)
+ 
+## Troubleshooting
+
+### Colors don't look right
+
+Ensure that 256 colors are enabled in vim by setting this option **before** setting the colorscheme.
+```viml
+set t_Co=256
+```
+
+### 24-bit color, tmux and Neovim
+
+If you want to use GUI colors in terminal make sure that tmux pass
+through 24-bit color codes. For example, if you use
+[Termite](https://github.com/thestinger/termite) add it to the
+terminal overrides setting:
+
+```tmux
+set -ga terminal-overrides ",xterm-termite:Tc"
+```
+
+For other terminals, replace `xterm-termite` with the relevant
+terminal type. (stored in `$TERM`).
+
+See [Arch wiki](https://wiki.archlinux.org/index.php/Tmux#24-bit_color)
+and this [issue](https://github.com/srcery-colors/srcery-vim/issues/36).
+
+## Contributors
+
+ * [roosta](https://github.com/roosta)
+ * [MindTooth](https://github.com/MindTooth)
+ * [schtibe](https://github.com/schtibe)
+ * [jswinarton](https://github.com/jswinarton)
+ * [xfbs](https://github.com/xfbs)
 
 ## Extra
 

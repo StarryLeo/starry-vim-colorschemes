@@ -24,6 +24,7 @@ function _main() {
         _dl arcticicestudio/nord-vim
         _dl atelierbram/vim-colors_atelier-schemes
         _dl ayu-theme/ayu-vim
+        _dl caksoylar/vim-mysticaltutor
         _dl cocopon/iceberg.vim
         _dl danilo-augusto/vim-afterglow
         _dl endel/vim-github-colorscheme
@@ -50,6 +51,7 @@ function _main() {
         _dl reedes/vim-colors-pencil
         _dl romainl/Apprentice
         _dl romainl/flattened
+        _dl Rigellute/shades-of-purple.vim
         _dl sainnhe/vim-color-forest-night
         _dl scheakur/vim-scheakur
         _dl srcery-colors/srcery-vim
