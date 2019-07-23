@@ -33,6 +33,7 @@ information.
   etc.
 - Better syntax highlight with:
   [typescript-vim][typescript-vim]
+  / [vim-elixir][vim-elixir]
   / [vim-flow][vim-flow]
   / [vim-graphql][vim-graphql]
   / [vim-javavscript][vim-javascript]
@@ -66,6 +67,10 @@ Creator of Iceberg talked about how to create your lovely color scheme in
   by [Kuniwak](https://github.com/Kuniwak)
 - [bumblebee-status](https://github.com/tobi-wan-kenobi/bumblebee-status)
   by [Aaron](https://github.com/whzup)
+- [st](https://notabug.org/vejetaryenvampir/st-iceberg)
+  by [vejetaryenvampir](https://notabug.org/vejetaryenvampir)
+- [Slack sidebar](https://gist.github.com/cocopon/2acffd70883ceb004c9c3117c34a9673)
+  by [cocopon]
 
 NOTE: [terminal.sexy][terminal-sexy] provides configuration files for
 the 16 ANSI colors for many terminal emulators (e.g. GNOME Terminal, iTerm2,
@@ -124,6 +129,7 @@ MIT License. See `LICENSE.txt` for more information.
 [syntastic]:https://github.com/vim-syntastic/syntastic
 [terminal-sexy]:https://terminal.sexy
 [typescript-vim]:https://github.com/leafgarland/typescript-vim
+[vim-elixir]:https://github.com/elixir-editors/vim-elixir
 [vim-flow]:https://github.com/flowtype/vim-flow
 [vim-graphql]:https://github.com/jparise/vim-graphql
 [vim-javascript]:https://github.com/pangloss/vim-javascript

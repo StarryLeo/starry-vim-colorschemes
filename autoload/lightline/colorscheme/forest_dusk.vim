@@ -1,6 +1,6 @@
 " =============================================================================
 " URL: https://github.com/sainnhe/vim-color-forest-night/
-" Filename: autoload/lightline/colorscheme/forest_night.vim
+" Filename: autoload/lightline/colorscheme/forest_dusk.vim
 " Author: Sainnhepark
 " Email: sainnhe@gmail.com
 " License: MIT License & Anti-996 License
@@ -9,15 +9,15 @@
 "{{{Palette
 let s:p = {'normal': {}, 'inactive': {}, 'insert': {}, 'replace': {}, 'visual': {}, 'tabline': {}}
 
-let s:dark      = [ '#3c4c55', 239 ]
-let s:darker       = [ '#4c5866', 241 ]
-let s:grey      = [ '#616c72', 244 ]
+let s:dark      = [ '#3c4542', 239 ]
+let s:darker       = [ '#4b514f', 241 ]
+let s:grey      = [ '#606357', 244 ]
 let s:blue       = [ '#7fc1ca', 110 ]
-let s:red       = [ '#fd8489', 174 ]
-let s:green       = [ '#a9dd9d', 150 ]
+let s:red       = [ '#fc796b', 174 ]
+let s:green       = [ '#a8cb79', 150 ]
 let s:orange       = [ '#fb8965', 216 ]
-let s:golden = [ '#f6e3bc', 223 ]
-let s:darkred = [ '#70495d', 95 ]
+let s:golden = [ '#fdd89a', 223 ]
+let s:darkred = [ '#6f4246', 95 ]
 let s:darkorange = [ '#b36200', 136 ]
 "}}}
 
@@ -135,4 +135,4 @@ if (has('termguicolors') && &termguicolors) || has('gui_running')
 endif
 "}}}
 
-let g:lightline#colorscheme#forest_night#palette = lightline#colorscheme#flatten(s:p)
+let g:lightline#colorscheme#forest_dusk#palette = lightline#colorscheme#flatten(s:p)
