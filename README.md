@@ -38,9 +38,10 @@ Use your favorite package-manager to install, and enjoy!
 | [one] | Adaptation of one-light and one-dark | ✓ | ✓ |
 | [onedark] | Inspired by Atom's One Dark syntax theme | ✓ | ✓ |
 | [papercolor] | Light and Dark color schemes inspired by Google's Material Design | ✓ | ✓ |
-| [pencil] | A light/dark color scheme inspired by iA Writer  | ✓ | ✓ |
-| [quantum] | A Material color scheme  | ✓ | ✓ |
-| [scheakur] | A light/dark colorscheme  | ✓ | ✓ |
+| [pencil] | A light/dark color scheme inspired by iA Writer | ✓ | ✓ |
+| [quantum] | A Material color scheme | ✓ | ✓ |
+| [rigel] | A 24bit colorscheme based on the star Rigel | ✓ | ✓ |
+| [scheakur] | A light/dark colorscheme | ✓ | ✓ |
 | [seoul256] | Low-contrast color scheme based on Seoul Colors | ✓ | ✓ |
 | [shades-of-purple] | A 24bit dark Vim colorscheme based on shades-of-purple-vscode | ✓ | ✓ |
 | [snow] | A blue-tinted winter vimscape | ✓ | ✓ |
@@ -81,6 +82,7 @@ Use your favorite package-manager to install, and enjoy!
 [papercolor]: https://github.com/NLKNguyen/papercolor-theme
 [pencil]: https://github.com/reedes/vim-colors-pencil
 [quantum]: https://github.com/tyrannicaltoucan/vim-quantum
+[rigel]: https://github.com/Rigellute/rigel
 [scheakur]: https://github.com/scheakur/vim-scheakur
 [seoul256]: https://github.com/junegunn/seoul256.vim
 [shades-of-purple]: https://github.com/Rigellute/shades-of-purple.vim

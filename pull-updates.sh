@@ -51,6 +51,7 @@ function _main() {
         _dl reedes/vim-colors-pencil
         _dl romainl/Apprentice
         _dl romainl/flattened
+        _dl Rigellute/rigel
         _dl Rigellute/shades-of-purple.vim
         _dl sainnhe/vim-color-forest-night
         _dl scheakur/vim-scheakur
