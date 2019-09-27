@@ -16,6 +16,7 @@ information.
 - Simple: no configuration required and easy to use
 - Fast: pre-compiled to reduce loading time
 - 256-colors terminal support
+- Terminal colors support
 - [airline][airline] theme and [lightline][lightline] colorscheme
 - Various plugins support:
   [ALE][ale]
@@ -39,7 +40,8 @@ information.
   / [vim-javavscript][vim-javascript]
   / [vim-markdown][vim-markdown]
   etc.
-- [Neovim][neovim] terminal colors support
+
+![lightline](https://user-images.githubusercontent.com/602961/64060996-407cb080-cc0f-11e9-87dd-e5c535815fab.png)
 
 
 
@@ -67,6 +69,10 @@ Creator of Iceberg talked about how to create your lovely color scheme in
   by [Kuniwak](https://github.com/Kuniwak)
 - [bumblebee-status](https://github.com/tobi-wan-kenobi/bumblebee-status)
   by [Aaron](https://github.com/whzup)
+- [kitty](https://gist.github.com/gkeep/9b6f3e86d44542f73b526183095d5c3a)
+  by [Gennady Koshkin](https://github.com/gkeep)
+- [tmux, bumblebee-status, alternative theme for lightline](https://github.com/gkeep/iceberg-dark) 
+  by [Gennady Koshkin](https://github.com/gkeep)
 - [st](https://notabug.org/vejetaryenvampir/st-iceberg)
   by [vejetaryenvampir](https://notabug.org/vejetaryenvampir)
 - [Slack sidebar](https://gist.github.com/cocopon/2acffd70883ceb004c9c3117c34a9673)
