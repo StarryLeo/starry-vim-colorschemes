@@ -3,6 +3,8 @@
 
 > It's the colorscheme we set that defines us. *(Batman)*
 
+[![main](https://github.com/whatyouhide/vim-gotham/workflows/main/badge.svg?branch=master)](https://github.com/whatyouhide/vim-gotham/actions?query=workflow%3Amain)
+
 Gotham is a **very dark** vim colorscheme. It works on GUI vim (MacVim or gVim)
 and on terminal vim. For terminal vim, there's support for a lot of terminal
 emulators in the [gotham-contrib][gotham-contrib] repository.
@@ -22,6 +24,8 @@ Plug 'whatyouhide/vim-gotham'
 NeoBundle 'whatyouhide/vim-gotham'
 " Vundle
 Plugin 'whatyouhide/vim-gotham'
+" dein.vim
+call dein#add('whatyouhide/vim-gotham')
 ```
 
 If you don't use a plugin manager just copy the content of `vim/colors/` to
@@ -121,7 +125,7 @@ You can find the list of contributors [here][contributors].
 
 ## License
 
-MIT &copy; 2014-2015 Andrea Leopardi, see [the license][license-file].
+MIT &copy; 2014 Andrea Leopardi, see [the license][license-file].
 
 
 [logo]: http://i.imgur.com/FDLEzHC.png "Logo"
