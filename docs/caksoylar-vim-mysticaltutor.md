@@ -3,6 +3,8 @@ Mystical Tutor is a dark, low-contrast, flat colorscheme for Vim and terminals. 
 
 ![main image](https://caksoylar.github.io/mysticaltutor/images/mysticaltutor.png)
 
+Note: A [kakoune](https://kakoune.org) version of the colorscheme is now available at [kakoune-mysticaltutor](https://github.com/caksoylar/kakoune-mysticaltutor).
+
 ## Installation
 Download `colors/mysticaltutor.vim` into a `colors` folder in Vim's `runtimepath` e.g. `~/.vim` or `%USERPROFILE%\vimfiles`. Alternatively, use your favorite package manager.
 
@@ -11,7 +13,7 @@ Put `colorscheme mysticaltutor` in your vimrc to enable.
 ## Terminal themes
 Although not necessary for the Vim colorscheme to work, themes for some terminals are available under the `terminal` folder. Note that some of these are not tested, feel free to open an issue if you encounter problems.
 
-A simple tmux theme (displayed below) that you can append to your `tmux.conf` can also be found in the same folder. It doesn't require any special symbols or anything, but assumes you are using the terminal theme.
+A simple tmux theme (displayed below) that you can append to your `tmux.conf` can also be found in the same folder. It assumes you are using the terminal theme.
 
 ![terminal theme](https://caksoylar.github.io/mysticaltutor/images/mystical-terminal.png)
 

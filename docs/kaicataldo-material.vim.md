@@ -2,14 +2,14 @@
 
 A port of the [Material](https://material-theme.site) color scheme for Vim/Neovim.
 
-![](https://raw.githubusercontent.com/kaicataldo/material.vim/master/screenshots/material-all-variants.png)
+![](https://raw.githubusercontent.com/kaicataldo/material.vim/main/screenshots/material-all-variants.png)
 
 ## Installation
 
 Using [vim-plug](https://github.com/junegunn/vim-plug) (modify this to work with your Vim package manager of choice):
 
 ```vim
-Plug 'kaicataldo/material.vim'
+Plug 'kaicataldo/material.vim', { 'branch': 'main' }
 ```
 
 ## Usage
@@ -40,10 +40,14 @@ endif
 
 ### Theme
 
-There are five theme options - `default`, `palenight`, `ocean`, `lighter`, and `darker` (defaulting to `default`). This can be configured as follows:
+There are five color schemes - `default`, `palenight`, `ocean`, `lighter`, and `darker`.
+
+Aditionally, Material's legacy edition ([Community Material](https://github.com/material-theme/vsc-community-material-theme)), is supported for each color scheme - `default-community`, `palenight-community`, `ocean-community`, `lighter-community`, and `darker-community`.
+
+This amounts to a total of ten theme options (defaulting to `default`), that can be configured as follows:
 
 ```vim
-let g:material_theme_style = 'default' | 'palenight' | 'ocean' | 'lighter' | 'darker'
+let g:material_theme_style = 'default' | 'palenight' | 'ocean' | 'lighter' | 'darker' | 'default-community' | 'palenight-community' | 'ocean-community' | 'lighter-community' | 'darker-community'
 ```
 
 ### Italics
@@ -61,6 +65,9 @@ let g:material_terminal_italics = 1
 let g:material_theme_style = 'lighter'
 colorscheme material
 ```
+
+### JavaScript
+The [vim-javascript](https://github.com/pangloss/vim-javascript) plugin, which provides fine-grained JS syntax highlighting features, is highly recommended for proper JavaScript highlighting. The theme will still work without the plugin, however JS highlighting will be minimal.
 
 ### lightline.vim
 
@@ -86,6 +93,23 @@ let g:airline_theme = 'material'
 
 Corresponding terminal color schemes are included in this repo. You can find them [here](https://github.com/kaicataldo/material.vim/tree/master/terminal-colors/).
 
+#### Vim in macOS
+
+The default version of `vim` on `macOS` doesn't support `termguicolors`. In order for the colorscheme to work properly you need to apply the terminal colors from above. Or you can install the latest version from `brew`.
+
+## Troubleshooting
+
+### Italics not rendering correctly
+
+Italicized text [sometimes does not rendering correctly in iTerm2](https://github.com/kaicataldo/material.vim/issues/56). Before making an issue, if you use iTerm2, please see if this addition to your .vimrc fixes the issue for you:
+
+```vim
+" Fix italics in Vim
+if !has('nvim')
+  let &t_ZH="\e[3m"
+  let &t_ZR="\e[23m"
+endif
+```
 
 ## Thanks
 

@@ -4,7 +4,7 @@
 " URL: https://github.com/Rigellute/rigel
 " Author: Alexander Keliris
 " License: MIT
-" Last Change: 2020/01/26 16:33
+" Last Change: 2020/04/21 14:31
 " ===============================================================
 
 set background=dark
@@ -164,6 +164,44 @@ hi markdownHeadingDelimiter guifg=#517f8d ctermfg=66 guibg=NONE ctermbg=NONE gui
 hi markdownOrderedListMarker guifg=#517f8d ctermfg=66 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
 hi markdownCodeDelimiter guifg=#517f8d ctermfg=66 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
 hi markdownCode guifg=#517f8d ctermfg=66 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi typescriptVariable guifg=#1c8db2 ctermfg=31 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi typescriptValue guifg=#c694ff ctermfg=177 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi typescriptObjectLabel guifg=#c694ff ctermfg=177 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi typescriptPrimaryType guifg=#c694ff ctermfg=177 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi typescriptMember guifg=#c694ff ctermfg=177 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi typescriptMemberOptionality guifg=#c694ff ctermfg=177 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi typescriptVariableDeclaration guifg=#b7cff9 ctermfg=153 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi typescriptProp guifg=#1c8db2 ctermfg=31 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi link typescriptStatement Keyword
+hi link typescriptStorageClass Keyword
+hi link typescriptExtendsKeyword Keyword
+hi typescriptTemplateString guifg=#7fc06e ctermfg=107 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi typescriptEnum guifg=#fb94ff ctermfg=213 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi link typescriptReturn Keyword
+hi link typescriptTryCatchBlock Boolean
+hi link typescriptTernary Boolean
+hi link typescriptAsyncKeyword Boolean
+hi link typescriptObjectAsyncKeyword Boolean
+hi typescriptObjectColon guifg=#1c8db2 ctermfg=31 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi link typescriptAsyncFor Boolean
+hi link typescriptForAwait Boolean
+hi typescriptGlobalNodeObjects guifg=#c694ff ctermfg=177 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi typescriptGlobal guifg=#c694ff ctermfg=177 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi typescriptImport guifg=#1c8db2 ctermfg=31 guibg=NONE ctermbg=NONE gui=Italic cterm=Italic
+hi typescriptExportType guifg=#1c8db2 ctermfg=31 guibg=NONE ctermbg=NONE gui=Italic cterm=Italic
+hi link typescriptImportType Keyword
+hi link typescriptFrom Keyword
+hi link typescriptModuleAs Keyword
+hi link typescriptModule Keyword
+hi typescriptModuleKeyword guifg=#b7cff9 ctermfg=153 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
+hi link typescriptModuleAsterisk Keyword
+hi link typescriptExport Keyword
+hi link typescriptExportDefault Keyword
+hi link typescriptCastKeyword Function
+hi link typescriptGenerator Function
+hi link typescriptFunction Keyword
+hi link typescriptError Error
+hi link typescriptBoolean Boolean
 
 let g:terminal_color_foreground = "#e6e6dc"
 let g:terminal_color_background = "#002635"

@@ -56,7 +56,7 @@ The table below contains a subset of Apprentice’s palette. You can use a color
 | 1                | `#AF5F5F` ![#AF5F5F][1]  | 9                | `#FF8700` ![#FF8700][9]  |
 | 2                | `#5F875F` ![#5F875F][2]  | 10               | `#87AF87` ![#87AF87][10] |
 | 3                | `#87875F` ![#87875F][3]  | 11               | `#FFFFAF` ![#FFFFAF][11] |
-| 4                | `#5F87AF` ![#5F87AF][4]  | 12               | `#8FAFD7` ![#8FAFD7][12] |
+| 4                | `#5F87AF` ![#5F87AF][4]  | 12               | `#87AFD7` ![#87AFD7][12] |
 | 5                | `#5F5F87` ![#5F5F87][5]  | 13               | `#8787AF` ![#8787AF][13] |
 | 6                | `#5F8787` ![#5F8787][6]  | 14               | `#5FAFAF` ![#5FAFAF][14] |
 | 7                | `#6C6C6C` ![#6C6C6C][7]  | 15               | `#FFFFFF` ![#FFFFFF][15] |
@@ -75,7 +75,7 @@ Here is a sample `~/.Xresources` for you Linux/BSD users. You can import this in
     *.color3:     #87875F
     *.color11:    #FFFFAF
     *.color4:     #5F87AF
-    *.color12:    #8FAFD7
+    *.color12:    #87AFD7
     *.color5:     #5F5F87
     *.color13:    #8787AF
     *.color6:     #5F8787
@@ -99,7 +99,7 @@ And a sample `~/.minttyrc` for you Cygwin users:
     BoldRed=255,135,0
     BoldGreen=135,175,135
     BoldYellow=255,255,175
-    BoldBlue=143,175,215
+    BoldBlue=135,175,215
     BoldMagenta=135,135,175
     BoldCyan=95,175,175
     BoldWhite=255,255,255
@@ -206,23 +206,31 @@ I removed it from `master` but you can still find it in the "fancylines-and-neov
 
 ## Derivative works
 
-If light colorschemes are more your thing, [Disciple](https://github.com/romainl/Disciple) is an experimental and mostly unmaintained negative version of Apprentice.
+* If light colorschemes are more your thing, [Disciple](https://github.com/romainl/Disciple) is an experimental and mostly unmaintained negative version of Apprentice.
 
-On the same note, [Lightning](https://github.com/wimstefan/Lightning) is a light fork of Apprentice worth considering.
+* On the same note, [Lightning](https://github.com/wimstefan/Lightning) is a light fork of Apprentice worth considering.
 
-[Intern](https://github.com/drzel/intern-hexchat-theme) is an [HexChat](https://hexchat.github.io/) theme based on Apprentice.
+* [Intern](https://github.com/drzel/intern-hexchat-theme) is an [HexChat](https://hexchat.github.io/) theme based on Apprentice.
 
-[This very enthusiastic fellow](https://github.com/xHN35RQ) created [a home](https://github.com/xHN35RQ/apprentice-colorschemes) for terminal emulator themes adapted from Apprentice.
+* [This very enthusiastic fellow](https://github.com/xHN35RQ) created [a home](https://github.com/xHN35RQ/apprentice-colorschemes) for terminal emulator themes adapted from Apprentice.
 
-A port of Apprentice is available for the IDEA platform. Check it out [over there.](https://github.com/jpeddicord/apprentice-idea)
+* A port of Apprentice is available for the IDEA platform. Check it out [over there.](https://github.com/jpeddicord/apprentice-idea)
 
-[Elysian](https://github.com/nhooyr/elysian.vim) is a new very nice colorscheme for 256color terminal emulators inspired by Apprentice.
+* [Elysian](https://github.com/Aszarsha/elysian.vim) is a new very nice colorscheme for 256color terminal emulators inspired by Apprentice.
 
-[Apprentice-theme](https://github.com/sjas/apprentice-theme) is a port to spacemacs.
+* [Apprentice-theme](https://github.com/sjas/apprentice-theme) is a port to spacemacs.
 
-[Warlock](https://github.com/hardselius/warlock) is a brand new greyscale variant worth trying if Apprentice's already low contrast is still too much.
+* [Warlock](https://github.com/hardselius/warlock) is a brand new greyscale variant worth trying if Apprentice's already low contrast is still too much.
 
-[Apprentice-tmux](https://github.com/tombin/apprentice-tmux) is a tmux theme based on Apprentice.
+* [Apprentice-tmux](https://github.com/tombin/apprentice-tmux) is a tmux theme based on Apprentice.
+
+* [Apprentice-kitty](https://github.com/rsaihe/apprentice-kitty) is a port for kitty.
+
+* [Here](https://marketplace.visualstudio.com/items?itemName=amariampolskiy.theme-apprentice) is a port of Apprentice for Visual Studio Code.
+
+* [Apprentice-windows-terminal](https://github.com/guilhermedeandrade/apprentice-windows-terminal) is a port for Windows Terminal.
+
+* [Apprentice-term](https://github.com/habamax/apprentice-term) is another effort to make Apprentice available to advanced Windows users.
 
 Go team!
 

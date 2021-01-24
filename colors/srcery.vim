@@ -95,6 +95,10 @@ if !exists('g:srcery_dim_lisp_paren')
   let g:srcery_dim_lisp_paren=0
 endif
 
+if !exists('g:srcery_guisp_fallback') || index(['fg', 'bg'], g:srcery_guisp_fallback) == -1
+  let g:srcery_guisp_fallback='NONE'
+endif
+
 " }}}
 " Setup Emphasis: {{{
 
@@ -146,6 +150,18 @@ function! s:HL(group, fg, ...)
     let l:emstr = 'NONE,'
   endif
 
+  " special fallback
+  if a:0 >= 3
+    if g:srcery_guisp_fallback !=# 'NONE'
+      let fg = a:3
+    endif
+
+    " bg fallback mode should invert higlighting
+    if g:srcery_guisp_fallback ==# 'bg'
+      let emstr .= 'inverse,'
+    endif
+  endif
+
   let l:histring = [ 'hi', a:group,
         \ 'guifg=' . l:fg[0], 'ctermfg=' . l:fg[1],
         \ 'guibg=' . l:bg[0], 'ctermbg=' . l:bg[1],
@@ -159,6 +175,7 @@ function! s:HL(group, fg, ...)
 
   execute join(l:histring, ' ')
 endfunction
+
 "}}}
 " Srcery Hi Groups: {{{
 
@@ -230,6 +247,37 @@ if has('nvim')
 endif
 
 " }}}
+" Setup Terminal Colors For Vim with termguicolors: {{{
+
+if exists('*term_setansicolors')
+  let g:terminal_ansi_colors = repeat([0], 16)
+
+  let g:terminal_ansi_colors[0] = s:black[0]
+  let g:terminal_ansi_colors[8] = s:bright_black[0]
+
+  let g:terminal_ansi_colors[1] = s:red[0]
+  let g:terminal_ansi_colors[9] = s:bright_red[0]
+
+  let g:terminal_ansi_colors[2] = s:green[0]
+  let g:terminal_ansi_colors[10] = s:bright_green[0]
+
+  let g:terminal_ansi_colors[3] = s:yellow[0]
+  let g:terminal_ansi_colors[11] = s:bright_yellow[0]
+
+  let g:terminal_ansi_colors[4] = s:blue[0]
+  let g:terminal_ansi_colors[12] = s:bright_blue[0]
+
+  let g:terminal_ansi_colors[5] = s:magenta[0]
+  let g:terminal_ansi_colors[13] = s:bright_magenta[0]
+
+  let g:terminal_ansi_colors[6] = s:cyan[0]
+  let g:terminal_ansi_colors[14] = s:bright_cyan[0]
+
+  let g:terminal_ansi_colors[7] = s:white[0]
+  let g:terminal_ansi_colors[15] = s:bright_white[0]
+endif
+
+" }}}
 
 " Vanilla colorscheme ---------------------------------------------------------
 " General UI: {{{
@@ -248,16 +296,8 @@ if v:version >= 700
   " Screen column that the cursor is
   hi! link CursorColumn CursorLine
 
-
-  if g:srcery_transparent_background == 1 && !has('gui_running')
-    " Tab pages line filler
-    call s:HL('TabLineFill', s:green, s:none)
-    " Active tab page label
-    call s:HL('TabLineSel', s:red, s:none, s:bold)
-  else
-    call s:HL('TabLineFill', s:green, s:black)
-    call s:HL('TabLineSel', s:red, s:black, s:bold)
-  endif
+  call s:HL('TabLineFill', s:bright_black, s:xgray2)
+  call s:HL('TabLineSel', s:bright_white, s:xgray5)
 
   " Not active tab page label
   hi! link TabLine TabLineFill
@@ -288,7 +328,7 @@ if v:version >= 703
 endif
 
 hi! link NonText SrceryXgray4
-hi! link SpecialKey SrceryXgray4
+hi! link SpecialKey SrceryBlue
 
 if g:srcery_inverse == 1
   call s:HL('Visual', s:none, s:none, s:inverse)
@@ -434,7 +474,11 @@ hi! link Number SrceryBrightMagenta
 hi! link Float SrceryBrightMagenta
 
 " Generic type
-hi! link Type SrceryBrightBlue
+if get(g:, 'srcery_italic_types', 0) == 1
+  call s:HL('Type', s:bright_blue, s:none, s:italic)
+else
+  hi! link Type SrceryBrightBlue
+end
 " static, register, volatile, etc
 hi! link StorageClass SrceryOrange
 " struct, union, enum, etc.
@@ -448,6 +492,9 @@ else
   hi! link Delimiter SrceryBrightBlack
 endif
 
+" Treesitter
+call s:HL('TSParameter', s:cyan, s:none, s:italic)
+
 " }}}
 " Completion Menu: {{{
 
@@ -455,7 +502,7 @@ if v:version >= 700
   " Popup menu: normal item
   call s:HL('Pmenu', s:bright_white, s:xgray2)
   " Popup menu: selected item
-  call s:HL('PmenuSel', s:bright_white, s:magenta, s:bold)
+  call s:HL('PmenuSel', s:bright_white, s:blue, s:bold)
 
   if g:srcery_transparent_background == 1 && !has('gui_running')
     " Popup menu: scrollbar
@@ -507,21 +554,25 @@ if has('terminal')
 endif
 
 " }}}
-" CtrlP: "{{{
-hi! link CtrlPMatch SrceryMagenta
-hi! link CtrlPLinePre SrceryBrightGreen
-call s:HL('CtrlPMode1', s:bright_white, s:xgray3)
-call s:HL('CtrlPMode2', s:bright_white, s:xgray5)
-call s:HL('CtrlPStats', s:yellow, s:xgray2)
+" Neovim's builtin LSP: {{{
+
+hi! link LspDiagnosticsDefaultError SrceryBrightRed
+hi! link LspDiagnosticsDefaultWarning SrceryBrightYellow
+hi! link LspDiagnosticsDefaultInformation SrceryBrightGreen
+hi! link LspDiagnosticsDefaultHint SrceryBrightCyan
+call s:HL('LspDiagnosticsUnderlineError', s:bright_red, s:none, s:underline)
+call s:HL('LspDiagnosticsUnderlineWarning', s:bright_yellow, s:none, s:underline)
+call s:HL('LspDiagnosticsUnderlineInformation', s:bright_green, s:none, s:underline)
+call s:HL('LspDiagnosticsUnderlineHint', s:bright_cyan, s:none, s:underline)
+
 " }}}
 
 " Plugin specific -------------------------------------------------------------
 " Sneak: {{{
 
-hi! link SneakPluginTarget Search
-hi! link SneakStreakTarget Search
-call s:HL('SneakStreakMask', s:yellow, s:yellow)
-hi! link SneakStreakStatusLine Search
+hi! link Sneak Search
+call s:HL('SneakScope', s:none, s:hard_black)
+hi! link SneakLabel Search
 
 " }}}
 " Rainbow Parentheses: {{{
@@ -595,6 +646,86 @@ hi! link StartifySpecial Comment
 hi! link StartifySection Identifier
 
 " }}}
+" fzf: {{{
+
+call s:HL('fzf1', s:magenta, s:xgray2)
+call s:HL('fzf2', s:bright_green, s:xgray2)
+call s:HL('fzf3', s:bright_white, s:xgray2)
+
+"}}}
+" Netrw: {{{
+
+hi! link netrwDir SrceryBlue
+hi! link netrwClassify SrceryCyan
+hi! link netrwLink SrceryBrightBlack
+hi! link netrwSymLink SrceryCyan
+hi! link netrwExe SrceryYellow
+hi! link netrwComment SrceryBrightBlack
+hi! link netrwList SrceryBrightBlue
+hi! link netrwTreeBar SrceryBrightBlack
+hi! link netrwHelpCmd SrceryCyan
+hi! link netrwVersion SrceryGreen
+hi! link netrwCmdSep SrceryBrightBlack
+
+"}}}
+" coc.nvim: {{{
+
+hi! link CocErrorSign SrceryRed
+hi! link CocWarningSign SrceryBrightOrange
+hi! link CocInfoSign SrceryYellow
+hi! link CocHintSign SrceryBlue
+hi! link CocErrorFloat SrceryRed
+hi! link CocWarningFloat SrceryOrange
+hi! link CocInfoFloat SrceryYellow
+hi! link CocHintFloat SrceryBlue
+hi! link CocDiagnosticsError SrceryRed
+hi! link CocDiagnosticsWarning SrceryOrange
+hi! link CocDiagnosticsInfo SrceryYellow
+hi! link CocDiagnosticsHint SrceryBlue
+
+hi! link CocSelectedText SrceryRed
+hi! link CocCodeLens SrceryWhite
+
+call s:HL('CocErrorHighlight', s:none, s:none, s:undercurl, s:red)
+call s:HL('CocWarningHighlight', s:none, s:none, s:undercurl, s:bright_orange)
+call s:HL('CocInfoHighlight', s:none, s:none, s:undercurl, s:yellow)
+call s:HL('CocHintHighlight', s:none, s:none, s:undercurl, s:blue)
+
+" }}}
+" CtrlP: "{{{
+"
+hi! link CtrlPMatch SrceryMagenta
+hi! link CtrlPLinePre SrceryBrightGreen
+call s:HL('CtrlPMode1', s:bright_white, s:xgray3)
+call s:HL('CtrlPMode2', s:bright_white, s:xgray5)
+call s:HL('CtrlPStats', s:yellow, s:xgray2)
+
+" }}}
+" NERDTree: "{{{
+
+hi! link NERDTreeDir SrceryBlue
+hi! link NERDTreeDirSlash SrceryCyan
+hi! link NERDTreeOpenable SrceryBlue
+hi! link NERDTreeClosable SrceryBlue
+hi! link NERDTreeFile SrceryWhite
+hi! link NERDTreeExecFile SrceryYellow
+hi! link NERDTreeUp SrceryOrange
+hi! link NERDTreeCWD SrceryGreen
+hi! link NERDTreeHelp SrceryCyan
+hi! link NERDTreeFlags SrceryCyan
+hi! link NERDTreeLinkFile SrceryBrightBlack
+hi! link NERDTreeLinkTarget SrceryBrightBlack
+
+" }}}
+" Telescope: "{{{
+
+call s:HL('TelescopeNormal', s:white, s:none)
+call s:HL('TelescopeSelection', s:green, s:none, s:bold)
+call s:HL('TelescopeMatching', s:magenta)
+call s:HL('TelescopeSelectionCaret', s:magenta)
+call s:HL('TelescopePromptPrefix', s:bright_yellow)
+
+" }}}
 
 " Filetype specific -----------------------------------------------------------
 " Diff: {{{
@@ -644,7 +775,6 @@ else
   call s:HL('htmlItalic', s:bright_white, s:black, s:italic)
 endif
 
-
 " }}}
 " Xml: {{{
 
@@ -669,6 +799,7 @@ hi! link xmlAttribPunct SrceryBrightBlack
 
 hi! link xmlEntity SrceryYellow
 hi! link xmlEntityPunct SrceryYellow
+
 " }}}
 " Vim: {{{
 
@@ -684,6 +815,7 @@ hi! link vimContinue SrceryBrightWhite
 
 " }}}
 " Lisp dialects: {{{
+
 if g:srcery_dim_lisp_paren == 1
   hi! link schemeParentheses SrceryXgray6
   hi! link clojureParen SrceryXgray6
@@ -717,6 +849,7 @@ hi! link clojureMeta SrceryYellow
 hi! link clojureDeref SrceryYellow
 hi! link clojureQuote SrceryYellow
 hi! link clojureUnquote SrceryYellow
+
 " }}}
 " C: {{{
 
@@ -945,13 +1078,13 @@ hi! link markdownIdDeclaration markdownLinkText
 " hi! link haskellOperators SrceryYellow
 " hi! link haskellConditional SrceryCyan
 " hi! link haskellLet SrceryYellow
-"
+
 hi! link haskellType SrceryBlue
 hi! link haskellIdentifier SrceryBlue
 hi! link haskellSeparator SrceryBlue
 hi! link haskellDelimiter SrceryBrightWhite
 hi! link haskellOperators SrceryBlue
-"
+
 hi! link haskellBacktick SrceryYellow
 hi! link haskellStatement SrceryYellow
 hi! link haskellConditional SrceryYellow
@@ -982,17 +1115,24 @@ hi! link jsonString SrceryBlue
 
 " }}}
 " Rust: {{{
+
 "https://github.com/rust-lang/rust.vim/blob/master/syntax/rust.vim
 hi! link rustCommentLineDoc SrceryGreen
 hi! link rustModPathSep SrceryBrightBlack
+
 " }}}
 " Make: {{{
+
 hi! link makePreCondit SrceryRed
 hi! link makeCommands SrceryBrightWhite
 hi! link makeTarget SrceryYellow
+
 " }}}
 " Misc: {{{
+
 call s:HL('shParenError', s:bright_white, s:bright_red)
+call s:HL('ExtraWhitespace', s:none, s:red)
+
 " }}}
 
 " vim: set sw=2 ts=2 sts=2 et tw=80 ft=vim fdm=marker :

@@ -10,6 +10,7 @@ A 24bit colorscheme based on the star [Rigel](https://en.wikipedia.org/wiki/Rige
 
 - [Vim](#vim)
 - [Terminal](#terminal)
+- [VS Code](#vs-code)
 - [Slack](#slack)
 
 ## Troubleshooting
@@ -38,6 +39,8 @@ syntax enable
 colorscheme rigel
 ```
 
+##### JavaScript and TypeScript
+
 If you are using JavaScript, I recommend adding [vim-javascript](https://github.com/pangloss/vim-javascript) for improved syntax highlighting.
 
 ```vim
@@ -57,6 +60,10 @@ If you are using React, I recommend adding [vim-jsx](https://github.com/mxw/vim-
 ```vim
 Plug 'mxw/vim-jsx'
 ```
+
+This theme also has good support for Typescript, which is enabled by default. You might just need to add a plugin for Typescript syntax.
+
+I recommend [leafgarland/typescript-vim](https://github.com/leafgarland/typescript-vim).
 
 #### [Airline](https://github.com/vim-airline/vim-airline)
 
@@ -103,10 +110,17 @@ The terminal screenshot above is using [Pure](https://github.com/sindresorhus/pu
 
 Note Terminal.app doesn't support [truecolor](https://gist.github.com/XVilka/8346728), so colors might look slightly faded.
 
+### VS Code
+
+Thanks to [mrmartineau](https://github.com/mrmartineau), the Rigel theme is ported to VS Code, which can be found [here](https://marketplace.visualstudio.com/items?itemName=mrmartineau.rigel-vscode). The theme can be installed via "extensions" from the Visual Studio Marketplace.
+
+[VS Code port repo](https://github.com/mrmartineau/rigel-vscode).
+
 ### Slack
 
-1. Go to Slack's `Preferences` → `Sidebar Theme`
-1. Scroll to the bottom and paste these colors:
+1. Go to Slack's `Preferences` → `Themes`
+2. Click on custom themes.
+3. Scroll to the bottom and paste these colors:
 
 ```
 #002635,#00384D,#F08E48,#E6E6DC,#00384D,#B7CFF9,#00FFFF,#FF5A67

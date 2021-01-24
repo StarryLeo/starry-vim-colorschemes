@@ -1,37 +1,41 @@
 " vim-airline-srcery theme
 " vim: expandtab shiftwidth=2 tabstop=2 :
 
-" Color Palette {{{
 
-let s:black          = [ '#1c1b19',   0 ]
-let s:red            = [ '#ef2f27',   1 ]
-let s:green          = [ '#519f50',   2 ]
-let s:yellow         = [ '#fbb829',   3 ]
-let s:blue           = [ '#2c78bf',   4 ]
-let s:magenta        = [ '#e02c6d',   5 ]
-let s:cyan           = [ '#0aaeb3',   6 ]
-let s:white          = [ '#d0bfa1',   7 ]
-let s:bright_black   = [ '#918175',   8 ]
-let s:bright_red     = [ '#f75341',   9 ]
-let s:bright_green   = [ '#98bc37',  10 ]
-let s:bright_yellow  = [ '#fed06e',  11 ]
-let s:bright_blue    = [ '#68a8e4',  12 ]
-let s:bright_magenta = [ '#ff5c8f',  13 ]
-let s:bright_cyan    = [ '#53fde9',  14 ]
-let s:bright_white   = [ '#fce8c3',  15 ]
+" Srcery Palette {{{
 
-" xterm Colors
-let s:orange         = [ '#d75f00', 166 ]
-let s:bright_orange  = [ '#ff8700', 208 ]
-let s:hard_black     = [ '#121212', 233 ]
-let s:xgray1         = [ '#262626', 235 ]
-let s:xgray2         = [ '#303030', 236 ]
-let s:xgray3         = [ '#3a3a3a', 237 ]
-let s:xgray4         = [ '#444444', 238 ]
-let s:xgray5         = [ '#4e4e4e', 239 ]
-let s:xgray6         = [ '#585858', 240 ]
+" Normal Colors
+let s:black          = srcery#helper#GetColor('SrceryBlack')
+let s:red            = srcery#helper#GetColor('SrceryRed')
+let s:green          = srcery#helper#GetColor('SrceryGreen')
+let s:yellow         = srcery#helper#GetColor('SrceryYellow')
+let s:blue           = srcery#helper#GetColor('SrceryBlue')
+let s:magenta        = srcery#helper#GetColor('SrceryMagenta')
+let s:cyan           = srcery#helper#GetColor('SrceryCyan')
+let s:white          = srcery#helper#GetColor('SrceryWhite')
 
-" }}}
+" Bright Colors
+let s:bright_black   = srcery#helper#GetColor('SrceryBrightBlack')
+let s:bright_red     = srcery#helper#GetColor('SrceryBrightRed')
+let s:bright_green   = srcery#helper#GetColor('SrceryBrightGreen')
+let s:bright_yellow  = srcery#helper#GetColor('SrceryBrightYellow')
+let s:bright_blue    = srcery#helper#GetColor('SrceryBrightBlue')
+let s:bright_magenta = srcery#helper#GetColor('SrceryBrightMagenta')
+let s:bright_cyan    = srcery#helper#GetColor('SrceryBrightCyan')
+let s:bright_white   = srcery#helper#GetColor('SrceryBrightWhite')
+
+" Extra Colors
+let s:orange         = srcery#helper#GetColor('SrceryOrange')
+let s:bright_orange  = srcery#helper#GetColor('SrceryBrightOrange')
+let s:hard_black     = srcery#helper#GetColor('SrceryHardBlack')
+let s:xgray1         = srcery#helper#GetColor('SrceryXgray1')
+let s:xgray2         = srcery#helper#GetColor('SrceryXgray2')
+let s:xgray3         = srcery#helper#GetColor('SrceryXgray3')
+let s:xgray4         = srcery#helper#GetColor('SrceryXgray4')
+let s:xgray5         = srcery#helper#GetColor('SrceryXgray5')
+let s:xgray6         = srcery#helper#GetColor('SrceryXgray6')
+
+"}}}
 
 
 " Theme Initializing {{{

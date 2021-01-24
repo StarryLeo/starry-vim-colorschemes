@@ -1609,6 +1609,10 @@ fun! s:apply_syntax_highlightings()
   exec 'hi javaScriptMessage' . s:fg_foreground
   exec 'hi javaScriptMember' . s:fg_foreground
 
+  " TypeScript Highlighting
+  exec 'hi typescriptDecorators' . s:fg_orange
+  exec 'hi typescriptLabel' . s:fg_purple . s:ft_bold
+
   " @target https://github.com/pangloss/vim-javascript
   exec 'hi jsImport' . s:fg_pink . s:ft_bold
   exec 'hi jsExport' . s:fg_pink . s:ft_bold
@@ -2173,6 +2177,14 @@ fun! s:apply_syntax_highlightings()
   exec 'hi StartifySlash' . s:fg_navy
   exec 'hi StartifyBracket' . s:fg_aqua
   exec 'hi StartifySpecial' . s:fg_aqua
+
+  " Plugin: Signify
+  exec 'hi SignifyLineChange' . s:fg_diffchange_fg
+  exec 'hi SignifySignChange' . s:fg_diffchange_fg
+  exec 'hi SignifyLineAdd' . s:fg_diffadd_fg
+  exec 'hi SignifySignAdd' . s:fg_diffadd_fg
+  exec 'hi SignifyLineDelete' . s:fg_diffdelete_fg
+  exec 'hi SignifySignDelete' . s:fg_diffdelete_fg
 
   " Git commit message
   exec 'hi gitcommitSummary' . s:fg_blue

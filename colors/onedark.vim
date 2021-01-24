@@ -192,7 +192,7 @@ call s:h("StorageClass", { "fg": s:yellow }) " static, register, volatile, etc.
 call s:h("Structure", { "fg": s:yellow }) " struct, union, enum, etc.
 call s:h("Typedef", { "fg": s:yellow }) " A typedef
 call s:h("Special", { "fg": s:blue }) " any special symbol
-call s:h("SpecialChar", {}) " special character in a constant
+call s:h("SpecialChar", { "fg": s:dark_yellow }) " special character in a constant
 call s:h("Tag", {}) " you can use CTRL-] on this
 call s:h("Delimiter", {}) " character that needs attention
 call s:h("SpecialComment", { "fg": s:comment_grey }) " special things inside a comment
@@ -438,7 +438,7 @@ call s:h("perlMatchStartEnd",{ "fg": s:blue })
 call s:h("perlMethod", { "fg": s:purple })
 call s:h("perlPOD", { "fg": s:comment_grey })
 call s:h("perlSharpBang", { "fg": s:comment_grey })
-call s:h("perlSpecialString",{ "fg": s:cyan })
+call s:h("perlSpecialString",{ "fg": s:dark_yellow })
 call s:h("perlStatementFiledesc", { "fg": s:red })
 call s:h("perlStatementFlow",{ "fg": s:red })
 call s:h("perlStatementInclude", { "fg": s:purple })
@@ -545,6 +545,11 @@ hi link GitGutterAdd    SignifySignAdd
 hi link GitGutterChange SignifySignChange
 hi link GitGutterDelete SignifySignDelete
 
+" dense-analysis/ale
+call s:h("ALEError", { "fg": s:red, "gui": "underline", "cterm": "underline" })
+call s:h("ALEWarning", { "fg": s:yellow, "gui": "underline", "cterm": "underline"})
+call s:h("ALEInfo", { "gui": "underline", "cterm": "underline"})
+
 " easymotion/vim-easymotion
 call s:h("EasyMotionTarget", { "fg": s:red, "gui": "bold", "cterm": "bold" })
 call s:h("EasyMotionTarget2First", { "fg": s:yellow, "gui": "bold", "cterm": "bold" })
@@ -565,7 +570,7 @@ call s:h("NeomakeInfoSign", { "fg": s:blue })
 call s:h("mkdDelimiter", { "fg": s:purple })
 call s:h("mkdHeading", { "fg": s:red })
 call s:h("mkdLink", { "fg": s:blue })
-call s:h("mkdUrl", { "fg": s:cyan, "gui": "underline", "cterm": "underline" })
+call s:h("mkdURL", { "fg": s:cyan, "gui": "underline", "cterm": "underline" })
 
 " tpope/vim-fugitive
 call s:h("diffAdded", { "fg": s:green })
@@ -599,9 +604,10 @@ hi link gitcommitUnmergedArrow gitcommitUnmergedFile
 
 " }}}
 
-" Neovim terminal colors {{{
+" Neovim-Specific Highlighting {{{
 
 if has("nvim")
+  " Neovim terminal colors {{{
   let g:terminal_color_0 =  s:black.gui
   let g:terminal_color_1 =  s:red.gui
   let g:terminal_color_2 =  s:green.gui
@@ -620,6 +626,17 @@ if has("nvim")
   let g:terminal_color_15 = s:comment_grey.gui
   let g:terminal_color_background = g:terminal_color_0
   let g:terminal_color_foreground = g:terminal_color_7
+  " }}}
+  " Neovim LSP colors {{{
+  call s:h("LspDiagnosticsDefaultError", { "fg": s:red })
+  call s:h("LspDiagnosticsDefaultWarning", { "fg": s:yellow })
+  call s:h("LspDiagnosticsDefaultInformation", { "fg": s:white })
+  call s:h("LspDiagnosticsDefaultHint", { "fg": s:comment_grey })
+  call s:h("LspDiagnosticsUnderlineError", { "fg": s:red, "gui": "underline", "cterm": "underline" })
+  call s:h("LspDiagnosticsUnderlineWarning", { "fg": s:yellow, "gui": "underline", "cterm": "underline" })
+  call s:h("LspDiagnosticsUnderlineInformation", { "fg": s:white, "gui": "underline", "cterm": "underline" })
+  call s:h("LspDiagnosticsUnderlineHint", { "fg": s:comment_grey, "gui": "underline", "cterm": "underline" })
+" }}}
 endif
 
 " }}}
