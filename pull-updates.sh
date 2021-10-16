@@ -53,7 +53,7 @@ function _main() {
         _dl romainl/flattened
         _dl Rigellute/rigel
         _dl Rigellute/shades-of-purple.vim
-        _dl sainnhe/vim-color-forest-night
+        _dl sainnhe/everforest
         _dl scheakur/vim-scheakur
         _dl srcery-colors/srcery-vim
         _dl tomasr/molokai

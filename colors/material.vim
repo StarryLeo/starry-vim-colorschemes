@@ -170,7 +170,7 @@ call s:SetHighlight('ErrorMsg', s:bg, s:red, 'bold')
 call s:SetHighlight('FoldColumn', s:line_numbers, s:bg, '')
 call s:SetHighlight('Folded', s:brown, s:bg, 'bold')
 call s:SetHighlight('LineNr', s:line_numbers, '', '')
-call s:SetHighlight('MatchParen', s:comments, s:cyan, 'bold')
+call s:SetHighlight('MatchParen', s:caret, s:bg, 'bold')
 call s:SetHighlight('ModeMsg', s:green, '', '')
 call s:SetHighlight('MoreMsg', s:green, '', '')
 call s:SetHighlight('NonText', s:comments, '', '')
@@ -425,6 +425,10 @@ call s:SetHighlight('rubyRegexp', s:cyan, '', '')
 call s:SetHighlight('rubyRegexpDelimiter', s:violet, '', '')
 call s:SetHighlight('rubyStringDelimiter', s:green, '', '')
 
+" Rust
+call s:SetHighlight('CocRustTypeHint', s:invisibles, '', '')
+call s:SetHighlight('CocRustChainingHint', s:invisibles, '', '')
+
 " TeX
 call s:SetHighlight('texBeginEndName', s:blue, '', '')
 call s:SetHighlight('texMathMatcher', s:blue, '', '')
@@ -538,7 +542,7 @@ call s:SetHighlight('CocInfoSign', s:green, '', '')
 if has('nvim')
   let g:terminal_color_background = s:bg.gui
   let g:terminal_color_foreground = s:fg.gui
-  let g:terminal_color_0 = s:black.gui
+  let g:terminal_color_0 = s:comments.gui
   let g:terminal_color_1 = s:red.gui
   let g:terminal_color_2 = s:green.gui
   let g:terminal_color_3 = s:yellow.gui
@@ -556,3 +560,31 @@ if has('nvim')
   let g:terminal_color_15 = g:terminal_color_7
 endif
 
+" Tree-sitter
+call s:SetHighlight('TSAttribute', s:yellow, '', '')
+call s:SetHighlight('TSBoolean', s:pink, '', '')
+call s:SetHighlight('TSConditional', s:cyan, '', 'italic')
+call s:SetHighlight('TSConstructor', s:yellow, '', '')
+call s:SetHighlight('TSConstBuiltin', s:cyan, '', '')
+call s:SetHighlight('TSException', s:cyan, '', 'italic')
+call s:SetHighlight('TSField', s:white, '', '')
+call s:SetHighlight('TSFunction', s:blue, '', '')
+call s:SetHighlight('TSFuncBuiltin', s:blue, '', '')
+call s:SetHighlight('TSInclude', s:cyan, '', 'italic')
+call s:SetHighlight('TSKeyword', s:purple, '', '')
+call s:SetHighlight('TSKeywordOperator', s:cyan, '', 'italic')
+call s:SetHighlight('TSKeywordFunction', s:purple, '', '')
+call s:SetHighlight('TSKeywordReturn', s:cyan, '', 'italic')
+call s:SetHighlight('TSMethod', s:blue, '', '')
+call s:SetHighlight('TSOperator', s:cyan, '', '')
+call s:SetHighlight('TSParameter', s:fg, '', '')
+call s:SetHighlight('TSProperty', s:fg, '', '')
+call s:SetHighlight('TSPunctBracket', s:cyan, '', '')
+call s:SetHighlight('TSPunctDelimiter', s:cyan, '', '')
+call s:SetHighlight('TSRepeat', s:cyan, '', 'italic')
+call s:SetHighlight('TSTag', s:pink, '', '')
+call s:SetHighlight('TSTagDelimiter', s:cyan, '', '')
+call s:SetHighlight('TSTagAttribute', s:purple, '', '')
+call s:SetHighlight('TSType', s:yellow, '', '')
+call s:SetHighlight('TSVariable', s:fg, '', '')
+call s:SetHighlight('TSVariableBuiltin', s:fg, '', '')

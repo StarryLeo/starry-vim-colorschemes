@@ -17,6 +17,7 @@
   * [Termux](#termux)
   * [Xfce Terminal](#xfce-terminal)
   * [XTerm](#xterm)
+  * [Windows Terminal](#windows-terminal)
 * Others
   * [CSS](#css)
 * [Contributing](#contributing)
@@ -169,6 +170,14 @@ The script was created with [terminal.sexy](https://terminal.sexy).
 3.  Run `xrdb -merge ~/.Xresources`
 4.  (optional) Add `xrdb -merge ~/.Xresources` to your init scripts (e.g. `.xinitrc`)
 
+### [Windows Terminal](https://en.wikipedia.org/wiki/Windows_Terminal)
+![Windows Terminal Example](/images/windows-terminal.png)
+
+1. Open `settings.json` from Windows Terminal.
+2. Find the `"schemes"` array within it.
+3. Now, copy the JSON object present in **[lucario.json](https://github.com/raphamorim/lucario/raw/master/windows-terminal/lucario.json)** to `"schemes"` array in `settings.json` file.
+4. Apply the color scheme by setting `"colorScheme": "Lucario"` to your profile.
+
 ## Others
 
 ### CSS
@@ -189,7 +198,7 @@ So how about creating one? It's very simple! \o/
 
 1.  Fork it!
 2.  Create your feature branch: `git checkout -b my-new-feature`
-3.  Commit your changes: `git commit -m 'Add some feature'``
+3.  Commit your changes: `git commit -m 'Add some feature'`
 4.  Push to the branch: `git push origin my-new-feature`
 5.  Submit a pull request :)
 

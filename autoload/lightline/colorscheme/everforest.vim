@@ -1,58 +1,58 @@
 " =============================================================================
-" URL: https://github.com/sainnhe/forest-night
-" Filename: autoload/lightline/colorscheme/forest_night.vim
+" URL: https://github.com/sainnhe/everforest
+" Filename: autoload/lightline/colorscheme/everforest.vim
 " Author: sainnhe
 " Email: sainnhe@gmail.com
 " License: MIT License
 " =============================================================================
 
 " Initialization: {{{
-let s:configuration = forest_night#get_configuration()
-let s:palette = forest_night#get_palette()
+let s:configuration = everforest#get_configuration()
+let s:palette = everforest#get_palette(s:configuration.background)
 "}}}
 " Definition: {{{
 let s:tab_l_fg = s:palette.grey2
 let s:tab_l_bg = s:palette.bg3
 let s:tab_r_fg = s:palette.bg0
-let s:tab_r_bg = s:palette.green
+let s:tab_r_bg = s:palette.statusline1
 let s:tab_sel_fg = s:palette.bg0
-let s:tab_sel_bg = s:palette.green
+let s:tab_sel_bg = s:palette.statusline1
 let s:tab_middle_fg = s:palette.grey1
 let s:tab_middle_bg = s:palette.bg1
 
 let s:warningfg = s:palette.bg0
 let s:warningbg = s:palette.yellow
 let s:errorfg = s:palette.bg0
-let s:errorbg = s:palette.red
+let s:errorbg = s:palette.statusline3
 
 let s:normal_l1_fg = s:palette.bg0
-let s:normal_l1_bg = s:palette.green
+let s:normal_l1_bg = s:palette.statusline1
 let s:normal_l2_fg = s:palette.grey2
 let s:normal_l2_bg = s:palette.bg3
 let s:normal_r1_fg = s:palette.bg0
-let s:normal_r1_bg = s:palette.green
+let s:normal_r1_bg = s:palette.statusline1
 let s:normal_r2_fg = s:palette.grey2
 let s:normal_r2_bg = s:palette.bg3
 let s:normal_middle_fg = s:palette.grey1
 let s:normal_middle_bg = s:palette.bg1
 
 let s:insert_l1_fg = s:palette.bg0
-let s:insert_l1_bg = s:palette.fg
+let s:insert_l1_bg = s:palette.statusline2
 let s:insert_l2_fg = s:palette.fg
 let s:insert_l2_bg = s:palette.bg3
 let s:insert_r1_fg = s:palette.bg0
-let s:insert_r1_bg = s:palette.fg
+let s:insert_r1_bg = s:palette.statusline2
 let s:insert_r2_fg = s:palette.fg
 let s:insert_r2_bg = s:palette.bg3
 let s:insert_middle_fg = s:palette.fg
 let s:insert_middle_bg = s:palette.bg1
 
 let s:visual_l1_fg = s:palette.bg0
-let s:visual_l1_bg = s:palette.red
+let s:visual_l1_bg = s:palette.statusline3
 let s:visual_l2_fg = s:palette.grey2
 let s:visual_l2_bg = s:palette.bg3
 let s:visual_r1_fg = s:palette.bg0
-let s:visual_r1_bg = s:palette.red
+let s:visual_r1_bg = s:palette.statusline3
 let s:visual_r2_fg = s:palette.grey2
 let s:visual_r2_bg = s:palette.bg3
 let s:visual_middle_fg = s:palette.grey1
@@ -158,7 +158,7 @@ if s:configuration.lightline_disable_bold
   let s:p.tabline.tabsel = [ [ s:tab_sel_fg, s:tab_sel_bg ] ]
 endif
 
-let g:lightline#colorscheme#forest_night#palette = lightline#colorscheme#flatten(s:p)
+let g:lightline#colorscheme#everforest#palette = lightline#colorscheme#flatten(s:p)
 "}}}
 
 " vim: set sw=2 ts=2 sts=2 et tw=80 ft=vim fdm=marker fmr={{{,}}}:

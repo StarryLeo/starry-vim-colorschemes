@@ -1,26 +1,26 @@
 " -----------------------------------------------------------------------------
-" Name:         Forest Night
+" Name:         Everforest
 " Description:  Comfortable & Pleasant Color Scheme for Vim
 " Author:       sainnhe <sainnhe@gmail.com>
-" Website:      https://github.com/sainnhe/forest-night
+" Website:      https://github.com/sainnhe/everforest
 " License:      MIT
 " -----------------------------------------------------------------------------
 
 " Initialization: {{{
-let s:configuration = forest_night#get_configuration()
-let s:palette = forest_night#get_palette()
+let s:configuration = everforest#get_configuration()
+let s:palette = everforest#get_palette(s:configuration.background)
 let s:path = expand('<sfile>:p') " the path of this script
-let s:last_modified = 'Tue Jan 19 10:47:16 AM UTC 2021'
-let g:forest_night_loaded_file_types = []
+let s:last_modified = 'Tue Oct 12 12:00:50 UTC 2021'
+let g:everforest_loaded_file_types = []
 
-if !(exists('g:colors_name') && g:colors_name ==# 'forest-night' && s:configuration.better_performance)
+if !(exists('g:colors_name') && g:colors_name ==# 'everforest' && s:configuration.better_performance)
   highlight clear
   if exists('syntax_on')
     syntax reset
   endif
 endif
 
-let g:colors_name = 'forest-night'
+let g:colors_name = 'everforest'
 
 if !(has('termguicolors') && &termguicolors) && !has('gui_running') && &t_Co != 256
   finish
@@ -29,96 +29,147 @@ endif
 " Common Highlight Groups: {{{
 " UI: {{{
 if s:configuration.transparent_background
-  call forest_night#highlight('Normal', s:palette.fg, s:palette.none)
-  call forest_night#highlight('Terminal', s:palette.fg, s:palette.none)
-  call forest_night#highlight('EndOfBuffer', s:palette.bg0, s:palette.none)
-  call forest_night#highlight('FoldColumn', s:palette.grey0, s:palette.none)
-  call forest_night#highlight('Folded', s:palette.grey1, s:palette.none)
-  call forest_night#highlight('SignColumn', s:palette.fg, s:palette.none)
-  call forest_night#highlight('ToolbarLine', s:palette.fg, s:palette.none)
-else
-  call forest_night#highlight('Normal', s:palette.fg, s:palette.bg0)
-  call forest_night#highlight('Terminal', s:palette.fg, s:palette.bg0)
-  call forest_night#highlight('EndOfBuffer', s:palette.bg0, s:palette.bg0)
-  call forest_night#highlight('Folded', s:palette.grey1, s:palette.bg1)
-  call forest_night#highlight('ToolbarLine', s:palette.fg, s:palette.bg2)
-  if s:configuration.sign_column_background ==# 'default'
-    call forest_night#highlight('SignColumn', s:palette.fg, s:palette.bg1)
-    call forest_night#highlight('FoldColumn', s:palette.grey1, s:palette.bg1)
+  call everforest#highlight('Normal', s:palette.fg, s:palette.none)
+  call everforest#highlight('Terminal', s:palette.fg, s:palette.none)
+  if s:configuration.show_eob
+    call everforest#highlight('EndOfBuffer', s:palette.bg4, s:palette.none)
   else
-    call forest_night#highlight('SignColumn', s:palette.fg, s:palette.none)
-    call forest_night#highlight('FoldColumn', s:palette.grey0, s:palette.none)
+    call everforest#highlight('EndOfBuffer', s:palette.bg0, s:palette.none)
+  endif
+  if s:configuration.ui_contrast ==# 'low'
+    call everforest#highlight('FoldColumn', s:palette.bg5, s:palette.none)
+  else
+    call everforest#highlight('FoldColumn', s:palette.grey0, s:palette.none)
+  endif
+  call everforest#highlight('Folded', s:palette.grey1, s:palette.none)
+  call everforest#highlight('SignColumn', s:palette.fg, s:palette.none)
+  call everforest#highlight('ToolbarLine', s:palette.fg, s:palette.none)
+else
+  call everforest#highlight('Normal', s:palette.fg, s:palette.bg0)
+  call everforest#highlight('Terminal', s:palette.fg, s:palette.bg0)
+  if s:configuration.show_eob
+    call everforest#highlight('EndOfBuffer', s:palette.bg4, s:palette.bg0)
+  else
+    call everforest#highlight('EndOfBuffer', s:palette.bg0, s:palette.bg0)
+  endif
+  call everforest#highlight('Folded', s:palette.grey1, s:palette.bg1)
+  call everforest#highlight('ToolbarLine', s:palette.fg, s:palette.bg2)
+  if s:configuration.sign_column_background ==# 'default'
+    call everforest#highlight('SignColumn', s:palette.fg, s:palette.bg1)
+    call everforest#highlight('FoldColumn', s:palette.grey2, s:palette.bg1)
+  else
+    call everforest#highlight('SignColumn', s:palette.fg, s:palette.none)
+    if s:configuration.ui_contrast ==# 'low'
+      call everforest#highlight('FoldColumn', s:palette.bg5, s:palette.none)
+    else
+      call everforest#highlight('FoldColumn', s:palette.grey0, s:palette.none)
+    endif
   endif
 endif
-call forest_night#highlight('IncSearch', s:palette.bg0, s:palette.red)
-call forest_night#highlight('Search', s:palette.bg0, s:palette.green)
-call forest_night#highlight('ColorColumn', s:palette.none, s:palette.bg1)
-call forest_night#highlight('Conceal', s:palette.grey1, s:palette.none)
-if s:configuration.cursor ==# 'auto'
-  call forest_night#highlight('Cursor', s:palette.none, s:palette.none, 'reverse')
+call everforest#highlight('IncSearch', s:palette.bg0, s:palette.red)
+call everforest#highlight('Search', s:palette.bg0, s:palette.green)
+call everforest#highlight('ColorColumn', s:palette.none, s:palette.bg1)
+if s:configuration.ui_contrast ==# 'low'
+  call everforest#highlight('Conceal', s:palette.bg5, s:palette.none)
 else
-  call forest_night#highlight('Cursor', s:palette.bg0, s:palette[s:configuration.cursor])
+  call everforest#highlight('Conceal', s:palette.grey0, s:palette.none)
+endif
+if s:configuration.cursor ==# 'auto'
+  call everforest#highlight('Cursor', s:palette.none, s:palette.none, 'reverse')
+else
+  call everforest#highlight('Cursor', s:palette.bg0, s:palette[s:configuration.cursor])
 endif
 highlight! link vCursor Cursor
 highlight! link iCursor Cursor
 highlight! link lCursor Cursor
 highlight! link CursorIM Cursor
 if &diff
-  call forest_night#highlight('CursorLine', s:palette.none, s:palette.none, 'underline')
-  call forest_night#highlight('CursorColumn', s:palette.none, s:palette.none, 'bold')
+  call everforest#highlight('CursorLine', s:palette.none, s:palette.none, 'underline')
+  call everforest#highlight('CursorColumn', s:palette.none, s:palette.none, 'bold')
 else
-  call forest_night#highlight('CursorLine', s:palette.none, s:palette.bg1)
-  call forest_night#highlight('CursorColumn', s:palette.none, s:palette.bg1)
+  call everforest#highlight('CursorLine', s:palette.none, s:palette.bg1)
+  call everforest#highlight('CursorColumn', s:palette.none, s:palette.bg1)
 endif
-call forest_night#highlight('LineNr', s:palette.grey0, s:palette.none)
-if &diff
-  call forest_night#highlight('CursorLineNr', s:palette.fg, s:palette.none, 'underline')
-elseif (&relativenumber == 1 && &cursorline == 0) || s:configuration.sign_column_background !=# 'default'
-  call forest_night#highlight('CursorLineNr', s:palette.fg, s:palette.none)
+if s:configuration.ui_contrast ==# 'low'
+  call everforest#highlight('LineNr', s:palette.bg5, s:palette.none)
+  if &diff
+    call everforest#highlight('CursorLineNr', s:palette.grey1, s:palette.none, 'underline')
+  elseif (&relativenumber == 1 && &cursorline == 0) || s:configuration.sign_column_background !=# 'default'
+    call everforest#highlight('CursorLineNr', s:palette.grey1, s:palette.none)
+  else
+    call everforest#highlight('CursorLineNr', s:palette.grey1, s:palette.bg1)
+  endif
 else
-  call forest_night#highlight('CursorLineNr', s:palette.fg, s:palette.bg1)
+  call everforest#highlight('LineNr', s:palette.grey0, s:palette.none)
+  if &diff
+    call everforest#highlight('CursorLineNr', s:palette.grey2, s:palette.none, 'underline')
+  elseif (&relativenumber == 1 && &cursorline == 0) || s:configuration.sign_column_background !=# 'default'
+    call everforest#highlight('CursorLineNr', s:palette.grey2, s:palette.none)
+  else
+    call everforest#highlight('CursorLineNr', s:palette.grey2, s:palette.bg1)
+  endif
 endif
-call forest_night#highlight('DiffAdd', s:palette.none, s:palette.bg_green)
-call forest_night#highlight('DiffChange', s:palette.none, s:palette.bg_blue)
-call forest_night#highlight('DiffDelete', s:palette.none, s:palette.bg_red)
-call forest_night#highlight('DiffText', s:palette.bg0, s:palette.fg)
-call forest_night#highlight('Directory', s:palette.green, s:palette.none)
-call forest_night#highlight('ErrorMsg', s:palette.red, s:palette.none, 'bold,underline')
-call forest_night#highlight('WarningMsg', s:palette.yellow, s:palette.none, 'bold')
-call forest_night#highlight('ModeMsg', s:palette.fg, s:palette.none, 'bold')
-call forest_night#highlight('MoreMsg', s:palette.yellow, s:palette.none, 'bold')
-call forest_night#highlight('MatchParen', s:palette.none, s:palette.bg4)
-call forest_night#highlight('NonText', s:palette.bg4, s:palette.none)
-call forest_night#highlight('Whitespace', s:palette.bg3, s:palette.none)
-call forest_night#highlight('SpecialKey', s:palette.bg3, s:palette.none)
-call forest_night#highlight('Pmenu', s:palette.fg, s:palette.bg2)
-call forest_night#highlight('PmenuSbar', s:palette.none, s:palette.bg2)
-call forest_night#highlight('PmenuSel', s:palette.bg0, s:palette.green)
+call everforest#highlight('DiffAdd', s:palette.none, s:palette.bg_green)
+call everforest#highlight('DiffChange', s:palette.none, s:palette.bg_blue)
+call everforest#highlight('DiffDelete', s:palette.none, s:palette.bg_red)
+call everforest#highlight('DiffText', s:palette.bg0, s:palette.blue)
+call everforest#highlight('Directory', s:palette.green, s:palette.none)
+call everforest#highlight('ErrorMsg', s:palette.red, s:palette.none, 'bold,underline')
+call everforest#highlight('WarningMsg', s:palette.yellow, s:palette.none, 'bold')
+call everforest#highlight('ModeMsg', s:palette.fg, s:palette.none, 'bold')
+call everforest#highlight('MoreMsg', s:palette.yellow, s:palette.none, 'bold')
+call everforest#highlight('MatchParen', s:palette.none, s:palette.bg4)
+call everforest#highlight('NonText', s:palette.bg4, s:palette.none)
+call everforest#highlight('Whitespace', s:palette.bg4, s:palette.none)
+call everforest#highlight('SpecialKey', s:palette.bg3, s:palette.none)
+call everforest#highlight('Pmenu', s:palette.fg, s:palette.bg2)
+call everforest#highlight('PmenuSbar', s:palette.none, s:palette.bg2)
+call everforest#highlight('PmenuSel', s:palette.bg0, s:palette.statusline1)
 highlight! link WildMenu PmenuSel
-call forest_night#highlight('PmenuThumb', s:palette.none, s:palette.grey1)
-call forest_night#highlight('NormalFloat', s:palette.fg, s:palette.bg2)
-call forest_night#highlight('Question', s:palette.yellow, s:palette.none)
-call forest_night#highlight('SpellBad', s:palette.red, s:palette.none, 'undercurl', s:palette.red)
-call forest_night#highlight('SpellCap', s:palette.blue, s:palette.none, 'undercurl', s:palette.blue)
-call forest_night#highlight('SpellLocal', s:palette.aqua, s:palette.none, 'undercurl', s:palette.aqua)
-call forest_night#highlight('SpellRare', s:palette.purple, s:palette.none, 'undercurl', s:palette.purple)
-call forest_night#highlight('StatusLine', s:palette.grey1, s:palette.bg1)
-call forest_night#highlight('StatusLineTerm', s:palette.grey1, s:palette.bg1)
-call forest_night#highlight('StatusLineNC', s:palette.grey1, s:palette.bg0)
-call forest_night#highlight('StatusLineTermNC', s:palette.grey1, s:palette.bg0)
-call forest_night#highlight('TabLine', s:palette.grey2, s:palette.bg3)
-call forest_night#highlight('TabLineFill', s:palette.grey1, s:palette.bg1)
-call forest_night#highlight('TabLineSel', s:palette.bg0, s:palette.green)
-call forest_night#highlight('VertSplit', s:palette.bg4, s:palette.none)
-call forest_night#highlight('Visual', s:palette.none, s:palette.bg_visual)
-call forest_night#highlight('VisualNOS', s:palette.none, s:palette.bg_visual)
-call forest_night#highlight('QuickFixLine', s:palette.purple, s:palette.none, 'bold')
-call forest_night#highlight('Debug', s:palette.orange, s:palette.none)
-call forest_night#highlight('debugPC', s:palette.bg0, s:palette.green)
-call forest_night#highlight('debugBreakpoint', s:palette.bg0, s:palette.red)
-call forest_night#highlight('ToolbarButton', s:palette.bg0, s:palette.green)
+call everforest#highlight('PmenuThumb', s:palette.none, s:palette.grey0)
+call everforest#highlight('NormalFloat', s:palette.fg, s:palette.bg2)
+call everforest#highlight('Question', s:palette.yellow, s:palette.none)
+call everforest#highlight('SpellBad', s:palette.none, s:palette.none, 'undercurl', s:palette.red)
+call everforest#highlight('SpellCap', s:palette.none, s:palette.none, 'undercurl', s:palette.blue)
+call everforest#highlight('SpellLocal', s:palette.none, s:palette.none, 'undercurl', s:palette.aqua)
+call everforest#highlight('SpellRare', s:palette.none, s:palette.none, 'undercurl', s:palette.purple)
+call everforest#highlight('StatusLine', s:palette.grey1, s:palette.bg1)
+call everforest#highlight('StatusLineTerm', s:palette.grey1, s:palette.bg1)
+call everforest#highlight('StatusLineNC', s:palette.grey1, s:palette.bg0)
+call everforest#highlight('StatusLineTermNC', s:palette.grey1, s:palette.bg0)
+call everforest#highlight('TabLine', s:palette.grey2, s:palette.bg3)
+call everforest#highlight('TabLineFill', s:palette.grey1, s:palette.bg1)
+call everforest#highlight('TabLineSel', s:palette.bg0, s:palette.statusline1)
+call everforest#highlight('VertSplit', s:palette.bg4, s:palette.none)
+call everforest#highlight('Visual', s:palette.none, s:palette.bg_visual)
+call everforest#highlight('VisualNOS', s:palette.none, s:palette.bg_visual)
+call everforest#highlight('QuickFixLine', s:palette.purple, s:palette.none, 'bold')
+call everforest#highlight('Debug', s:palette.orange, s:palette.none)
+call everforest#highlight('debugPC', s:palette.bg0, s:palette.green)
+call everforest#highlight('debugBreakpoint', s:palette.bg0, s:palette.red)
+call everforest#highlight('ToolbarButton', s:palette.bg0, s:palette.green)
 if has('nvim')
-  call forest_night#highlight('Substitute', s:palette.bg0, s:palette.yellow)
+  call everforest#highlight('Substitute', s:palette.bg0, s:palette.yellow)
+  highlight! link DiagnosticFloatingError ErrorFloat
+  highlight! link DiagnosticFloatingWarn WarningFloat
+  highlight! link DiagnosticFloatingInfo InfoFloat
+  highlight! link DiagnosticFloatingHint HintFloat
+  highlight! link DiagnosticError ErrorText
+  highlight! link DiagnosticWarn WarningText
+  highlight! link DiagnosticInfo InfoText
+  highlight! link DiagnosticHint HintText
+  highlight! link DiagnosticVirtualTextError VirtualTextError
+  highlight! link DiagnosticVirtualTextWarn VirtualTextWarning
+  highlight! link DiagnosticVirtualTextInfo VirtualTextInfo
+  highlight! link DiagnosticVirtualTextHint VirtualTextHint
+  highlight! link DiagnosticUnderlineError ErrorText
+  highlight! link DiagnosticUnderlineWarn WarningText
+  highlight! link DiagnosticUnderlineInfo InfoText
+  highlight! link DiagnosticUnderlineHint HintText
+  highlight! link DiagnosticSignError RedSign
+  highlight! link DiagnosticSignWarn YellowSign
+  highlight! link DiagnosticSignInfo BlueSign
+  highlight! link DiagnosticSignHint AquaSign
   highlight! link LspDiagnosticsFloatingError ErrorFloat
   highlight! link LspDiagnosticsFloatingWarning WarningFloat
   highlight! link LspDiagnosticsFloatingInformation InfoFloat
@@ -127,10 +178,10 @@ if has('nvim')
   highlight! link LspDiagnosticsDefaultWarning WarningText
   highlight! link LspDiagnosticsDefaultInformation InfoText
   highlight! link LspDiagnosticsDefaultHint HintText
-  highlight! link LspDiagnosticsVirtualTextError Grey
-  highlight! link LspDiagnosticsVirtualTextWarning Grey
-  highlight! link LspDiagnosticsVirtualTextInformation Grey
-  highlight! link LspDiagnosticsVirtualTextHint Grey
+  highlight! link LspDiagnosticsVirtualTextError VirtualTextError
+  highlight! link LspDiagnosticsVirtualTextWarning VirtualTextWarning
+  highlight! link LspDiagnosticsVirtualTextInformation VirtualTextInfo
+  highlight! link LspDiagnosticsVirtualTextHint VirtualTextHint
   highlight! link LspDiagnosticsUnderlineError ErrorText
   highlight! link LspDiagnosticsUnderlineWarning WarningText
   highlight! link LspDiagnosticsUnderlineInformation InfoText
@@ -149,137 +200,148 @@ if has('nvim')
 endif
 " }}}
 " Syntax: {{{
-call forest_night#highlight('Boolean', s:palette.purple, s:palette.none)
-call forest_night#highlight('Number', s:palette.purple, s:palette.none)
-call forest_night#highlight('Float', s:palette.purple, s:palette.none)
+call everforest#highlight('Boolean', s:palette.purple, s:palette.none)
+call everforest#highlight('Number', s:palette.purple, s:palette.none)
+call everforest#highlight('Float', s:palette.purple, s:palette.none)
 if s:configuration.enable_italic
-  call forest_night#highlight('PreProc', s:palette.purple, s:palette.none, 'italic')
-  call forest_night#highlight('PreCondit', s:palette.purple, s:palette.none, 'italic')
-  call forest_night#highlight('Include', s:palette.purple, s:palette.none, 'italic')
-  call forest_night#highlight('Define', s:palette.purple, s:palette.none, 'italic')
-  call forest_night#highlight('Conditional', s:palette.red, s:palette.none, 'italic')
-  call forest_night#highlight('Repeat', s:palette.red, s:palette.none, 'italic')
-  call forest_night#highlight('Keyword', s:palette.red, s:palette.none, 'italic')
-  call forest_night#highlight('Typedef', s:palette.red, s:palette.none, 'italic')
-  call forest_night#highlight('Exception', s:palette.red, s:palette.none, 'italic')
-  call forest_night#highlight('Statement', s:palette.red, s:palette.none, 'italic')
+  call everforest#highlight('PreProc', s:palette.purple, s:palette.none, 'italic')
+  call everforest#highlight('PreCondit', s:palette.purple, s:palette.none, 'italic')
+  call everforest#highlight('Include', s:palette.purple, s:palette.none, 'italic')
+  call everforest#highlight('Define', s:palette.purple, s:palette.none, 'italic')
+  call everforest#highlight('Conditional', s:palette.red, s:palette.none, 'italic')
+  call everforest#highlight('Repeat', s:palette.red, s:palette.none, 'italic')
+  call everforest#highlight('Keyword', s:palette.red, s:palette.none, 'italic')
+  call everforest#highlight('Typedef', s:palette.red, s:palette.none, 'italic')
+  call everforest#highlight('Exception', s:palette.red, s:palette.none, 'italic')
+  call everforest#highlight('Statement', s:palette.red, s:palette.none, 'italic')
 else
-  call forest_night#highlight('PreProc', s:palette.purple, s:palette.none)
-  call forest_night#highlight('PreCondit', s:palette.purple, s:palette.none)
-  call forest_night#highlight('Include', s:palette.purple, s:palette.none)
-  call forest_night#highlight('Define', s:palette.purple, s:palette.none)
-  call forest_night#highlight('Conditional', s:palette.red, s:palette.none)
-  call forest_night#highlight('Repeat', s:palette.red, s:palette.none)
-  call forest_night#highlight('Keyword', s:palette.red, s:palette.none)
-  call forest_night#highlight('Typedef', s:palette.red, s:palette.none)
-  call forest_night#highlight('Exception', s:palette.red, s:palette.none)
-  call forest_night#highlight('Statement', s:palette.red, s:palette.none)
+  call everforest#highlight('PreProc', s:palette.purple, s:palette.none)
+  call everforest#highlight('PreCondit', s:palette.purple, s:palette.none)
+  call everforest#highlight('Include', s:palette.purple, s:palette.none)
+  call everforest#highlight('Define', s:palette.purple, s:palette.none)
+  call everforest#highlight('Conditional', s:palette.red, s:palette.none)
+  call everforest#highlight('Repeat', s:palette.red, s:palette.none)
+  call everforest#highlight('Keyword', s:palette.red, s:palette.none)
+  call everforest#highlight('Typedef', s:palette.red, s:palette.none)
+  call everforest#highlight('Exception', s:palette.red, s:palette.none)
+  call everforest#highlight('Statement', s:palette.red, s:palette.none)
 endif
-call forest_night#highlight('Error', s:palette.red, s:palette.none)
-call forest_night#highlight('StorageClass', s:palette.orange, s:palette.none)
-call forest_night#highlight('Tag', s:palette.orange, s:palette.none)
-call forest_night#highlight('Label', s:palette.orange, s:palette.none)
-call forest_night#highlight('Structure', s:palette.orange, s:palette.none)
-call forest_night#highlight('Operator', s:palette.orange, s:palette.none)
-call forest_night#highlight('Title', s:palette.orange, s:palette.none, 'bold')
-call forest_night#highlight('Special', s:palette.yellow, s:palette.none)
-call forest_night#highlight('SpecialChar', s:palette.yellow, s:palette.none)
-call forest_night#highlight('Type', s:palette.yellow, s:palette.none)
-call forest_night#highlight('Function', s:palette.green, s:palette.none)
-call forest_night#highlight('String', s:palette.green, s:palette.none)
-call forest_night#highlight('Character', s:palette.green, s:palette.none)
-call forest_night#highlight('Constant', s:palette.aqua, s:palette.none)
-call forest_night#highlight('Macro', s:palette.aqua, s:palette.none)
-call forest_night#highlight('Identifier', s:palette.blue, s:palette.none)
+call everforest#highlight('Error', s:palette.red, s:palette.none)
+call everforest#highlight('StorageClass', s:palette.orange, s:palette.none)
+call everforest#highlight('Tag', s:palette.orange, s:palette.none)
+call everforest#highlight('Label', s:palette.orange, s:palette.none)
+call everforest#highlight('Structure', s:palette.orange, s:palette.none)
+call everforest#highlight('Operator', s:palette.orange, s:palette.none)
+call everforest#highlight('Title', s:palette.orange, s:palette.none, 'bold')
+call everforest#highlight('Special', s:palette.yellow, s:palette.none)
+call everforest#highlight('SpecialChar', s:palette.yellow, s:palette.none)
+call everforest#highlight('Type', s:palette.yellow, s:palette.none)
+call everforest#highlight('Function', s:palette.green, s:palette.none)
+call everforest#highlight('String', s:palette.green, s:palette.none)
+call everforest#highlight('Character', s:palette.green, s:palette.none)
+call everforest#highlight('Constant', s:palette.aqua, s:palette.none)
+call everforest#highlight('Macro', s:palette.aqua, s:palette.none)
+call everforest#highlight('Identifier', s:palette.blue, s:palette.none)
 if s:configuration.disable_italic_comment
-  call forest_night#highlight('Comment', s:palette.grey1, s:palette.none)
-  call forest_night#highlight('SpecialComment', s:palette.grey1, s:palette.none)
-  call forest_night#highlight('Todo', s:palette.purple, s:palette.none)
+  call everforest#highlight('Comment', s:palette.grey1, s:palette.none)
+  call everforest#highlight('SpecialComment', s:palette.grey1, s:palette.none)
+  call everforest#highlight('Todo', s:palette.purple, s:palette.none)
 else
-  call forest_night#highlight('Comment', s:palette.grey1, s:palette.none, 'italic')
-  call forest_night#highlight('SpecialComment', s:palette.grey1, s:palette.none, 'italic')
-  call forest_night#highlight('Todo', s:palette.purple, s:palette.none, 'italic')
+  call everforest#highlight('Comment', s:palette.grey1, s:palette.none, 'italic')
+  call everforest#highlight('SpecialComment', s:palette.grey1, s:palette.none, 'italic')
+  call everforest#highlight('Todo', s:palette.purple, s:palette.none, 'italic')
 endif
-call forest_night#highlight('Delimiter', s:palette.fg, s:palette.none)
-call forest_night#highlight('Ignore', s:palette.grey1, s:palette.none)
-call forest_night#highlight('Underlined', s:palette.none, s:palette.none, 'underline')
+call everforest#highlight('Delimiter', s:palette.fg, s:palette.none)
+call everforest#highlight('Ignore', s:palette.grey1, s:palette.none)
+call everforest#highlight('Underlined', s:palette.none, s:palette.none, 'underline')
 " }}}
 " Predefined Highlight Groups: {{{
-call forest_night#highlight('Fg', s:palette.fg, s:palette.none)
-call forest_night#highlight('Grey', s:palette.grey1, s:palette.none)
-call forest_night#highlight('Red', s:palette.red, s:palette.none)
-call forest_night#highlight('Orange', s:palette.orange, s:palette.none)
-call forest_night#highlight('Yellow', s:palette.yellow, s:palette.none)
-call forest_night#highlight('Green', s:palette.green, s:palette.none)
-call forest_night#highlight('Aqua', s:palette.aqua, s:palette.none)
-call forest_night#highlight('Blue', s:palette.blue, s:palette.none)
-call forest_night#highlight('Purple', s:palette.purple, s:palette.none)
+call everforest#highlight('Fg', s:palette.fg, s:palette.none)
+call everforest#highlight('Grey', s:palette.grey1, s:palette.none)
+call everforest#highlight('Red', s:palette.red, s:palette.none)
+call everforest#highlight('Orange', s:palette.orange, s:palette.none)
+call everforest#highlight('Yellow', s:palette.yellow, s:palette.none)
+call everforest#highlight('Green', s:palette.green, s:palette.none)
+call everforest#highlight('Aqua', s:palette.aqua, s:palette.none)
+call everforest#highlight('Blue', s:palette.blue, s:palette.none)
+call everforest#highlight('Purple', s:palette.purple, s:palette.none)
 if s:configuration.enable_italic
-  call forest_night#highlight('RedItalic', s:palette.red, s:palette.none, 'italic')
-  call forest_night#highlight('OrangeItalic', s:palette.orange, s:palette.none, 'italic')
-  call forest_night#highlight('YellowItalic', s:palette.yellow, s:palette.none, 'italic')
-  call forest_night#highlight('GreenItalic', s:palette.green, s:palette.none, 'italic')
-  call forest_night#highlight('AquaItalic', s:palette.aqua, s:palette.none, 'italic')
-  call forest_night#highlight('BlueItalic', s:palette.blue, s:palette.none, 'italic')
-  call forest_night#highlight('PurpleItalic', s:palette.purple, s:palette.none, 'italic')
+  call everforest#highlight('RedItalic', s:palette.red, s:palette.none, 'italic')
+  call everforest#highlight('OrangeItalic', s:palette.orange, s:palette.none, 'italic')
+  call everforest#highlight('YellowItalic', s:palette.yellow, s:palette.none, 'italic')
+  call everforest#highlight('GreenItalic', s:palette.green, s:palette.none, 'italic')
+  call everforest#highlight('AquaItalic', s:palette.aqua, s:palette.none, 'italic')
+  call everforest#highlight('BlueItalic', s:palette.blue, s:palette.none, 'italic')
+  call everforest#highlight('PurpleItalic', s:palette.purple, s:palette.none, 'italic')
 else
-  call forest_night#highlight('RedItalic', s:palette.red, s:palette.none)
-  call forest_night#highlight('OrangeItalic', s:palette.orange, s:palette.none)
-  call forest_night#highlight('YellowItalic', s:palette.yellow, s:palette.none)
-  call forest_night#highlight('GreenItalic', s:palette.green, s:palette.none)
-  call forest_night#highlight('AquaItalic', s:palette.aqua, s:palette.none)
-  call forest_night#highlight('BlueItalic', s:palette.blue, s:palette.none)
-  call forest_night#highlight('PurpleItalic', s:palette.purple, s:palette.none)
+  call everforest#highlight('RedItalic', s:palette.red, s:palette.none)
+  call everforest#highlight('OrangeItalic', s:palette.orange, s:palette.none)
+  call everforest#highlight('YellowItalic', s:palette.yellow, s:palette.none)
+  call everforest#highlight('GreenItalic', s:palette.green, s:palette.none)
+  call everforest#highlight('AquaItalic', s:palette.aqua, s:palette.none)
+  call everforest#highlight('BlueItalic', s:palette.blue, s:palette.none)
+  call everforest#highlight('PurpleItalic', s:palette.purple, s:palette.none)
 endif
 if s:configuration.transparent_background || s:configuration.sign_column_background !=# 'default'
-  call forest_night#highlight('RedSign', s:palette.red, s:palette.none)
-  call forest_night#highlight('OrangeSign', s:palette.orange, s:palette.none)
-  call forest_night#highlight('YellowSign', s:palette.yellow, s:palette.none)
-  call forest_night#highlight('GreenSign', s:palette.green, s:palette.none)
-  call forest_night#highlight('AquaSign', s:palette.aqua, s:palette.none)
-  call forest_night#highlight('BlueSign', s:palette.blue, s:palette.none)
-  call forest_night#highlight('PurpleSign', s:palette.purple, s:palette.none)
+  call everforest#highlight('RedSign', s:palette.red, s:palette.none)
+  call everforest#highlight('OrangeSign', s:palette.orange, s:palette.none)
+  call everforest#highlight('YellowSign', s:palette.yellow, s:palette.none)
+  call everforest#highlight('GreenSign', s:palette.green, s:palette.none)
+  call everforest#highlight('AquaSign', s:palette.aqua, s:palette.none)
+  call everforest#highlight('BlueSign', s:palette.blue, s:palette.none)
+  call everforest#highlight('PurpleSign', s:palette.purple, s:palette.none)
 else
-  call forest_night#highlight('RedSign', s:palette.red, s:palette.bg1)
-  call forest_night#highlight('OrangeSign', s:palette.orange, s:palette.bg1)
-  call forest_night#highlight('YellowSign', s:palette.yellow, s:palette.bg1)
-  call forest_night#highlight('GreenSign', s:palette.green, s:palette.bg1)
-  call forest_night#highlight('AquaSign', s:palette.aqua, s:palette.bg1)
-  call forest_night#highlight('BlueSign', s:palette.blue, s:palette.bg1)
-  call forest_night#highlight('PurpleSign', s:palette.purple, s:palette.bg1)
+  call everforest#highlight('RedSign', s:palette.red, s:palette.bg1)
+  call everforest#highlight('OrangeSign', s:palette.orange, s:palette.bg1)
+  call everforest#highlight('YellowSign', s:palette.yellow, s:palette.bg1)
+  call everforest#highlight('GreenSign', s:palette.green, s:palette.bg1)
+  call everforest#highlight('AquaSign', s:palette.aqua, s:palette.bg1)
+  call everforest#highlight('BlueSign', s:palette.blue, s:palette.bg1)
+  call everforest#highlight('PurpleSign', s:palette.purple, s:palette.bg1)
 endif
 if s:configuration.diagnostic_text_highlight
-  call forest_night#highlight('ErrorText', s:palette.none, s:palette.bg_red, 'undercurl', s:palette.red)
-  call forest_night#highlight('WarningText', s:palette.none, s:palette.bg_yellow, 'undercurl', s:palette.yellow)
-  call forest_night#highlight('InfoText', s:palette.none, s:palette.bg_blue, 'undercurl', s:palette.blue)
-  call forest_night#highlight('HintText', s:palette.none, s:palette.bg_green, 'undercurl', s:palette.green)
+  call everforest#highlight('ErrorText', s:palette.none, s:palette.bg_red, 'undercurl', s:palette.red)
+  call everforest#highlight('WarningText', s:palette.none, s:palette.bg_yellow, 'undercurl', s:palette.yellow)
+  call everforest#highlight('InfoText', s:palette.none, s:palette.bg_blue, 'undercurl', s:palette.blue)
+  call everforest#highlight('HintText', s:palette.none, s:palette.bg_green, 'undercurl', s:palette.green)
 else
-  call forest_night#highlight('ErrorText', s:palette.none, s:palette.none, 'undercurl', s:palette.red)
-  call forest_night#highlight('WarningText', s:palette.none, s:palette.none, 'undercurl', s:palette.yellow)
-  call forest_night#highlight('InfoText', s:palette.none, s:palette.none, 'undercurl', s:palette.blue)
-  call forest_night#highlight('HintText', s:palette.none, s:palette.none, 'undercurl', s:palette.green)
+  call everforest#highlight('ErrorText', s:palette.none, s:palette.none, 'undercurl', s:palette.red)
+  call everforest#highlight('WarningText', s:palette.none, s:palette.none, 'undercurl', s:palette.yellow)
+  call everforest#highlight('InfoText', s:palette.none, s:palette.none, 'undercurl', s:palette.blue)
+  call everforest#highlight('HintText', s:palette.none, s:palette.none, 'undercurl', s:palette.green)
 endif
 if s:configuration.diagnostic_line_highlight
-  call forest_night#highlight('ErrorLine', s:palette.none, s:palette.bg_red)
-  call forest_night#highlight('WarningLine', s:palette.none, s:palette.bg_yellow)
-  call forest_night#highlight('InfoLine', s:palette.none, s:palette.bg_blue)
-  call forest_night#highlight('HintLine', s:palette.none, s:palette.bg_green)
+  call everforest#highlight('ErrorLine', s:palette.none, s:palette.bg_red)
+  call everforest#highlight('WarningLine', s:palette.none, s:palette.bg_yellow)
+  call everforest#highlight('InfoLine', s:palette.none, s:palette.bg_blue)
+  call everforest#highlight('HintLine', s:palette.none, s:palette.bg_green)
 else
   highlight clear ErrorLine
   highlight clear WarningLine
   highlight clear InfoLine
   highlight clear HintLine
 endif
-call forest_night#highlight('ErrorFloat', s:palette.red, s:palette.bg2)
-call forest_night#highlight('WarningFloat', s:palette.yellow, s:palette.bg2)
-call forest_night#highlight('InfoFloat', s:palette.blue, s:palette.bg2)
-call forest_night#highlight('HintFloat', s:palette.green, s:palette.bg2)
-if &diff
-  call forest_night#highlight('CurrentWord', s:palette.bg0, s:palette.green)
-elseif s:configuration.current_word ==# 'grey background'
-  call forest_night#highlight('CurrentWord', s:palette.none, s:palette.bg2)
+if s:configuration.diagnostic_virtual_text ==# 'grey'
+  highlight! link VirtualTextWarning Grey
+  highlight! link VirtualTextError Grey
+  highlight! link VirtualTextInfo Grey
+  highlight! link VirtualTextHint Grey
 else
-  call forest_night#highlight('CurrentWord', s:palette.none, s:palette.none, s:configuration.current_word)
+  highlight! link VirtualTextWarning Yellow
+  highlight! link VirtualTextError Red
+  highlight! link VirtualTextInfo Blue
+  highlight! link VirtualTextHint Green
+endif
+call everforest#highlight('ErrorFloat', s:palette.red, s:palette.bg2)
+call everforest#highlight('WarningFloat', s:palette.yellow, s:palette.bg2)
+call everforest#highlight('InfoFloat', s:palette.blue, s:palette.bg2)
+call everforest#highlight('HintFloat', s:palette.green, s:palette.bg2)
+if &diff
+  call everforest#highlight('CurrentWord', s:palette.bg0, s:palette.green)
+elseif s:configuration.current_word ==# 'grey background'
+  call everforest#highlight('CurrentWord', s:palette.none, s:palette.bg2)
+else
+  call everforest#highlight('CurrentWord', s:palette.none, s:palette.none, s:configuration.current_word)
 endif
 " }}}
 " }}}
@@ -324,29 +386,36 @@ endif
 " }}}
 " Plugins: {{{
 " nvim-treesitter/nvim-treesitter {{{
+call everforest#highlight('TSStrong', s:palette.none, s:palette.none, 'bold')
+call everforest#highlight('TSEmphasis', s:palette.none, s:palette.none, 'bold')
+call everforest#highlight('TSUnderline', s:palette.none, s:palette.none, 'underline')
+call everforest#highlight('TSNote', s:palette.bg0, s:palette.blue, 'bold')
+call everforest#highlight('TSWarning', s:palette.bg0, s:palette.yellow, 'bold')
+call everforest#highlight('TSDanger', s:palette.bg0, s:palette.red, 'bold')
 highlight! link TSAnnotation Purple
 highlight! link TSAttribute Purple
 highlight! link TSBoolean Purple
-highlight! link TSCharacter Yellow
-highlight! link TSComment Grey
+highlight! link TSCharacter Aqua
+highlight! link TSComment Comment
 highlight! link TSConditional Red
-highlight! link TSConstBuiltin PurpleItalic
-highlight! link TSConstMacro Purple
-highlight! link TSConstant PurpleItalic
-highlight! link TSConstructor Fg
-highlight! link TSError ErrorText
+highlight! link TSConstBuiltin BlueItalic
+highlight! link TSConstMacro BlueItalic
+highlight! link TSConstant Fg
+highlight! link TSConstructor Green
 highlight! link TSException Red
 highlight! link TSField Green
 highlight! link TSFloat Purple
 highlight! link TSFuncBuiltin Green
 highlight! link TSFuncMacro Green
 highlight! link TSFunction Green
-highlight! link TSInclude PurpleItalic
+highlight! link TSInclude Red
 highlight! link TSKeyword Red
 highlight! link TSKeywordFunction Red
+highlight! link TSKeywordOperator Orange
 highlight! link TSLabel Orange
 highlight! link TSMethod Green
-highlight! link TSNamespace BlueItalic
+highlight! link TSNamespace YellowItalic
+highlight! link TSNone Fg
 highlight! link TSNumber Purple
 highlight! link TSOperator Orange
 highlight! link TSParameter Fg
@@ -354,25 +423,73 @@ highlight! link TSParameterReference Fg
 highlight! link TSProperty Green
 highlight! link TSPunctBracket Fg
 highlight! link TSPunctDelimiter Grey
-highlight! link TSPunctSpecial Fg
+highlight! link TSPunctSpecial Blue
 highlight! link TSRepeat Red
-highlight! link TSString Yellow
+highlight! link TSString Aqua
 highlight! link TSStringEscape Green
 highlight! link TSStringRegex Green
-highlight! link TSStructure Orange
+highlight! link TSStructure BlueItalic
+highlight! link TSSymbol Fg
 highlight! link TSTag Orange
 highlight! link TSTagDelimiter Green
 highlight! link TSText Green
-call forest_night#highlight('TSEmphasis', s:palette.none, s:palette.none, 'bold')
-call forest_night#highlight('TSUnderline', s:palette.none, s:palette.none, 'underline')
-highlight! link TSType Aqua
-highlight! link TSTypeBuiltin BlueItalic
+highlight! link TSStrike Grey
+highlight! link TSMath Blue
+highlight! link TSType Yellow
+highlight! link TSTypeBuiltin YellowItalic
 highlight! link TSURI markdownUrl
 highlight! link TSVariable Fg
-highlight! link TSVariableBuiltin PurpleItalic
+highlight! link TSVariableBuiltin BlueItalic
 " }}}
 " neoclide/coc.nvim {{{
-call forest_night#highlight('CocHoverRange', s:palette.none, s:palette.none, 'bold,underline')
+call everforest#highlight('CocHoverRange', s:palette.none, s:palette.none, 'bold,underline')
+highlight! link CocSem_angle TSTagDelimiter
+highlight! link CocSem_annotation TSOperator
+highlight! link CocSem_attribute TSAttribute
+highlight! link CocSem_bitwise TSOperator
+highlight! link CocSem_boolean TSBoolean
+highlight! link CocSem_brace TSPunctBracket
+highlight! link CocSem_bracket TSPunctBracket
+highlight! link CocSem_builtinAttribute TSAttribute
+highlight! link CocSem_builtinType TSTypeBuiltin
+highlight! link CocSem_character TSCharacter
+highlight! link CocSem_class TSType
+highlight! link CocSem_colon TSPunctDelimiter
+highlight! link CocSem_comma TSPunctDelimiter
+highlight! link CocSem_comment TSComment
+highlight! link CocSem_comparison TSOperator
+highlight! link CocSem_constParameter TSParameter
+highlight! link CocSem_dependent TSInclude
+highlight! link CocSem_dot TSOperator
+highlight! link CocSem_enum TSStructure
+highlight! link CocSem_enumMember TSVariable
+highlight! link CocSem_escapeSequence TSStringEscape
+highlight! link CocSem_event TSType
+highlight! link CocSem_formatSpecifier TSStringEscape
+highlight! link CocSem_function TSFunction
+highlight! link CocSem_interface TSType
+highlight! link CocSem_keyword TSKeyword
+highlight! link CocSem_label TSLabel
+highlight! link CocSem_logical TSOperator
+highlight! link CocSem_macro TSConstMacro
+highlight! link CocSem_method TSMethod
+highlight! link CocSem_modifier TSKeywordOperator
+highlight! link CocSem_namespace TSNamespace
+highlight! link CocSem_number TSNumber
+highlight! link CocSem_operator TSOperator
+highlight! link CocSem_parameter TSParameter
+highlight! link CocSem_parenthesis TSPunctBracket
+highlight! link CocSem_property TSVariable
+highlight! link CocSem_punctuation TSOperator
+highlight! link CocSem_regexp TSStringRegex
+highlight! link CocSem_selfKeyword TSConstBuiltin
+highlight! link CocSem_semicolon TSPunctDelimiter
+highlight! link CocSem_string TSString
+highlight! link CocSem_struct TSStructure
+highlight! link CocSem_type TSType
+highlight! link CocSem_typeAlias TSType
+highlight! link CocSem_typeParameter TSType
+highlight! link CocSem_variable TSVariable
 highlight! link CocErrorFloat ErrorFloat
 highlight! link CocWarningFloat WarningFloat
 highlight! link CocInfoFloat InfoFloat
@@ -382,20 +499,53 @@ highlight! link CocWarningHighlight WarningText
 highlight! link CocInfoHighlight InfoText
 highlight! link CocHintHighlight HintText
 highlight! link CocHighlightText CurrentWord
+highlight! link CocHoverRange CurrentWord
 highlight! link CocErrorSign RedSign
 highlight! link CocWarningSign YellowSign
 highlight! link CocInfoSign BlueSign
 highlight! link CocHintSign AquaSign
-highlight! link CocWarningVirtualText Grey
-highlight! link CocErrorVirtualText Grey
-highlight! link CocInfoVirtualText Grey
-highlight! link CocHintVirtualText Grey
+highlight! link CocWarningVirtualText VirtualTextWarning
+highlight! link CocErrorVirtualText VirtualTextError
+highlight! link CocInfoVirtualText VirtualTextInfo
+highlight! link CocHintVirtualText VirtualTextHint
 highlight! link CocErrorLine ErrorLine
 highlight! link CocWarningLine WarningLine
 highlight! link CocInfoLine InfoLine
 highlight! link CocHintLine HintLine
 highlight! link CocCodeLens Grey
+highlight! link CocFadeOut Grey
+highlight! link CocStrikeThrough Grey
+highlight! link CocListMode StatusLine
+highlight! link CocListPath StatusLine
+highlight! link CocTreeOpenClose Grey
 highlight! link HighlightedyankRegion Visual
+highlight! link CocSymbolFile Fg
+highlight! link CocSymbolModule TSNamespace
+highlight! link CocSymbolNamespace TSNamespace
+highlight! link CocSymbolPackage TSNamespace
+highlight! link CocSymbolClass TSType
+highlight! link CocSymbolMethod TSMethod
+highlight! link CocSymbolProperty TSProperty
+highlight! link CocSymbolField TSField
+highlight! link CocSymbolConstructor TSConstructor
+highlight! link CocSymbolEnum TSStructure
+highlight! link CocSymbolInterface TSType
+highlight! link CocSymbolFunction TSFunction
+highlight! link CocSymbolVariable TSVariable
+highlight! link CocSymbolConstant TSConstant
+highlight! link CocSymbolString TSString
+highlight! link CocSymbolNumber TSNumber
+highlight! link CocSymbolBoolean TSBoolean
+highlight! link CocSymbolArray TSVariable
+highlight! link CocSymbolObject TSVariable
+highlight! link CocSymbolKey TSKeyword
+highlight! link CocSymbolNull TSVariableBuiltin
+highlight! link CocSymbolEnumMember TSProperty
+highlight! link CocSymbolStruct TSStructure
+highlight! link CocSymbolEvent TSLabel
+highlight! link CocSymbolOperator TSOperator
+highlight! link CocSymbolTypeParameter TSType
+highlight! link CocSymbolDefault TSNone
 highlight! link CocGitAddedSign GreenSign
 highlight! link CocGitChangeRemovedSign PurpleSign
 highlight! link CocGitChangedSign BlueSign
@@ -436,12 +586,21 @@ highlight! link CocExplorerTimeModified Aqua
 highlight! link CocExplorerIndentLine Conceal
 highlight! link CocExplorerHelpDescription Grey
 highlight! link CocExplorerHelpHint Grey
+highlight! link CocRustChainingHint Grey
+" }}}
+" hrsh7th/nvim-cmp {{{
+call everforest#highlight('CmpItemAbbrMatch', s:palette.green, s:palette.none, 'bold')
+call everforest#highlight('CmpItemAbbrMatchFuzzy', s:palette.green, s:palette.none, 'bold')
+highlight! link CmpItemAbbr Fg
+highlight! link CmpItemAbbrDeprecated Fg
+highlight! link CmpItemMenu Fg
+highlight! link CmpItemKind Yellow
 " }}}
 " prabirshrestha/vim-lsp {{{
-highlight! link LspErrorVirtual Grey
-highlight! link LspWarningVirtual Grey
-highlight! link LspInformationVirtual Grey
-highlight! link LspHintVirtual Grey
+highlight! link LspErrorVirtual VirtualTextError
+highlight! link LspWarningVirtual VirtualTextWarning
+highlight! link LspInformationVirtual VirtualTextInfo
+highlight! link LspHintVirtual VirtualTextHint
 highlight! link LspErrorHighlight ErrorText
 highlight! link LspWarningHighlight WarningText
 highlight! link LspInformationHighlight InfoText
@@ -466,11 +625,11 @@ highlight! link ALEInfoSign BlueSign
 highlight! link ALEErrorLine ErrorLine
 highlight! link ALEWarningLine WarningLine
 highlight! link ALEInfoLine InfoLine
-highlight! link ALEVirtualTextError Grey
-highlight! link ALEVirtualTextWarning Grey
-highlight! link ALEVirtualTextInfo Grey
-highlight! link ALEVirtualTextStyleError Grey
-highlight! link ALEVirtualTextStyleWarning Grey
+highlight! link ALEVirtualTextError VirtualTextError
+highlight! link ALEVirtualTextWarning VirtualTextWarning
+highlight! link ALEVirtualTextInfo VirtualTextInfo
+highlight! link ALEVirtualTextStyleError VirtualTextHint
+highlight! link ALEVirtualTextStyleWarning VirtualTextHint
 " }}}
 " neomake/neomake {{{
 highlight! link NeomakeError ErrorText
@@ -481,10 +640,10 @@ highlight! link NeomakeErrorSign RedSign
 highlight! link NeomakeWarningSign YellowSign
 highlight! link NeomakeInfoSign BlueSign
 highlight! link NeomakeMessageSign AquaSign
-highlight! link NeomakeVirtualtextError Grey
-highlight! link NeomakeVirtualtextWarning Grey
-highlight! link NeomakeVirtualtextInfo Grey
-highlight! link NeomakeVirtualtextMessag Grey
+highlight! link NeomakeVirtualtextError VirtualTextError
+highlight! link NeomakeVirtualtextWarning VirtualTextWarning
+highlight! link NeomakeVirtualtextInfo VirtualTextInfo
+highlight! link NeomakeVirtualtextMessag VirtualTextHint
 " }}}
 " vim-syntastic/syntastic {{{
 highlight! link SyntasticError ErrorText
@@ -496,22 +655,70 @@ highlight! link SyntasticWarningLine WarningLine
 " }}}
 " Yggdroot/LeaderF {{{
 if !exists('g:Lf_StlColorscheme')
-  let g:Lf_StlColorscheme = 'forest_night'
+  let g:Lf_StlColorscheme = 'everforest'
 endif
 if !exists('g:Lf_PopupColorscheme')
-  let g:Lf_PopupColorscheme = 'forest_night'
+  let g:Lf_PopupColorscheme = 'everforest'
 endif
-call forest_night#highlight('Lf_hl_match', s:palette.green, s:palette.none, 'bold')
-call forest_night#highlight('Lf_hl_match0', s:palette.green, s:palette.none, 'bold')
-call forest_night#highlight('Lf_hl_match1', s:palette.aqua, s:palette.none, 'bold')
-call forest_night#highlight('Lf_hl_match2', s:palette.blue, s:palette.none, 'bold')
-call forest_night#highlight('Lf_hl_match3', s:palette.purple, s:palette.none, 'bold')
-call forest_night#highlight('Lf_hl_match4', s:palette.orange, s:palette.none, 'bold')
-call forest_night#highlight('Lf_hl_matchRefine', s:palette.red, s:palette.none, 'bold')
+call everforest#highlight('Lf_hl_match', s:palette.green, s:palette.none, 'bold')
+call everforest#highlight('Lf_hl_match0', s:palette.green, s:palette.none, 'bold')
+call everforest#highlight('Lf_hl_match1', s:palette.aqua, s:palette.none, 'bold')
+call everforest#highlight('Lf_hl_match2', s:palette.blue, s:palette.none, 'bold')
+call everforest#highlight('Lf_hl_match3', s:palette.purple, s:palette.none, 'bold')
+call everforest#highlight('Lf_hl_match4', s:palette.orange, s:palette.none, 'bold')
+call everforest#highlight('Lf_hl_matchRefine', s:palette.red, s:palette.none, 'bold')
+call everforest#highlight('Lf_hl_popup_normalMode', s:palette.bg0, s:palette.red, 'bold')
+call everforest#highlight('Lf_hl_popup_inputMode', s:palette.bg0, s:palette.green, 'bold')
+call everforest#highlight('Lf_hl_popup_category', s:palette.fg, s:palette.bg4)
+call everforest#highlight('Lf_hl_popup_nameOnlyMode', s:palette.fg, s:palette.bg3)
+call everforest#highlight('Lf_hl_popup_fullPathMode', s:palette.fg, s:palette.bg3)
+call everforest#highlight('Lf_hl_popup_fuzzyMode', s:palette.fg, s:palette.bg3)
+call everforest#highlight('Lf_hl_popup_regexMode', s:palette.fg, s:palette.bg3)
+call everforest#highlight('Lf_hl_popup_lineInfo', s:palette.yellow, s:palette.bg4)
+call everforest#highlight('Lf_hl_popup_total', s:palette.bg0, s:palette.orange)
+call everforest#highlight('Lf_hl_popup_cursor', s:palette.bg0, s:palette.green)
 highlight! link Lf_hl_cursorline Fg
 highlight! link Lf_hl_selection DiffAdd
 highlight! link Lf_hl_rgHighlight Visual
 highlight! link Lf_hl_gtagsHighlight Visual
+highlight! link Lf_hl_popup_inputText Pmenu
+highlight! link Lf_hl_popup_window Pmenu
+highlight! link Lf_hl_popup_prompt Green
+highlight! link Lf_hl_popup_cwd Pmenu
+highlight! link Lf_hl_popup_blank Lf_hl_popup_window
+highlight! link Lf_hl_popup_spin Red
+" }}}
+" liuchengxu/vim-clap {{{
+call everforest#highlight('ClapSelected', s:palette.red, s:palette.bg2, 'bold')
+call everforest#highlight('ClapCurrentSelection', s:palette.orange, s:palette.bg2, 'bold')
+call everforest#highlight('ClapBlines', s:palette.fg, s:palette.bg2)
+call everforest#highlight('ClapProviderId', s:palette.fg, s:palette.bg2, 'bold')
+call everforest#highlight('ClapMatches1', s:palette.red, s:palette.bg2, 'bold')
+call everforest#highlight('ClapMatches2', s:palette.orange, s:palette.bg2, 'bold')
+call everforest#highlight('ClapMatches3', s:palette.yellow, s:palette.bg2, 'bold')
+call everforest#highlight('ClapMatches4', s:palette.aqua, s:palette.bg2, 'bold')
+call everforest#highlight('ClapMatches5', s:palette.blue, s:palette.bg2, 'bold')
+call everforest#highlight('ClapMatches6', s:palette.purple, s:palette.bg2, 'bold')
+call everforest#highlight('ClapFuzzyMatches', s:palette.green, s:palette.bg2, 'bold')
+call everforest#highlight('ClapNoMatchesFound', s:palette.red, s:palette.bg2, 'bold')
+highlight! link ClapInput Pmenu
+highlight! link ClapDisplay Pmenu
+highlight! link ClapPreview Pmenu
+highlight! link ClapFuzzyMatches1 ClapFuzzyMatches
+highlight! link ClapFuzzyMatches2 ClapFuzzyMatches
+highlight! link ClapFuzzyMatches3 ClapFuzzyMatches
+highlight! link ClapFuzzyMatches4 ClapFuzzyMatches
+highlight! link ClapFuzzyMatches5 ClapFuzzyMatches
+highlight! link ClapFuzzyMatches6 ClapFuzzyMatches
+highlight! link ClapFuzzyMatches7 ClapFuzzyMatches
+highlight! link ClapFuzzyMatches8 ClapFuzzyMatches
+highlight! link ClapFuzzyMatches9 ClapFuzzyMatches
+highlight! link ClapFuzzyMatches10 ClapFuzzyMatches
+highlight! link ClapFuzzyMatches11 ClapFuzzyMatches
+highlight! link ClapFuzzyMatches12 ClapFuzzyMatches
+highlight! link ClapBlinesLineNr Grey
+highlight! link ClapProviderColon ClapBlines
+highlight! link ClapProviderAbout ClapBlines
 " }}}
 " junegunn/fzf.vim {{{
 let g:fzf_colors = {
@@ -522,6 +729,7 @@ let g:fzf_colors = {
       \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
       \ 'hl+':     ['fg', 'Aqua'],
       \ 'info':    ['fg', 'Aqua'],
+      \ 'border':  ['fg', 'Grey'],
       \ 'prompt':  ['fg', 'Orange'],
       \ 'pointer': ['fg', 'Blue'],
       \ 'marker':  ['fg', 'Yellow'],
@@ -529,21 +737,27 @@ let g:fzf_colors = {
       \ 'header':  ['fg', 'Grey']
       \ }
 " }}}
+" nvim-telescope/telescope.nvim {{{
+call everforest#highlight('TelescopeMatching', s:palette.green, s:palette.none, 'bold')
+highlight! link TelescopeBorder Grey
+highlight! link TelescopePromptPrefix Orange
+highlight! link TelescopeSelection DiffAdd
+" }}}
 " Shougo/denite.nvim {{{
-call forest_night#highlight('deniteMatchedChar', s:palette.green, s:palette.none, 'bold')
-call forest_night#highlight('deniteMatchedRange', s:palette.green, s:palette.none, 'bold,underline')
-call forest_night#highlight('deniteInput', s:palette.green, s:palette.bg3, 'bold')
-call forest_night#highlight('deniteStatusLineNumber', s:palette.purple, s:palette.bg3)
-call forest_night#highlight('deniteStatusLinePath', s:palette.fg, s:palette.bg3)
+call everforest#highlight('deniteMatchedChar', s:palette.green, s:palette.none, 'bold')
+call everforest#highlight('deniteMatchedRange', s:palette.green, s:palette.none, 'bold,underline')
+call everforest#highlight('deniteInput', s:palette.green, s:palette.bg3, 'bold')
+call everforest#highlight('deniteStatusLineNumber', s:palette.purple, s:palette.bg3)
+call everforest#highlight('deniteStatusLinePath', s:palette.fg, s:palette.bg3)
 highlight! link deniteSelectedLin Green
 " }}}
 " kien/ctrlp.vim {{{
-call forest_night#highlight('CtrlPMatch', s:palette.green, s:palette.none, 'bold')
-call forest_night#highlight('CtrlPPrtBase', s:palette.bg3, s:palette.none)
-call forest_night#highlight('CtrlPLinePre', s:palette.bg3, s:palette.none)
-call forest_night#highlight('CtrlPMode1', s:palette.blue, s:palette.bg3, 'bold')
-call forest_night#highlight('CtrlPMode2', s:palette.bg0, s:palette.blue, 'bold')
-call forest_night#highlight('CtrlPStats', s:palette.grey1, s:palette.bg3, 'bold')
+call everforest#highlight('CtrlPMatch', s:palette.green, s:palette.none, 'bold')
+call everforest#highlight('CtrlPPrtBase', s:palette.bg3, s:palette.none)
+call everforest#highlight('CtrlPLinePre', s:palette.bg3, s:palette.none)
+call everforest#highlight('CtrlPMode1', s:palette.blue, s:palette.bg3, 'bold')
+call everforest#highlight('CtrlPMode2', s:palette.bg0, s:palette.blue, 'bold')
+call everforest#highlight('CtrlPStats', s:palette.grey1, s:palette.bg3, 'bold')
 highlight! link CtrlPNoEntries Red
 highlight! link CtrlPPrtCursor Blue
 " }}}
@@ -559,20 +773,32 @@ highlight! link SignifySignChange BlueSign
 highlight! link SignifySignDelete RedSign
 highlight! link SignifySignChangeDelete PurpleSign
 " }}}
+" lewis6991/gitsigns.nvim {{{
+highlight! link GitSignsAdd GreenSign
+highlight! link GitSignsChange BlueSign
+highlight! link GitSignsDelete RedSign
+highlight! link GitSignsChangeDelete PurpleSign
+" }}}
 " andymass/vim-matchup {{{
-call forest_night#highlight('MatchParenCur', s:palette.none, s:palette.none, 'bold')
-call forest_night#highlight('MatchWord', s:palette.none, s:palette.none, 'underline')
-call forest_night#highlight('MatchWordCur', s:palette.none, s:palette.none, 'underline')
+call everforest#highlight('MatchParenCur', s:palette.none, s:palette.none, 'bold')
+call everforest#highlight('MatchWord', s:palette.none, s:palette.none, 'underline')
+call everforest#highlight('MatchWordCur', s:palette.none, s:palette.none, 'underline')
 " }}}
 " easymotion/vim-easymotion {{{
 highlight! link EasyMotionTarget Search
 highlight! link EasyMotionShade Grey
 " }}}
 " justinmk/vim-sneak {{{
-call forest_night#highlight('SneakLabelMask', s:palette.orange, s:palette.orange)
+call everforest#highlight('SneakLabelMask', s:palette.orange, s:palette.orange)
 highlight! link Sneak Search
 highlight! link SneakLabel Search
 highlight! link SneakScope DiffText
+" }}}
+" phaazon/hop.nvim {{{
+call everforest#highlight('HopNextKey', s:palette.orange, s:palette.none, 'bold')
+call everforest#highlight('HopNextKey1', s:palette.green, s:palette.none, 'bold')
+highlight! link HopNextKey2 Green
+highlight! link HopUnmatched Grey
 " }}}
 " terryma/vim-multiple-cursors {{{
 highlight! link multiple_cursors_cursor Cursor
@@ -585,7 +811,6 @@ let g:VM_Cursor_hl = 'Cursor'
 let g:VM_Insert_hl = 'Cursor'
 " }}}
 " dominikduda/vim_current_word {{{
-highlight! link CurrentWord CurrentWord
 highlight! link CurrentWordTwins CurrentWord
 " }}}
 " RRethy/vim-illuminate {{{
@@ -596,14 +821,45 @@ highlight! link CursorWord0 CurrentWord
 highlight! link CursorWord1 CurrentWord
 " }}}
 " Yggdroot/indentLine {{{
-let g:indentLine_color_gui = s:palette.grey1[0]
-let g:indentLine_color_term = s:palette.grey1[1]
+if s:configuration.ui_contrast ==# 'low'
+  let g:indentLine_color_gui = s:palette.bg5[0]
+  let g:indentLine_color_term = s:palette.bg5[1]
+else
+  let g:indentLine_color_gui = s:palette.grey0[0]
+  let g:indentLine_color_term = s:palette.grey0[1]
+endif
+" }}}
+" lukas-reineke/indent-blankline.nvim {{{
+highlight! link IndentBlanklineContextChar CursorLineNr
+highlight! link IndentBlanklineChar LineNr
+highlight! link IndentBlanklineSpaceChar LineNr
+highlight! link IndentBlanklineSpaceCharBlankline LineNr
 " }}}
 " nathanaelkane/vim-indent-guides {{{
 if get(g:, 'indent_guides_auto_colors', 1) == 0
-  call forest_night#highlight('IndentGuidesOdd', s:palette.bg0, s:palette.bg1)
-  call forest_night#highlight('IndentGuidesEven', s:palette.bg0, s:palette.bg2)
+  call everforest#highlight('IndentGuidesOdd', s:palette.bg0, s:palette.bg1)
+  call everforest#highlight('IndentGuidesEven', s:palette.bg0, s:palette.bg2)
 endif
+" }}}
+" thiagoalessio/rainbow_levels.vim {{{
+highlight! link RainbowLevel0 Red
+highlight! link RainbowLevel1 Orange
+highlight! link RainbowLevel2 Yellow
+highlight! link RainbowLevel3 Green
+highlight! link RainbowLevel4 Aqua
+highlight! link RainbowLevel5 Blue
+highlight! link RainbowLevel6 Purple
+highlight! link RainbowLevel7 Yellow
+highlight! link RainbowLevel8 Green
+" }}}
+" p00f/nvim-ts-rainbow {{{
+highlight! link rainbowcol1 Red
+highlight! link rainbowcol2 Orange
+highlight! link rainbowcol3 Yellow
+highlight! link rainbowcol4 Green
+highlight! link rainbowcol5 Aqua
+highlight! link rainbowcol6 Blue
+highlight! link rainbowcol7 Purple
 " }}}
 " luochen1990/rainbow {{{
 if !exists('g:rbpt_colorpairs')
@@ -644,8 +900,8 @@ highlight! link WhichKeyGroup Yellow
 highlight! link WhichKeyDesc Blue
 " }}}
 " unblevable/quick-scope {{{
-call forest_night#highlight('QuickScopePrimary', s:palette.aqua, s:palette.none, 'underline')
-call forest_night#highlight('QuickScopeSecondary', s:palette.blue, s:palette.none, 'underline')
+call everforest#highlight('QuickScopePrimary', s:palette.aqua, s:palette.none, 'underline')
+call everforest#highlight('QuickScopeSecondary', s:palette.blue, s:palette.none, 'underline')
 " }}}
 " APZelos/blamer.nvim {{{
 highlight! link Blamer Grey
@@ -665,44 +921,42 @@ highlight! link agitDiffRemove Red
 highlight! link agitDiffAdd Green
 highlight! link agitDiffHeader Purple
 " }}}
-" netrw {{{
-" https://www.vim.org/scripts/script.php?script_id=1075
-highlight! link netrwDir Green
-highlight! link netrwClassify Green
-highlight! link netrwLink Grey
-highlight! link netrwSymLink Fg
-highlight! link netrwExe Yellow
-highlight! link netrwComment Grey
-highlight! link netrwList Aqua
-highlight! link netrwHelpCmd Blue
-highlight! link netrwCmdSep Grey
-highlight! link netrwVersion Orange
-" }}}
 " }}}
 " Extended File Types: {{{
-" Note: To ensure that the `s:last_modified` variable is always up to date, you need to copy `.githooks/pre-commit` to `.git/hooks/pre-commit`.
+" Whitelist: {{{ File type optimizations that will always be loaded.
+" diff {{{
+highlight! link diffAdded Green
+highlight! link diffRemoved Red
+highlight! link diffChanged Blue
+highlight! link diffOldFile Yellow
+highlight! link diffNewFile Orange
+highlight! link diffFile Aqua
+highlight! link diffLine Grey
+highlight! link diffIndexLine Purple
+" }}}
+" }}}
 " Generate the `after/ftplugin` directory based on the comment tags in this file.
-" For example, the content between `ft_begin: sh/zsh` and `ft_end` will be placed in `after/ftplugin/sh/forest_night.vim` and `after/ftplugin/zsh/forest_night.vim`.
-if forest_night#ft_exists(s:path) " If the ftplugin exists.
+" For example, the content between `ft_begin: sh/zsh` and `ft_end` will be placed in `after/ftplugin/sh/everforest.vim` and `after/ftplugin/zsh/everforest.vim`.
+if everforest#ft_exists(s:path) " If the ftplugin exists.
   if s:configuration.better_performance
-    if !forest_night#ft_newest(s:path, s:last_modified) " Regenerate if it's not up to date.
-      call forest_night#ft_clean(s:path, 0)
-      call forest_night#ft_gen(s:path, s:last_modified, 'update')
+    if !everforest#ft_newest(s:path, s:last_modified) " Regenerate if it's not up to date.
+      call everforest#ft_clean(s:path, 0)
+      call everforest#ft_gen(s:path, s:last_modified, 'update')
     endif
     finish
   else
-    call forest_night#ft_clean(s:path, 1)
+    call everforest#ft_clean(s:path, 1)
   endif
 else
   if s:configuration.better_performance
-    call forest_night#ft_gen(s:path, s:last_modified, 'generate')
+    call everforest#ft_gen(s:path, s:last_modified, 'generate')
     finish
   endif
 endif
 " ft_begin: vim-plug {{{
 " https://github.com/junegunn/vim-plug
-call forest_night#highlight('plug1', s:palette.orange, s:palette.none, 'bold')
-call forest_night#highlight('plugNumber', s:palette.yellow, s:palette.none, 'bold')
+call everforest#highlight('plug1', s:palette.orange, s:palette.none, 'bold')
+call everforest#highlight('plugNumber', s:palette.yellow, s:palette.none, 'bold')
 highlight! link plug2 Green
 highlight! link plugBracket Grey
 highlight! link plugName Aqua
@@ -766,6 +1020,40 @@ highlight! link NERDTreeLinkTarget Green
 highlight! link DirvishPathTail Aqua
 highlight! link DirvishArg Yellow
 " ft_end }}}
+" ft_begin: NvimTree {{{
+" https://github.com/kyazdani42/nvim-tree.lua
+highlight! link NvimTreeSymlink Fg
+highlight! link NvimTreeFolderName Green
+highlight! link NvimTreeRootFolder Grey
+highlight! link NvimTreeFolderIcon Orange
+highlight! link NvimTreeEmptyFolderName Green
+highlight! link NvimTreeOpenedFolderName Green
+highlight! link NvimTreeExecFile Fg
+highlight! link NvimTreeOpenedFile Fg
+highlight! link NvimTreeSpecialFile Fg
+highlight! link NvimTreeImageFile Fg
+highlight! link NvimTreeMarkdownFile Fg
+highlight! link NvimTreeIndentMarker Grey
+highlight! link NvimTreeGitDirty Yellow
+highlight! link NvimTreeGitStaged Blue
+highlight! link NvimTreeGitMerge Orange
+highlight! link NvimTreeGitRenamed Purple
+highlight! link NvimTreeGitNew Aqua
+highlight! link NvimTreeGitDeleted Red
+" ft_end }}}
+" ft_begin: netrw {{{
+" https://www.vim.org/scripts/script.php?script_id=1075
+highlight! link netrwDir Green
+highlight! link netrwClassify Green
+highlight! link netrwLink Grey
+highlight! link netrwSymLink Fg
+highlight! link netrwExe Yellow
+highlight! link netrwComment Grey
+highlight! link netrwList Aqua
+highlight! link netrwHelpCmd Blue
+highlight! link netrwCmdSep Grey
+highlight! link netrwVersion Orange
+" ft_end }}}
 " ft_begin: startify/quickmenu {{{
 " https://github.com/mhinz/vim-startify
 " https://github.com/skywind3000/quickmenu.vim
@@ -790,7 +1078,7 @@ highlight! link QuickmenuHeader Orange
 " ft_end }}}
 " ft_begin: undotree {{{
 " https://github.com/mbbill/undotree
-call forest_night#highlight('UndotreeSavedBig', s:palette.purple, s:palette.none, 'bold')
+call everforest#highlight('UndotreeSavedBig', s:palette.purple, s:palette.none, 'bold')
 highlight! link UndotreeNode Orange
 highlight! link UndotreeNodeCurrent Red
 highlight! link UndotreeSeq Green
@@ -803,16 +1091,16 @@ highlight! link UndotreeSavedSmall Purple
 " ft_end }}}
 " ft_begin: markdown {{{
 " builtin: {{{
-call forest_night#highlight('markdownH1', s:palette.red, s:palette.none, 'bold')
-call forest_night#highlight('markdownH2', s:palette.orange, s:palette.none, 'bold')
-call forest_night#highlight('markdownH3', s:palette.yellow, s:palette.none, 'bold')
-call forest_night#highlight('markdownH4', s:palette.green, s:palette.none, 'bold')
-call forest_night#highlight('markdownH5', s:palette.blue, s:palette.none, 'bold')
-call forest_night#highlight('markdownH6', s:palette.purple, s:palette.none, 'bold')
-call forest_night#highlight('markdownUrl', s:palette.blue, s:palette.none, 'underline')
-call forest_night#highlight('markdownItalic', s:palette.none, s:palette.none, 'italic')
-call forest_night#highlight('markdownBold', s:palette.none, s:palette.none, 'bold')
-call forest_night#highlight('markdownItalicDelimiter', s:palette.grey1, s:palette.none, 'italic')
+call everforest#highlight('markdownH1', s:palette.red, s:palette.none, 'bold')
+call everforest#highlight('markdownH2', s:palette.orange, s:palette.none, 'bold')
+call everforest#highlight('markdownH3', s:palette.yellow, s:palette.none, 'bold')
+call everforest#highlight('markdownH4', s:palette.green, s:palette.none, 'bold')
+call everforest#highlight('markdownH5', s:palette.blue, s:palette.none, 'bold')
+call everforest#highlight('markdownH6', s:palette.purple, s:palette.none, 'bold')
+call everforest#highlight('markdownUrl', s:palette.blue, s:palette.none, 'underline')
+call everforest#highlight('markdownItalic', s:palette.none, s:palette.none, 'italic')
+call everforest#highlight('markdownBold', s:palette.none, s:palette.none, 'bold')
+call everforest#highlight('markdownItalicDelimiter', s:palette.grey1, s:palette.none, 'italic')
 highlight! link markdownCode Green
 highlight! link markdownCodeBlock Aqua
 highlight! link markdownCodeDelimiter Aqua
@@ -832,9 +1120,9 @@ highlight! link markdownBoldDelimiter Grey
 highlight! link markdownId Yellow
 " }}}
 " vim-markdown: https://github.com/gabrielelana/vim-markdown {{{
-call forest_night#highlight('mkdURL', s:palette.blue, s:palette.none, 'underline')
-call forest_night#highlight('mkdInlineURL', s:palette.purple, s:palette.none, 'underline')
-call forest_night#highlight('mkdItalic', s:palette.grey1, s:palette.none, 'italic')
+call everforest#highlight('mkdURL', s:palette.blue, s:palette.none, 'underline')
+call everforest#highlight('mkdInlineURL', s:palette.purple, s:palette.none, 'underline')
+call everforest#highlight('mkdItalic', s:palette.grey1, s:palette.none, 'italic')
 highlight! link mkdCodeDelimiter Aqua
 highlight! link mkdBold Grey
 highlight! link mkdLink Purple
@@ -845,9 +1133,30 @@ highlight! link mkdDelimiter Grey
 highlight! link mkdId Yellow
 " }}}
 " ft_end }}}
+" ft_begin: vimwiki {{{
+call everforest#highlight('VimwikiHeader1', s:palette.red, s:palette.none, 'bold')
+call everforest#highlight('VimwikiHeader2', s:palette.orange, s:palette.none, 'bold')
+call everforest#highlight('VimwikiHeader3', s:palette.yellow, s:palette.none, 'bold')
+call everforest#highlight('VimwikiHeader4', s:palette.green, s:palette.none, 'bold')
+call everforest#highlight('VimwikiHeader5', s:palette.blue, s:palette.none, 'bold')
+call everforest#highlight('VimwikiHeader6', s:palette.purple, s:palette.none, 'bold')
+call everforest#highlight('VimwikiLink', s:palette.blue, s:palette.none, 'underline')
+call everforest#highlight('VimwikiItalic', s:palette.none, s:palette.none, 'italic')
+call everforest#highlight('VimwikiBold', s:palette.none, s:palette.none, 'bold')
+call everforest#highlight('VimwikiUnderline', s:palette.none, s:palette.none, 'underline')
+highlight! link VimwikiList Red
+highlight! link VimwikiTag Aqua
+highlight! link VimwikiCode Green
+highlight! link VimwikiHR Yellow
+highlight! link VimwikiHeaderChar Grey
+highlight! link VimwikiMarkers Grey
+highlight! link VimwikiPre Green
+highlight! link VimwikiPreDelim Green
+highlight! link VimwikiNoExistsLink Red
+" ft_end }}}
 " ft_begin: rst {{{
 " builtin: https://github.com/marshallward/vim-restructuredtext {{{
-call forest_night#highlight('rstStandaloneHyperlink', s:palette.purple, s:palette.none, 'underline')
+call everforest#highlight('rstStandaloneHyperlink', s:palette.purple, s:palette.none, 'underline')
 highlight! link rstSubstitutionReference Blue
 highlight! link rstInterpretedTextOrHyperlinkReference Aqua
 highlight! link rstTableLines Grey
@@ -885,20 +1194,20 @@ highlight! link texAuthorArg BlueItalic
 " ft_end }}}
 " ft_begin: html/markdown/javascriptreact/typescriptreact {{{
 " builtin: https://notabug.org/jorgesumle/vim-html-syntax {{{
-call forest_night#highlight('htmlH1', s:palette.red, s:palette.none, 'bold')
-call forest_night#highlight('htmlH2', s:palette.orange, s:palette.none, 'bold')
-call forest_night#highlight('htmlH3', s:palette.yellow, s:palette.none, 'bold')
-call forest_night#highlight('htmlH4', s:palette.green, s:palette.none, 'bold')
-call forest_night#highlight('htmlH5', s:palette.blue, s:palette.none, 'bold')
-call forest_night#highlight('htmlH6', s:palette.purple, s:palette.none, 'bold')
-call forest_night#highlight('htmlLink', s:palette.none, s:palette.none, 'underline')
-call forest_night#highlight('htmlBold', s:palette.none, s:palette.none, 'bold')
-call forest_night#highlight('htmlBoldUnderline', s:palette.none, s:palette.none, 'bold,underline')
-call forest_night#highlight('htmlBoldItalic', s:palette.none, s:palette.none, 'bold,italic')
-call forest_night#highlight('htmlBoldUnderlineItalic', s:palette.none, s:palette.none, 'bold,underline,italic')
-call forest_night#highlight('htmlUnderline', s:palette.none, s:palette.none, 'underline')
-call forest_night#highlight('htmlUnderlineItalic', s:palette.none, s:palette.none, 'underline,italic')
-call forest_night#highlight('htmlItalic', s:palette.none, s:palette.none, 'italic')
+call everforest#highlight('htmlH1', s:palette.red, s:palette.none, 'bold')
+call everforest#highlight('htmlH2', s:palette.orange, s:palette.none, 'bold')
+call everforest#highlight('htmlH3', s:palette.yellow, s:palette.none, 'bold')
+call everforest#highlight('htmlH4', s:palette.green, s:palette.none, 'bold')
+call everforest#highlight('htmlH5', s:palette.blue, s:palette.none, 'bold')
+call everforest#highlight('htmlH6', s:palette.purple, s:palette.none, 'bold')
+call everforest#highlight('htmlLink', s:palette.none, s:palette.none, 'underline')
+call everforest#highlight('htmlBold', s:palette.none, s:palette.none, 'bold')
+call everforest#highlight('htmlBoldUnderline', s:palette.none, s:palette.none, 'bold,underline')
+call everforest#highlight('htmlBoldItalic', s:palette.none, s:palette.none, 'bold,italic')
+call everforest#highlight('htmlBoldUnderlineItalic', s:palette.none, s:palette.none, 'bold,underline,italic')
+call everforest#highlight('htmlUnderline', s:palette.none, s:palette.none, 'underline')
+call everforest#highlight('htmlUnderlineItalic', s:palette.none, s:palette.none, 'underline,italic')
+call everforest#highlight('htmlItalic', s:palette.none, s:palette.none, 'italic')
 highlight! link htmlTag Green
 highlight! link htmlEndTag Blue
 highlight! link htmlTagN OrangeItalic
@@ -1390,23 +1699,23 @@ highlight! link cppSTLexception Purple
 highlight! link cppSTLVariable Aqua
 " }}}
 " chromatica: https://github.com/arakashic/chromatica.nvim {{{
-highlight! link Member Aqua
-highlight! link Variable Blue
-highlight! link Namespace Purple
-highlight! link EnumConstant Aqua
-highlight! link chromaticaException RedItalic
-highlight! link chromaticaCast Orange
-highlight! link OperatorOverload Orange
-highlight! link AccessQual Orange
-highlight! link Linkage Orange
-highlight! link AutoType Yellow
+highlight! link Member TSVariable
+highlight! link Variable TSVariable
+highlight! link Namespace TSNamespace
+highlight! link EnumConstant TSStructure
+highlight! link chromaticaException TSException
+highlight! link chromaticaCast TSLabel
+highlight! link OperatorOverload TSOperator
+highlight! link AccessQual TSOperator
+highlight! link Linkage TSOperator
+highlight! link AutoType TSType
 " }}}
 " vim-lsp-cxx-highlight https://github.com/jackguo380/vim-lsp-cxx-highlight {{{
 highlight! link LspCxxHlSkippedRegion Grey
-highlight! link LspCxxHlSkippedRegionBeginEnd PurpleItalic
-highlight! link LspCxxHlGroupEnumConstant Aqua
-highlight! link LspCxxHlGroupNamespace Purple
-highlight! link LspCxxHlGroupMemberVariable Aqua
+highlight! link LspCxxHlSkippedRegionBeginEnd TSKeyword
+highlight! link LspCxxHlGroupEnumConstant TSStructure
+highlight! link LspCxxHlGroupNamespace TSNamespace
+highlight! link LspCxxHlGroupMemberVariable TSVariable
 " }}}
 " ft_end }}}
 " ft_begin: objc {{{
@@ -1458,16 +1767,16 @@ highlight! link pythonNone Aqua
 highlight! link pythonDot Grey
 " }}}
 " semshi: https://github.com/numirias/semshi {{{
-call forest_night#highlight('semshiUnresolved', s:palette.yellow, s:palette.none, 'undercurl')
-highlight! link semshiImported Purple
-highlight! link semshiParameter Blue
+call everforest#highlight('semshiUnresolved', s:palette.yellow, s:palette.none, 'undercurl')
+highlight! link semshiImported TSInclude
+highlight! link semshiParameter TSParameter
 highlight! link semshiParameterUnused Grey
-highlight! link semshiSelf PurpleItalic
-highlight! link semshiGlobal Yellow
-highlight! link semshiBuiltin Yellow
-highlight! link semshiAttribute Aqua
-highlight! link semshiLocal Red
-highlight! link semshiFree Red
+highlight! link semshiSelf TSVariableBuiltin
+highlight! link semshiGlobal TSType
+highlight! link semshiBuiltin TSTypeBuiltin
+highlight! link semshiAttribute TSAttribute
+highlight! link semshiLocal TSKeyword
+highlight! link semshiFree TSKeyword
 highlight! link semshiSelected CurrentWord
 highlight! link semshiErrorSign RedSign
 highlight! link semshiErrorChar RedSign
@@ -1736,6 +2045,15 @@ highlight! link matlabRelationalOperator Orange
 highlight! link matlabLogicalOperator Orange
 " }}}
 " ft_end }}}
+" ft_begin: octave {{{
+" vim-octave: https://github.com/McSinyx/vim-octave{{{
+highlight! link octaveDelimiter Fg
+highlight! link octaveSemicolon Grey
+highlight! link octaveOperator Orange
+highlight! link octaveVariable YellowItalic
+highlight! link octaveVarKeyword YellowItalic
+" }}}
+" ft_end }}}
 " ft_begin: sh/zsh {{{
 " builtin: http://www.drchip.org/astronaut/vim/index.html#SYNTAX_SH {{{
 highlight! link shRange Fg
@@ -1782,7 +2100,7 @@ highlight! link ps1BuiltIn Yellow
 " }}}
 " ft_end }}}
 " ft_begin: vim {{{
-call forest_night#highlight('vimCommentTitle', s:palette.grey1, s:palette.none, 'bold')
+call everforest#highlight('vimCommentTitle', s:palette.grey1, s:palette.none, 'bold')
 highlight! link vimLet Orange
 highlight! link vimFunction Green
 highlight! link vimIsCommand Fg
@@ -1926,20 +2244,10 @@ highlight! link yamlKey Orange
 highlight! link yamlConstant Purple
 " ft_end }}}
 " ft_begin: toml {{{
-call forest_night#highlight('tomlTable', s:palette.purple, s:palette.none, 'bold')
+call everforest#highlight('tomlTable', s:palette.purple, s:palette.none, 'bold')
 highlight! link tomlKey Orange
 highlight! link tomlBoolean Aqua
 highlight! link tomlTableArray tomlTable
-" ft_end }}}
-" ft_begin: diff/git {{{
-highlight! link diffAdded Green
-highlight! link diffRemoved Red
-highlight! link diffChanged Blue
-highlight! link diffOldFile Yellow
-highlight! link diffNewFile Orange
-highlight! link diffFile Aqua
-highlight! link diffLine Grey
-highlight! link diffIndexLine Purple
 " ft_end }}}
 " ft_begin: gitcommit {{{
 highlight! link gitcommitSummary Red
@@ -1952,17 +2260,17 @@ highlight! link gitcommitArrow Grey
 highlight! link gitcommitFile Green
 " ft_end }}}
 " ft_begin: dosini {{{
-call forest_night#highlight('dosiniHeader', s:palette.red, s:palette.none, 'bold')
+call everforest#highlight('dosiniHeader', s:palette.red, s:palette.none, 'bold')
 highlight! link dosiniLabel Yellow
 highlight! link dosiniValue Green
 highlight! link dosiniNumber Green
 " ft_end }}}
 " ft_begin: help {{{
-call forest_night#highlight('helpNote', s:palette.purple, s:palette.none, 'bold')
-call forest_night#highlight('helpHeadline', s:palette.red, s:palette.none, 'bold')
-call forest_night#highlight('helpHeader', s:palette.orange, s:palette.none, 'bold')
-call forest_night#highlight('helpURL', s:palette.green, s:palette.none, 'underline')
-call forest_night#highlight('helpHyperTextEntry', s:palette.yellow, s:palette.none, 'bold')
+call everforest#highlight('helpNote', s:palette.purple, s:palette.none, 'bold')
+call everforest#highlight('helpHeadline', s:palette.red, s:palette.none, 'bold')
+call everforest#highlight('helpHeader', s:palette.orange, s:palette.none, 'bold')
+call everforest#highlight('helpURL', s:palette.green, s:palette.none, 'underline')
+call everforest#highlight('helpHyperTextEntry', s:palette.yellow, s:palette.none, 'bold')
 highlight! link helpHyperTextJump Yellow
 highlight! link helpCommand Aqua
 highlight! link helpExample Green

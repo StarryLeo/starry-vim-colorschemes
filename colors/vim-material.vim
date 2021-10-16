@@ -27,11 +27,10 @@ let s:gui.line       = { 'dark': '#212121', 'light': '#EAEFF0', 'palenight': '#1
 let s:gui.comment    = { 'dark': '#5D818E', 'light': '#90A4AE', 'palenight': '#676E95', 'oceanic': '#525975'  }
 
 let s:gui.red          = { 'dark': '#FF5370', 'light': '#E53935', 'palenight': '#FF5370', 'oceanic': '#FF5370'  }
-let s:gui.dark_red     = { 'dark': '#B71C1C', 'light': '#E53935', 'palenight': '#FF5370', 'oceanic': '#FF5370'  }
 let s:gui.pink         = { 'dark': '#F07178', 'light': '#FF5370', 'palenight': '#F07178', 'oceanic': '#F07178'  }
 let s:gui.orange       = { 'dark': '#F78C6C', 'light': '#F76D47', 'palenight': '#F78C6C', 'oceanic': '#F78C6C'  }
-let s:gui.light_yellow = { 'dark': '#FFE57F', 'light': '#FFAD13', 'palenight': '#FFE57F', 'oceanic': '#FFE57F'  }
-let s:gui.yellow       = { 'dark': '#FFCB6B', 'light': '#FFAD13', 'palenight': '#FFCB6B', 'oceanic': '#FFCB6B'  }
+let s:gui.light_yellow = { 'dark': '#FFE57F', 'light': '#FF9913', 'palenight': '#FFE57F', 'oceanic': '#FFE57F'  }
+let s:gui.yellow       = { 'dark': '#FFCB6B', 'light': '#FF9913', 'palenight': '#FFCB6B', 'oceanic': '#FFCB6B'  }
 let s:gui.green        = { 'dark': '#C3E88D', 'light': '#82A550', 'palenight': '#C3E88D', 'oceanic': '#C3E88D'  }
 let s:gui.teal         = { 'dark': '#004D40', 'light': '#CCEAE7', 'palenight': '#004D40', 'oceanic': '#004D40'  }
 let s:gui.light_teal   = { 'dark': '#69F0AE', 'light': '#73B6B0', 'palenight': '#69F0AE', 'oceanic': '#69F0AE'  }
@@ -226,7 +225,7 @@ call s:hi("htmlTag",            s:gui.cyan,   "", "", "", "")
 call s:hi("htmlEndTag",         s:gui.cyan,   "", "", "", "")
 call s:hi("htmlTagName",        s:gui.red,    "", "", "", "")
 call s:hi("htmlSpecialTagName", s:gui.red,    "", "", "", "")
-call s:hi("htmlArg",            s:gui.yellow, "", "", "", "")
+call s:hi("htmlArg",            s:gui.purple, "", "", "", "")
 
 " jsx colors
 call s:hi("xmlTag",     s:gui.cyan,   "", "", "", "")
@@ -239,3 +238,33 @@ call s:hi("GitGutterAdd",          s:gui.green, s:gui.background, "", "", "")
 call s:hi("GitGutterChange",       s:gui.yellow,  s:gui.background, "", "", "")
 call s:hi("GitGutterDelete",       s:gui.red,   s:gui.background, "", "", "")
 call s:hi("GitGutterChangeDelete", s:gui.yellow,  s:gui.background, "", "", "")
+
+" Treesitter
+call s:hi("TSBoolean", s:gui.orange, "", "", "", "")
+call s:hi("TSConstant", s:gui.foreground, "", "", "", "")
+call s:hi("TSConstructor", s:gui.yellow, "", "", "", "")
+call s:hi("TSKeyword", s:gui.cyan, "", "", "", "")
+call s:hi("TSKeywordOperator", s:gui.cyan, "", "", "", "")
+call s:hi("TSLabel", s:gui.pink, "", "", "", "")
+call s:hi("TSOperator", s:gui.purple, "", "", "", "")
+call s:hi("TSParameter", s:gui.red, "", "", "", "")
+call s:hi("TSProperty", s:gui.foreground, "", "", "", "")
+call s:hi("TSPunctBracket", s:gui.cyan, "", "", "", "")
+call s:hi("TSPunctDelimiter", s:gui.cyan, "", "", "", "")
+call s:hi("TSPunctSpecial", s:gui.cyan, "", "", "", "")
+call s:hi("TSSymbol", s:gui.orange, "", "", "", "")
+call s:hi("TSTag", s:gui.pink, "", "", "", "")
+call s:hi("TSTagAttribute", s:gui.purple, "", "", "", "")
+call s:hi("TSTagDelimiter", s:gui.cyan, "", "", "", "")
+call s:hi("TSVariable", s:gui.foreground, "", "", "", "")
+call s:hi("TSVariableBuiltIn", s:gui.red, "", "", "", "")
+
+" Treesitter html
+call s:hi("htmlEventDQ", s:gui.blue, "", "", "", "")
+
+" Treesitter css
+call s:hi("cssTSProperty", s:gui.yellow, "", "", "", "")
+
+" Treesitter javascript
+call s:hi("javascriptParens", s:gui.cyan, "", "", "", "")
+call s:hi("javascriptValue", s:gui.orange, "", "", "", "")

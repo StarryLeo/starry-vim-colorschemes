@@ -18,7 +18,7 @@ Use your favorite package-manager to install, and enjoy!
 | [deep-space] | Intergalactic friendly color scheme based off Hybrid | ✓ | ✓ |
 | [deus] | For the late night coder | ✓ | ✓ |
 | [flattened] | Solarized, without the bullshit | ✓ (16) | ✓ |
-| [forest-night] | low-contrast & elegant vim color scheme | ✓ | ✓ |
+| [everforest] | low-contrast & elegant vim color scheme | ✓ | ✓ |
 | [github] | Based on Github's syntax highlighting | ✓ | ✓ |
 | [gotham] | Very dark vim colorscheme | ✓ | ✓ |
 | [gruvbox] | Retro groove color scheme | ✓ | ✓ |
@@ -60,7 +60,7 @@ Use your favorite package-manager to install, and enjoy!
 [deep-space]: https://github.com/tyrannicaltoucan/vim-deep-space
 [deus]: https://github.com/ajmwagar/vim-deus
 [flattened]: https://github.com/romainl/flattened
-[forest-night]: https://github.com/sainnhe/vim-color-forest-night
+[everforest]: https://github.com/sainnhe/everforest
 [github]: https://github.com/endel/vim-github-colorscheme
 [gotham]: https://github.com/whatyouhide/vim-gotham
 [gruvbox]: https://github.com/morhetz/gruvbox
