@@ -6,12 +6,6 @@
 " License: MIT License
 " =============================================================================
 
-" g:everforest#tmux: is in tmux < 2.9 or not {{{
-let g:everforest#tmux = executable('tmux') && $TMUX !=# '' ?
-                  \ (str2float(system("tmux -V | grep -oE '[0-9]+\.[0-9]*'")) < 2.9 ?
-                    \ 1 :
-                    \ 0) :
-                  \ 0 "}}}
 function! everforest#get_configuration() "{{{
   return {
         \ 'background': get(g:, 'everforest_background', 'medium'),
@@ -21,6 +15,7 @@ function! everforest#get_configuration() "{{{
         \ 'cursor': get(g:, 'everforest_cursor', 'auto'),
         \ 'menu_selection_background': get(g:, 'everforest_menu_selection_background', 'white'),
         \ 'sign_column_background': get(g:, 'everforest_sign_column_background', 'default'),
+        \ 'spell_foreground': get(g:, 'everforest_spell_foreground', 'none'),
         \ 'ui_contrast': get(g:, 'everforest_ui_contrast', 'low'),
         \ 'show_eob': get(g:, 'everforest_show_eob', 1),
         \ 'current_word': get(g:, 'everforest_current_word', get(g:, 'everforest_transparent_background', 0) == 0 ? 'grey background' : 'bold'),
@@ -92,7 +87,7 @@ function! everforest#get_palette(background) "{{{
             \ 'bg_yellow':  ['#faedcd',   '226'],
             \ }
     endif "}}}
-  elseif a:background ==# 'soft' "{{{
+  else "{{{
     if &background ==# 'dark'
       let palette1 = {
             \ 'bg0':        ['#323d43',   '235'],
@@ -169,11 +164,7 @@ function! everforest#highlight(group, fg, bg, ...) "{{{
         \ 'ctermfg=' . a:fg[1]
         \ 'ctermbg=' . a:bg[1]
         \ 'gui=' . (a:0 >= 1 ?
-          \ (a:1 ==# 'undercurl' ?
-            \ (g:everforest#tmux ?
-              \ 'underline' :
-              \ 'undercurl') :
-            \ a:1) :
+          \ a:1 :
           \ 'NONE')
         \ 'cterm=' . (a:0 >= 1 ?
           \ (a:1 ==# 'undercurl' ?
@@ -184,44 +175,47 @@ function! everforest#highlight(group, fg, bg, ...) "{{{
           \ a:2[0] :
           \ 'NONE')
 endfunction "}}}
-function! everforest#ft_gen(path, last_modified, msg) "{{{
-  " Generate the `after/ftplugin` directory.
+function! everforest#syn_gen(path, last_modified, msg) "{{{
+  " Generate the `after/syntax` directory.
   let full_content = join(readfile(a:path), "\n") " Get the content of `colors/everforest.vim`
-  let ft_content = []
-  let rootpath = everforest#ft_rootpath(a:path) " Get the path to place the `after/ftplugin` directory.
-  call substitute(full_content, '" ft_begin.\{-}ft_end', '\=add(ft_content, submatch(0))', 'g') " Search for 'ft_begin.\{-}ft_end' (non-greedy) and put all the search results into a list.
-  for content in ft_content
-    let ft_list = []
-    call substitute(matchstr(matchstr(content, 'ft_begin:.\{-}{{{'), ':.\{-}{{{'), '\(\w\|-\)\+', '\=add(ft_list, submatch(0))', 'g') " Get the file types. }}}}}}
-    for ft in ft_list
-      call everforest#ft_write(rootpath, ft, content) " Write the content.
+  let syn_conent = []
+  let rootpath = everforest#syn_rootpath(a:path) " Get the path to place the `after/syntax` directory.
+  call substitute(full_content, '" syn_begin.\{-}syn_end', '\=add(syn_conent, submatch(0))', 'g') " Search for 'syn_begin.\{-}syn_end' (non-greedy) and put all the search results into a list.
+  for content in syn_conent
+    let syn_list = []
+    call substitute(matchstr(matchstr(content, 'syn_begin:.\{-}{{{'), ':.\{-}{{{'), '\(\w\|-\)\+', '\=add(syn_list, submatch(0))', 'g') " Get the file types. }}}}}}
+    for syn in syn_list
+      call everforest#syn_write(rootpath, syn, content) " Write the content.
     endfor
   endfor
-  call everforest#ft_write(rootpath, 'text', "let g:everforest_last_modified = '" . a:last_modified . "'") " Write the last modified time to `after/ftplugin/text/everforest.vim`
+  call everforest#syn_write(rootpath, 'text', "let g:everforest_last_modified = '" . a:last_modified . "'") " Write the last modified time to `after/syntax/text/everforest.vim`
+  let syntax_relative_path = has('win32') ? '\after\syntax' : '/after/syntax'
   if a:msg ==# 'update'
-    echohl WarningMsg | echom '[everforest] Updated ' . rootpath . '/after/ftplugin' | echohl None
+    echohl WarningMsg | echom '[everforest] Updated ' . rootpath . syntax_relative_path | echohl None
+    call everforest#ftplugin_detect(a:path)
   else
-    echohl WarningMsg | echom '[everforest] Generated ' . rootpath . '/after/ftplugin' | echohl None
+    echohl WarningMsg | echom '[everforest] Generated ' . rootpath . syntax_relative_path | echohl None
+    execute 'set runtimepath+=' . fnamemodify(rootpath, ':p') . 'after'
   endif
 endfunction "}}}
-function! everforest#ft_write(rootpath, ft, content) "{{{
+function! everforest#syn_write(rootpath, syn, content) "{{{
   " Write the content.
-  let ft_path = a:rootpath . '/after/ftplugin/' . a:ft . '/everforest.vim' " The path of a ftplugin file.
+  let syn_path = a:rootpath . '/after/syntax/' . a:syn . '/everforest.vim' " The path of a syntax file.
   " create a new file if it doesn't exist
-  if !filereadable(ft_path)
-    call mkdir(a:rootpath . '/after/ftplugin/' . a:ft, 'p')
+  if !filereadable(syn_path)
+    call mkdir(a:rootpath . '/after/syntax/' . a:syn, 'p')
     call writefile([
           \ "if !exists('g:colors_name') || g:colors_name !=# 'everforest'",
           \ '    finish',
           \ 'endif'
-          \ ], ft_path, 'a') " Abort if the current color scheme is not everforest.
+          \ ], syn_path, 'a') " Abort if the current color scheme is not everforest.
     call writefile([
-          \ "if index(g:everforest_loaded_file_types, '" . a:ft . "') ==# -1",
-          \ "    call add(g:everforest_loaded_file_types, '" . a:ft . "')",
+          \ "if index(g:everforest_loaded_file_types, '" . a:syn . "') ==# -1",
+          \ "    call add(g:everforest_loaded_file_types, '" . a:syn . "')",
           \ 'else',
           \ '    finish',
           \ 'endif'
-          \ ], ft_path, 'a') " Abort if this file type has already been loaded.
+          \ ], syn_path, 'a') " Abort if this file type has already been loaded.
   endif
   " If there is something like `call everforest#highlight()`, then add
   " code to initialize the palette and configuration.
@@ -229,60 +223,69 @@ function! everforest#ft_write(rootpath, ft, content) "{{{
     call writefile([
           \ 'let s:configuration = everforest#get_configuration()',
           \ 'let s:palette = everforest#get_palette(s:configuration.background)'
-          \ ], ft_path, 'a')
+          \ ], syn_path, 'a')
   endif
   " Append the content.
-  call writefile(split(a:content, "\n"), ft_path, 'a')
+  call writefile(split(a:content, "\n"), syn_path, 'a')
+  " Add modeline.
+  call writefile(['" vim: set sw=2 ts=2 sts=2 et tw=80 ft=vim fdm=marker fmr={{{,}}}:'], syn_path, 'a')
 endfunction "}}}
-function! everforest#ft_rootpath(path) "{{{
-  " Get the directory where `after/ftplugin` is generated.
-  if (matchstr(a:path, '^/usr/share') ==# '') || has('win32') " Return the plugin directory. The `after/ftplugin` directory should never be generated in `/usr/share`, even if you are a root user.
+function! everforest#syn_rootpath(path) "{{{
+  " Get the directory where `after/syntax` is generated.
+  if (matchstr(a:path, '^/usr/share') ==# '') " Return the plugin directory. The `after/syntax` directory should never be generated in `/usr/share`, even if you are a root user.
     return fnamemodify(a:path, ':p:h:h')
   else " Use vim home directory.
     if has('nvim')
       return stdpath('config')
     else
-      if has('win32') || has ('win64')
-        return $VIM . '/vimfiles'
-      else
-        return $HOME . '/.vim'
-      endif
+      return expand('~') . '/.vim'
     endif
   endif
 endfunction "}}}
-function! everforest#ft_newest(path, last_modified) "{{{
-  " Determine whether the current ftplugin files are up to date by comparing the last modified time in `colors/everforest.vim` and `after/ftplugin/text/everforest.vim`.
-  let rootpath = everforest#ft_rootpath(a:path)
-  execute 'source ' . rootpath . '/after/ftplugin/text/everforest.vim'
+function! everforest#syn_newest(path, last_modified) "{{{
+  " Determine whether the current syntax files are up to date by comparing the last modified time in `colors/everforest.vim` and `after/syntax/text/everforest.vim`.
+  let rootpath = everforest#syn_rootpath(a:path)
+  execute 'source ' . rootpath . '/after/syntax/text/everforest.vim'
   return a:last_modified ==# g:everforest_last_modified ? 1 : 0
 endfunction "}}}
-function! everforest#ft_clean(path, msg) "{{{
-  " Clean the `after/ftplugin` directory.
-  let rootpath = everforest#ft_rootpath(a:path)
-  " Remove `after/ftplugin/**/everforest.vim`.
-  let file_list = split(globpath(rootpath, 'after/ftplugin/**/everforest.vim'), "\n")
+function! everforest#syn_clean(path, msg) "{{{
+  " Clean the `after/syntax` directory.
+  let rootpath = everforest#syn_rootpath(a:path)
+  " Remove `after/syntax/**/everforest.vim`.
+  let file_list = split(globpath(rootpath, 'after/syntax/**/everforest.vim'), "\n")
   for file in file_list
     call delete(file)
   endfor
   " Remove empty directories.
-  let dir_list = split(globpath(rootpath, 'after/ftplugin/*'), "\n")
+  let dir_list = split(globpath(rootpath, 'after/syntax/*'), "\n")
   for dir in dir_list
     if globpath(dir, '*') ==# ''
       call delete(dir, 'd')
     endif
   endfor
-  if globpath(rootpath . '/after/ftplugin', '*') ==# ''
-    call delete(rootpath . '/after/ftplugin', 'd')
+  if globpath(rootpath . '/after/syntax', '*') ==# ''
+    call delete(rootpath . '/after/syntax', 'd')
   endif
   if globpath(rootpath . '/after', '*') ==# ''
     call delete(rootpath . '/after', 'd')
   endif
   if a:msg
-    echohl WarningMsg | echom '[everforest] Cleaned ' . rootpath . '/after/ftplugin' | echohl None
+    let syntax_relative_path = has('win32') ? '\after\syntax' : '/after/syntax'
+    echohl WarningMsg | echom '[everforest] Cleaned ' . rootpath . syntax_relative_path | echohl None
   endif
 endfunction "}}}
-function! everforest#ft_exists(path) "{{{
-  return filereadable(everforest#ft_rootpath(a:path) . '/after/ftplugin/text/everforest.vim')
+function! everforest#syn_exists(path) "{{{
+  return filereadable(everforest#syn_rootpath(a:path) . '/after/syntax/text/everforest.vim')
+endfunction "}}}
+function! everforest#ftplugin_detect(path) "{{{
+  " Check if /after/ftplugin exists.
+  " This directory is generated in earlier versions, users may need to manually clean it.
+  let rootpath = everforest#syn_rootpath(a:path)
+  if filereadable(everforest#syn_rootpath(a:path) . '/after/ftplugin/text/everforest.vim')
+    let ftplugin_relative_path = has('win32') ? '\after\ftplugin' : '/after/ftplugin'
+    echohl WarningMsg | echom '[everforest] Detected ' . rootpath . ftplugin_relative_path | echohl None
+    echohl WarningMsg | echom '[everforest] This directory is no longer used, you may need to manually delete it.' | echohl None
+  endif
 endfunction "}}}
 
 " vim: set sw=2 ts=2 sts=2 et tw=80 ft=vim fdm=marker fmr={{{,}}}:

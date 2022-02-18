@@ -19,8 +19,8 @@ Everforest is a green based color scheme, it's designed to be warm and soft in o
 - Works well with [redshift](https://github.com/jonls/redshift) and [f.lux](https://justgetflux.com).
 - Customizable.
 - Rich support for common file types and plugins.
-- Semantic highlighting support.
 - Tree-sitter support.
+- Semantic highlighting support.
 - [Italic support](https://github.com/sainnhe/icursive-nerd-font) 🎉
 
 ## Documentation
