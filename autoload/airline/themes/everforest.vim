@@ -2,13 +2,16 @@
 " URL: https://github.com/sainnhe/everforest
 " Filename: autoload/airline/themes/everforest.vim
 " Author: sainnhe
-" Email: sainnhe@gmail.com
+" Email: i@sainnhe.dev
 " License: MIT License
 " =============================================================================
 
 " Initialization: {{{
 let s:configuration = everforest#get_configuration()
-let s:palette = everforest#get_palette(s:configuration.background)
+let s:palette = everforest#get_palette(s:configuration.background, s:configuration.colors_override)
+if s:configuration.transparent_background == 2
+  let s:palette.bg1 = s:palette.none
+endif
 "}}}
 " Definition: {{{
 let s:accents = s:palette.statusline3

@@ -1,16 +1,16 @@
 " -----------------------------------------------------------------------------
 " Name:         Everforest
 " Description:  Comfortable & Pleasant Color Scheme for Vim
-" Author:       sainnhe <sainnhe@gmail.com>
+" Author:       sainnhe <i@sainnhe.dev>
 " Website:      https://github.com/sainnhe/everforest
 " License:      MIT
 " -----------------------------------------------------------------------------
 
 " Initialization: {{{
 let s:configuration = everforest#get_configuration()
-let s:palette = everforest#get_palette(s:configuration.background)
+let s:palette = everforest#get_palette(s:configuration.background, s:configuration.colors_override)
 let s:path = expand('<sfile>:p') " the path of this script
-let s:last_modified = 'Mon Apr  4 01:48:02 UTC 2022'
+let s:last_modified = 'Thu Aug  4 02:24:10 UTC 2022'
 let g:everforest_loaded_file_types = []
 
 if !(exists('g:colors_name') && g:colors_name ==# 'everforest' && s:configuration.better_performance)
@@ -28,7 +28,7 @@ endif
 " }}}
 " Common Highlight Groups: {{{
 " UI: {{{
-if s:configuration.transparent_background
+if s:configuration.transparent_background >= 1
   call everforest#highlight('Normal', s:palette.fg, s:palette.none)
   call everforest#highlight('Terminal', s:palette.fg, s:palette.none)
   if s:configuration.show_eob
@@ -54,7 +54,7 @@ else
   endif
   call everforest#highlight('Folded', s:palette.grey1, s:palette.bg1)
   call everforest#highlight('ToolbarLine', s:palette.fg, s:palette.bg2)
-  if s:configuration.sign_column_background ==# 'default'
+  if s:configuration.sign_column_background ==# 'grey'
     call everforest#highlight('SignColumn', s:palette.fg, s:palette.bg1)
     call everforest#highlight('FoldColumn', s:palette.grey2, s:palette.bg1)
   else
@@ -94,7 +94,7 @@ if s:configuration.ui_contrast ==# 'low'
   call everforest#highlight('LineNr', s:palette.bg5, s:palette.none)
   if &diff
     call everforest#highlight('CursorLineNr', s:palette.grey1, s:palette.none, 'underline')
-  elseif (&relativenumber == 1 && &cursorline == 0) || s:configuration.sign_column_background !=# 'default'
+  elseif (&relativenumber == 1 && &cursorline == 0) || s:configuration.sign_column_background ==# 'none'
     call everforest#highlight('CursorLineNr', s:palette.grey1, s:palette.none)
   else
     call everforest#highlight('CursorLineNr', s:palette.grey1, s:palette.bg1)
@@ -103,7 +103,7 @@ else
   call everforest#highlight('LineNr', s:palette.grey0, s:palette.none)
   if &diff
     call everforest#highlight('CursorLineNr', s:palette.grey2, s:palette.none, 'underline')
-  elseif (&relativenumber == 1 && &cursorline == 0) || s:configuration.sign_column_background !=# 'default'
+  elseif (&relativenumber == 1 && &cursorline == 0) || s:configuration.sign_column_background ==# 'none'
     call everforest#highlight('CursorLineNr', s:palette.grey2, s:palette.none)
   else
     call everforest#highlight('CursorLineNr', s:palette.grey2, s:palette.bg1)
@@ -128,6 +128,7 @@ call everforest#highlight('PmenuSel', s:palette.bg0, s:palette.statusline1)
 highlight! link WildMenu PmenuSel
 call everforest#highlight('PmenuThumb', s:palette.none, s:palette.grey0)
 call everforest#highlight('NormalFloat', s:palette.fg, s:palette.bg2)
+call everforest#highlight('FloatBorder', s:palette.grey1, s:palette.bg2)
 call everforest#highlight('Question', s:palette.yellow, s:palette.none)
 if s:configuration.spell_foreground ==# 'none'
   call everforest#highlight('SpellBad', s:palette.none, s:palette.none, 'undercurl', s:palette.red)
@@ -140,13 +141,23 @@ else
   call everforest#highlight('SpellLocal', s:palette.aqua, s:palette.none, 'undercurl', s:palette.aqua)
   call everforest#highlight('SpellRare', s:palette.purple, s:palette.none, 'undercurl', s:palette.purple)
 endif
-call everforest#highlight('StatusLine', s:palette.grey1, s:palette.bg1)
-call everforest#highlight('StatusLineTerm', s:palette.grey1, s:palette.bg1)
-call everforest#highlight('StatusLineNC', s:palette.grey1, s:palette.bg0)
-call everforest#highlight('StatusLineTermNC', s:palette.grey1, s:palette.bg0)
-call everforest#highlight('TabLine', s:palette.grey2, s:palette.bg3)
-call everforest#highlight('TabLineFill', s:palette.grey1, s:palette.bg1)
-call everforest#highlight('TabLineSel', s:palette.bg0, s:palette.statusline1)
+if s:configuration.transparent_background == 2
+  call everforest#highlight('StatusLine', s:palette.grey1, s:palette.none)
+  call everforest#highlight('StatusLineTerm', s:palette.grey1, s:palette.none)
+  call everforest#highlight('StatusLineNC', s:palette.grey1, s:palette.none)
+  call everforest#highlight('StatusLineTermNC', s:palette.grey1, s:palette.none)
+  call everforest#highlight('TabLine', s:palette.grey2, s:palette.bg3)
+  call everforest#highlight('TabLineFill', s:palette.grey1, s:palette.none)
+  call everforest#highlight('TabLineSel', s:palette.bg0, s:palette.statusline1)
+else
+  call everforest#highlight('StatusLine', s:palette.grey1, s:palette.bg1)
+  call everforest#highlight('StatusLineTerm', s:palette.grey1, s:palette.bg1)
+  call everforest#highlight('StatusLineNC', s:palette.grey1, s:palette.bg0)
+  call everforest#highlight('StatusLineTermNC', s:palette.grey1, s:palette.bg0)
+  call everforest#highlight('TabLine', s:palette.grey2, s:palette.bg3)
+  call everforest#highlight('TabLineFill', s:palette.grey1, s:palette.bg1)
+  call everforest#highlight('TabLineSel', s:palette.bg0, s:palette.statusline1)
+endif
 call everforest#highlight('VertSplit', s:palette.bg4, s:palette.none)
 call everforest#highlight('Visual', s:palette.none, s:palette.bg_visual)
 call everforest#highlight('VisualNOS', s:palette.none, s:palette.bg_visual)
@@ -157,6 +168,7 @@ call everforest#highlight('debugBreakpoint', s:palette.bg0, s:palette.red)
 call everforest#highlight('ToolbarButton', s:palette.bg0, s:palette.green)
 if has('nvim')
   call everforest#highlight('Substitute', s:palette.bg0, s:palette.yellow)
+  highlight! link WinBarNC Grey
   highlight! link DiagnosticFloatingError ErrorFloat
   highlight! link DiagnosticFloatingWarn WarningFloat
   highlight! link DiagnosticFloatingInfo InfoFloat
@@ -200,6 +212,9 @@ if has('nvim')
   highlight! link LspReferenceText CurrentWord
   highlight! link LspReferenceRead CurrentWord
   highlight! link LspReferenceWrite CurrentWord
+  highlight! link LspCodeLens VirtualTextInfo
+  highlight! link LspCodeLensSeparator VirtualTextHint
+  highlight! link LspSignatureActiveParameter Search
   highlight! link TermCursor Cursor
   highlight! link healthError Red
   highlight! link healthSuccess Green
@@ -289,7 +304,7 @@ else
   call everforest#highlight('BlueItalic', s:palette.blue, s:palette.none)
   call everforest#highlight('PurpleItalic', s:palette.purple, s:palette.none)
 endif
-if s:configuration.transparent_background || s:configuration.sign_column_background !=# 'default'
+if s:configuration.transparent_background || s:configuration.sign_column_background ==# 'none'
   call everforest#highlight('RedSign', s:palette.red, s:palette.none)
   call everforest#highlight('OrangeSign', s:palette.orange, s:palette.none)
   call everforest#highlight('YellowSign', s:palette.yellow, s:palette.none)
@@ -356,14 +371,14 @@ endif
 if ((has('termguicolors') && &termguicolors) || has('gui_running')) && !s:configuration.disable_terminal_colors
   " Definition
   let s:terminal = {
-        \ 'black':    s:palette.bg3,
+        \ 'black':    &background ==# 'dark' ? s:palette.bg3 : s:palette.fg,
         \ 'red':      s:palette.red,
         \ 'yellow':   s:palette.yellow,
         \ 'green':    s:palette.green,
         \ 'cyan':     s:palette.aqua,
         \ 'blue':     s:palette.blue,
         \ 'purple':   s:palette.purple,
-        \ 'white':    s:palette.fg
+        \ 'white':    &background ==# 'dark' ? s:palette.fg : s:palette.bg3,
         \ }
   " Implementation: {{{
   if !has('nvim')
@@ -432,6 +447,7 @@ highlight! link TSPunctBracket Fg
 highlight! link TSPunctDelimiter Grey
 highlight! link TSPunctSpecial Blue
 highlight! link TSRepeat Red
+highlight! link TSStorageClass Orange
 highlight! link TSString Aqua
 highlight! link TSStringEscape Green
 highlight! link TSStringRegex Green
@@ -450,6 +466,20 @@ highlight! link TSVariableBuiltin BlueItalic
 " }}}
 " neoclide/coc.nvim {{{
 call everforest#highlight('CocHoverRange', s:palette.none, s:palette.none, 'bold,underline')
+call everforest#highlight('CocSearch', s:palette.green, s:palette.none, 'bold')
+call everforest#highlight('CocPumSearch', s:palette.green, s:palette.none, 'bold')
+call everforest#highlight('CocMarkdownHeader', s:palette.orange, s:palette.none, 'bold')
+call everforest#highlight('CocMarkdownLink', s:palette.green, s:palette.none, 'underline')
+highlight! link CocMarkdownCode Green
+highlight! link CocPumShortcut Grey
+highlight! link CocPumVirtualText LineNr
+highlight! link CocPumMenu Pmenu
+highlight! link CocMenuSel PmenuSel
+highlight! link CocDisabled Grey
+highlight! link CocSnippetVisual DiffAdd
+highlight! link CocInlayHint Grey
+highlight! link CocNotificationProgress Green
+highlight! link CocNotificationButton PmenuSel
 highlight! link CocSemClass TSType
 highlight! link CocSemEnum TSType
 highlight! link CocSemInterface TSType
@@ -463,6 +493,7 @@ highlight! link CocErrorFloat ErrorFloat
 highlight! link CocWarningFloat WarningFloat
 highlight! link CocInfoFloat InfoFloat
 highlight! link CocHintFloat HintFloat
+highlight! link CocFloatDividingLine Grey
 highlight! link CocErrorHighlight ErrorText
 highlight! link CocWarningHighlight WarningText
 highlight! link CocInfoHighlight InfoText
@@ -705,10 +736,11 @@ highlight! link multiple_cursors_cursor Cursor
 highlight! link multiple_cursors_visual Visual
 " }}}
 " mg979/vim-visual-multi {{{
-let g:VM_Mono_hl = 'Cursor'
+call everforest#highlight('VMCursor', s:palette.blue, s:palette.bg_blue)
+let g:VM_Mono_hl = 'VMCursor'
 let g:VM_Extend_hl = 'Visual'
-let g:VM_Cursor_hl = 'Cursor'
-let g:VM_Insert_hl = 'Cursor'
+let g:VM_Cursor_hl = 'VMCursor'
+let g:VM_Insert_hl = 'VMCursor'
 " }}}
 " dominikduda/vim_current_word {{{
 highlight! link CurrentWordTwins CurrentWord
@@ -972,6 +1004,59 @@ highlight! link ReferencesCount Grey
 highlight! link DefinitionCount Grey
 highlight! link TargetFileName Grey
 " }}}
+" b0o/incline.nvim {{{
+call everforest#highlight('InclineNormalNC', s:palette.grey1, s:palette.bg2)
+" }}}
+" echasnovski/mini.nvim {{{
+call everforest#highlight('MiniIndentscopePrefix', s:palette.none, s:palette.none, 'nocombine')
+call everforest#highlight('MiniJump2dSpot', s:palette.orange, s:palette.none, 'bold,nocombine')
+call everforest#highlight('MiniStarterCurrent', s:palette.none, s:palette.none, 'nocombine')
+call everforest#highlight('MiniStatuslineDevinfo', s:palette.grey1, s:palette.bg1)
+call everforest#highlight('MiniStatuslineFileinfo', s:palette.grey1, s:palette.bg1)
+call everforest#highlight('MiniStatuslineModeCommand', s:palette.bg0, s:palette.aqua, 'bold')
+call everforest#highlight('MiniStatuslineModeInsert', s:palette.bg0, s:palette.statusline2, 'bold')
+call everforest#highlight('MiniStatuslineModeNormal', s:palette.bg0, s:palette.statusline1, 'bold')
+call everforest#highlight('MiniStatuslineModeOther', s:palette.bg0, s:palette.purple, 'bold')
+call everforest#highlight('MiniStatuslineModeReplace', s:palette.bg0, s:palette.orange, 'bold')
+call everforest#highlight('MiniStatuslineModeVisual', s:palette.bg0, s:palette.statusline3, 'bold')
+call everforest#highlight('MiniTablineCurrent', s:palette.fg, s:palette.bg4)
+call everforest#highlight('MiniTablineHidden', s:palette.grey1, s:palette.bg2)
+call everforest#highlight('MiniTablineModifiedCurrent', s:palette.blue, s:palette.bg4)
+call everforest#highlight('MiniTablineModifiedHidden', s:palette.grey1, s:palette.bg2)
+call everforest#highlight('MiniTablineModifiedVisible', s:palette.blue, s:palette.bg2)
+call everforest#highlight('MiniTablineTabpagesection', s:palette.bg0, s:palette.statusline1, 'bold')
+call everforest#highlight('MiniTablineVisible', s:palette.fg, s:palette.bg2)
+call everforest#highlight('MiniTestEmphasis', s:palette.none, s:palette.none, 'bold')
+call everforest#highlight('MiniTestFail', s:palette.red, s:palette.none, 'bold')
+call everforest#highlight('MiniTestPass', s:palette.green, s:palette.none, 'bold')
+call everforest#highlight('MiniTrailspace', s:palette.none, s:palette.red)
+highlight! link MiniStarterItemBullet Grey
+highlight! link MiniStarterItemPrefix Yellow
+highlight! link MiniStarterQuery Blue
+highlight! link MiniStatuslineFilename Grey
+highlight! link MiniStatuslineModeInactive Grey
+highlight! link MiniCompletionActiveParameter LspSignatureActiveParameter
+highlight! link MiniCursorword CurrentWord
+highlight! link MiniCursorwordCurrent CurrentWord
+highlight! link MiniIndentscopeSymbol Grey
+highlight! link MiniJump Search
+highlight! link MiniStarterFooter Orange
+highlight! link MiniStarterHeader Yellow
+highlight! link MiniStarterInactive Comment
+highlight! link MiniStarterItem Normal
+highlight! link MiniStarterSection Title
+highlight! link MiniSurround IncSearch
+highlight! link MiniTablineFill TabLineFill
+" }}}
+" ggandor/lightspeed.nvim {{{
+call everforest#highlight('LightspeedLabel', s:palette.red, s:palette.none, 'bold,underline')
+call everforest#highlight('LightspeedLabelDistant', s:palette.blue, s:palette.none, 'bold,underline')
+call everforest#highlight('LightspeedShortcut', s:palette.bg0, s:palette.red, 'bold')
+call everforest#highlight('LightspeedUnlabeledMatch', s:palette.fg, s:palette.none, 'bold')
+call everforest#highlight('LightspeedPendingOpArea', s:palette.bg0, s:palette.green)
+highlight! link LightspeedMaskedChar Purple
+highlight! link LightspeedGreyWash Grey
+" }}}
 endif
 " }}}
 " Extended File Types: {{{
@@ -1023,6 +1108,24 @@ highlight! link plugUpdate Blue
 highlight! link plugDeleted Grey
 highlight! link plugEdge Yellow
 highlight! link plugSha Green
+" syn_end }}}
+" syn_begin: packer {{{
+" https://github.com/wbthomason/packer.nvim
+highlight! link packerSuccess Aqua
+highlight! link packerFail Red
+highlight! link packerStatusSuccess Fg
+highlight! link packerStatusFail Fg
+highlight! link packerWorking Yellow
+highlight! link packerString Yellow
+highlight! link packerPackageNotLoaded Grey
+highlight! link packerRelDate Grey
+highlight! link packerPackageName Green
+highlight! link packerOutput Orange
+highlight! link packerHash Green
+highlight! link packerTimeTrivial Blue
+highlight! link packerTimeHigh Red
+highlight! link packerTimeMedium Yellow
+highlight! link packerTimeLow Green
 " syn_end }}}
 " syn_begin: coctree {{{
 " https://github.com/neoclide/coc.nvim
@@ -1123,6 +1226,41 @@ highlight! link VistaPublic Green
 highlight! link VistaProtected Yellow
 highlight! link VistaPrivate Red
 " syn_end }}}
+" syn_begin: Outline {{{
+" https://github.com/simrat39/symbols-outline.nvim
+highlight! link FocusedSymbol NormalFloat
+" syn_end }}}
+" syn_begin: aerial {{{
+" https://github.com/stevearc/aerial.nvim
+highlight! link AerialLine CursorLine
+highlight! link AerialGuide LineNr
+highlight! link AerialFileIcon Green
+highlight! link AerialModuleIcon Purple
+highlight! link AerialNamespaceIcon Purple
+highlight! link AerialPackageIcon Purple
+highlight! link AerialClassIcon Red
+highlight! link AerialMethodIcon Green
+highlight! link AerialPropertyIcon Blue
+highlight! link AerialFieldIcon Green
+highlight! link AerialConstructorIcon Green
+highlight! link AerialEnumIcon Yellow
+highlight! link AerialInterfaceIcon Yellow
+highlight! link AerialFunctionIcon Green
+highlight! link AerialVariableIcon Blue
+highlight! link AerialConstantIcon Blue
+highlight! link AerialStringIcon Aqua
+highlight! link AerialNumberIcon Aqua
+highlight! link AerialBooleanIcon Aqua
+highlight! link AerialArrayIcon Aqua
+highlight! link AerialObjectIcon Aqua
+highlight! link AerialKeyIcon Red
+highlight! link AerialNullIcon Aqua
+highlight! link AerialEnumMemberIcon Aqua
+highlight! link AerialStructIcon Yellow
+highlight! link AerialEventIcon Orange
+highlight! link AerialOperatorIcon Orange
+highlight! link AerialTypeParameterIcon Yellow
+" syn_end }}}
 " syn_begin: nerdtree {{{
 " https://github.com/preservim/nerdtree
 highlight! link NERDTreeDir Green
@@ -1172,7 +1310,7 @@ highlight! link NvimTreeLspDiagnosticsHint GreenSign
 " syn_end }}}
 " syn_begin: fern {{{
 " https://github.com/lambdalisue/fern.vim
-highlight! link FernMarkedLine None
+highlight! link FernMarkedLine Purple
 highlight! link FernMarkedText Purple
 highlight! link FernRootSymbol FernRootText
 highlight! link FernRootText Orange
@@ -1182,6 +1320,34 @@ highlight! link FernBranchSymbol FernBranchText
 highlight! link FernBranchText Green
 highlight! link FernWindowSelectIndicator TabLineSel
 highlight! link FernWindowSelectStatusLine TabLine
+" syn_end }}}
+" syn_begin: octo {{{
+" https://github.com/pwntester/octo.nvim
+call everforest#highlight('OctoViewer', s:palette.bg0, s:palette.blue)
+call everforest#highlight('OctoGreenFloat', s:palette.green, s:palette.bg2)
+call everforest#highlight('OctoRedFloat', s:palette.red, s:palette.bg2)
+call everforest#highlight('OctoPurpleFloat', s:palette.purple, s:palette.bg2)
+call everforest#highlight('OctoYellowFloat', s:palette.yellow, s:palette.bg2)
+call everforest#highlight('OctoBlueFloat', s:palette.blue, s:palette.bg2)
+call everforest#highlight('OctoGreyFloat', s:palette.grey1, s:palette.bg2)
+call everforest#highlight('OctoBubbleGreen', s:palette.bg0, s:palette.green)
+call everforest#highlight('OctoBubbleRed', s:palette.bg0, s:palette.red)
+call everforest#highlight('OctoBubblePurple', s:palette.bg0, s:palette.purple)
+call everforest#highlight('OctoBubbleYellow', s:palette.bg0, s:palette.yellow)
+call everforest#highlight('OctoBubbleBlue', s:palette.bg0, s:palette.blue)
+call everforest#highlight('OctoBubbleGrey', s:palette.bg0, s:palette.grey1)
+highlight! link OctoGreen Green
+highlight! link OctoRed Red
+highlight! link OctoPurple Purple
+highlight! link OctoYellow Yellow
+highlight! link OctoBlue Blue
+highlight! link OctoGrey Grey
+highlight! link OctoBubbleDelimiterGreen Green
+highlight! link OctoBubbleDelimiterRed Red
+highlight! link OctoBubbleDelimiterPurple Purple
+highlight! link OctoBubbleDelimiterYellow Yellow
+highlight! link OctoBubbleDelimiterBlue Blue
+highlight! link OctoBubbleDelimiterGrey Grey
 " syn_end }}}
 " syn_begin: netrw {{{
 " https://www.vim.org/scripts/script.php?script_id=1075
@@ -1952,6 +2118,8 @@ highlight! link luaFunc Green
 highlight! link luaFunction Aqua
 highlight! link luaTable Fg
 highlight! link luaIn RedItalic
+highlight! link luaTSField Fg
+highlight! link luaTSConstructor Fg
 " }}}
 " vim-lua: https://github.com/tbastos/vim-lua {{{
 highlight! link luaFuncCall Green
@@ -2403,19 +2571,32 @@ highlight! link cmakeKWvariable_watch Aqua
 highlight! link cmakeKWwrite_file Aqua
 " syn_end }}}
 " syn_begin: json {{{
-highlight! link jsonKeyword Orange
+highlight! link jsonKeyword Green
+highlight! link jsonString Fg
 highlight! link jsonQuote Grey
-highlight! link jsonBraces Fg
+highlight! link jsonTSLabel jsonKeyword
+highlight! link jsonTSString jsonString
 " syn_end }}}
 " syn_begin: yaml {{{
-highlight! link yamlKey Orange
-highlight! link yamlConstant Purple
+highlight! link yamlBlockMappingKey Green
+highlight! link yamlString Fg
+highlight! link yamlConstant OrangeItalic
+highlight! link yamlKeyValueDelimiter Grey
+highlight! link yamlTSField yamlBlockMappingKey
+highlight! link yamlTSString yamlString
+highlight! link yamlTSBoolean yamlConstant
+highlight! link yamlTSConstBuiltin yamlConstant
+highlight! link yamlKey yamlBlockMappingKey  " stephpy/vim-yaml
 " syn_end }}}
 " syn_begin: toml {{{
-call everforest#highlight('tomlTable', s:palette.purple, s:palette.none, 'bold')
-highlight! link tomlKey Orange
+call everforest#highlight('tomlTable', s:palette.orange, s:palette.none, 'bold')
+highlight! link tomlKey Green
+highlight! link tomlString Fg
+highlight! link tomlDate Special
 highlight! link tomlBoolean Aqua
 highlight! link tomlTableArray tomlTable
+highlight! link tomlTSProperty tomlKey
+highlight! link tomlTSString tomlString
 " syn_end }}}
 " syn_begin: gitcommit {{{
 highlight! link gitcommitSummary Red

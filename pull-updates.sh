@@ -42,8 +42,8 @@ function _main() {
         _dl mhartington/oceanic-next
         _dl morhetz/gruvbox
         _dl nanotech/jellybeans.vim
-        _dl nightsense/snow
-        _dl nightsense/stellarized
+        _dl StarryLeo/snow
+        _dl StarryLeo/stellarized
         _dl Nequo/vim-allomancer
         _dl NLKNguyen/papercolor-theme
         _dl rakr/vim-one

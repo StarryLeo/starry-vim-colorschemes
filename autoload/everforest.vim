@@ -2,7 +2,7 @@
 " URL: https://github.com/sainnhe/everforest
 " Filename: autoload/everforest.vim
 " Author: sainnhe
-" Email: sainnhe@gmail.com
+" Email: i@sainnhe.dev
 " License: MIT License
 " =============================================================================
 
@@ -14,7 +14,7 @@ function! everforest#get_configuration() "{{{
         \ 'enable_italic': get(g:, 'everforest_enable_italic', 0),
         \ 'cursor': get(g:, 'everforest_cursor', 'auto'),
         \ 'menu_selection_background': get(g:, 'everforest_menu_selection_background', 'white'),
-        \ 'sign_column_background': get(g:, 'everforest_sign_column_background', 'default'),
+        \ 'sign_column_background': get(g:, 'everforest_sign_column_background', 'none'),
         \ 'spell_foreground': get(g:, 'everforest_spell_foreground', 'none'),
         \ 'ui_contrast': get(g:, 'everforest_ui_contrast', 'low'),
         \ 'show_eob': get(g:, 'everforest_show_eob', 1),
@@ -25,9 +25,10 @@ function! everforest#get_configuration() "{{{
         \ 'diagnostic_virtual_text': get(g:, 'everforest_diagnostic_virtual_text', 'grey'),
         \ 'disable_terminal_colors': get(g:, 'everforest_disable_terminal_colors', 0),
         \ 'better_performance': get(g:, 'everforest_better_performance', 0),
+        \ 'colors_override': get(g:, 'everforest_colors_override', {}),
         \ }
 endfunction "}}}
-function! everforest#get_palette(background) "{{{
+function! everforest#get_palette(background, colors_override) "{{{
   if a:background ==# 'hard' "{{{
     if &background ==# 'dark'
       let palette1 = {
@@ -156,7 +157,7 @@ function! everforest#get_palette(background) "{{{
           \ 'none':       ['NONE',      'NONE']
           \ }
   endif "}}}
-  return extend(palette1, palette2)
+  return extend(extend(palette1, palette2), a:colors_override)
 endfunction "}}}
 function! everforest#highlight(group, fg, bg, ...) "{{{
   execute 'highlight' a:group
@@ -221,7 +222,7 @@ function! everforest#syn_write(rootpath, syn, content) "{{{
   if matchstr(a:content, 'everforest#highlight') !=# ''
     call writefile([
           \ 'let s:configuration = everforest#get_configuration()',
-          \ 'let s:palette = everforest#get_palette(s:configuration.background)'
+          \ 'let s:palette = everforest#get_palette(s:configuration.background, s:configuration.colors_override)'
           \ ], syn_path, 'a')
   endif
   " Append the content.
