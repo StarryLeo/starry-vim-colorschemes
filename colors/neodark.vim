@@ -153,7 +153,7 @@ let s:yellow        = ['#D4AE58', 179]
 let s:blue          = ['#639EE4', 74]
 let s:purple        = ['#B888E2', 140]
 let s:orange        = ['#E18254', 173]
-let s:pink          = ['#E69CA0', 181]
+let s:pink          = ['#DC94A2', 181]
 let s:teal          = ['#4BB1A7', 73]
 let s:golden_yellow = ['#C99720', 180]
 let s:light_blue    = ['#72C7D1', 80]
@@ -269,7 +269,7 @@ call s:hi('ModeMsg',                   s:green,         '',              '')
 call s:hi('MoreMsg',                   s:green,         '',              '')
 call s:hi('NonText',                   s:base4,         '',              'none')
 call s:hi('Normal',                    s:base5,         s:base1,         'none')
-call s:hi('Pmenu',                     s:base5,         s:base3,         '')
+call s:hi('Pmenu',                     s:base5,         s:base2,         '')
 call s:hi('PmenuSbar',                 '',              s:base2,         '')
 call s:hi('PmenuSel',                  s:base2,         s:green,         '')
 call s:hi('PmenuThumb',                '',              s:base4,         '')
@@ -375,6 +375,12 @@ call s:hi('GitGutterChangeDelete',     s:orange,     '',         '')
 " indent-guides
 call s:hi('IndentGuidesOdd',           '',           s:base2,    '')
 call s:hi('IndentGuidesEven',          '',           s:base2,    '')
+
+" coc-nvim
+call s:hi('CocSearch', s:golden_yellow, s:base2, '')
+
+" vimtex
+hi! link texMathZone Function
 
 " indentLine
 let g:indentLine_color_gui = s:base3[0]

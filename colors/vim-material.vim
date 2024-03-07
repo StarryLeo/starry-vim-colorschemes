@@ -4,7 +4,6 @@
 " Porting From: https://github.com/equinusocio/vsc-material-theme
 " Author: hzchris <hzchirs@gmail.com>
 " Source: https://github.com/hzchirs/vim-material
-" Last Modified: 10 February 2019
 " -----------------------------------------------------------------------------
 
 if version > 580
@@ -110,7 +109,7 @@ call s:hi("PMenuSel",     s:gui.cyan,       s:gui.selection,  "", "", "bold")
 call s:hi("ErrorMsg",     s:gui.red,        s:gui.none,       "", "", "")
 call s:hi("Error",        s:gui.red,        s:gui.none,       "", "", "")
 call s:hi("WarningMsg",   s:gui.orange,     "",               "", "", "")
-call s:hi("VertSplit",    s:gui.background, s:gui.foreground, "", "", "")
+call s:hi("VertSplit",    s:gui.pale_blue,  s:gui.background, "", "", "")
 call s:hi("Conceal",      s:gui.comment,    s:gui.background, "", "", "")
 
 call s:hi("DiffAdded",   s:gui.green, "", "", "", "")
@@ -147,7 +146,13 @@ call s:hi("InSearch",    s:gui.background, s:gui.foreground, "", "", "")
 call s:hi("Todo",        s:gui.red,        s:gui.foreground, "", "", "reverse")
 call s:hi("Special",     s:gui.orange,     "",               "", "", "")
 call s:hi("SignColumn",  "",               s:gui.background, "", "", "")
+call s:hi("NormalFloat", s:gui.foreground, s:gui.background, "", "", "")
+call s:hi("FloatBorder", s:gui.cyan, "", "", "", "")
 
+call s:hi("DiagnosticError", s:gui.red,    "", "", "", "")
+call s:hi("DiagnosticWarn",  s:gui.yellow, "", "", "", "")
+call s:hi("DiagnosticHint",  s:gui.yellow, "", "", "", "")
+call s:hi("DiagnosticInfo",  s:gui.yellow, "", "", "", "")
 
 " Ruby colors
 call s:hi("rubyClassName",       s:gui.yellow, "", "", "", "bold")
@@ -240,24 +245,38 @@ call s:hi("GitGutterDelete",       s:gui.red,   s:gui.background, "", "", "")
 call s:hi("GitGutterChangeDelete", s:gui.yellow,  s:gui.background, "", "", "")
 
 " Treesitter
-call s:hi("TSBoolean", s:gui.orange, "", "", "", "")
-call s:hi("TSConstant", s:gui.foreground, "", "", "", "")
-call s:hi("TSConstructor", s:gui.yellow, "", "", "", "")
-call s:hi("TSKeyword", s:gui.cyan, "", "", "", "")
-call s:hi("TSKeywordOperator", s:gui.cyan, "", "", "", "")
-call s:hi("TSLabel", s:gui.pink, "", "", "", "")
-call s:hi("TSOperator", s:gui.purple, "", "", "", "")
-call s:hi("TSParameter", s:gui.red, "", "", "", "")
-call s:hi("TSProperty", s:gui.foreground, "", "", "", "")
-call s:hi("TSPunctBracket", s:gui.cyan, "", "", "", "")
-call s:hi("TSPunctDelimiter", s:gui.cyan, "", "", "", "")
-call s:hi("TSPunctSpecial", s:gui.cyan, "", "", "", "")
-call s:hi("TSSymbol", s:gui.orange, "", "", "", "")
-call s:hi("TSTag", s:gui.pink, "", "", "", "")
-call s:hi("TSTagAttribute", s:gui.purple, "", "", "", "")
-call s:hi("TSTagDelimiter", s:gui.cyan, "", "", "", "")
-call s:hi("TSVariable", s:gui.foreground, "", "", "", "")
-call s:hi("TSVariableBuiltIn", s:gui.red, "", "", "", "")
+if has('nvim') && (version >= 800)
+  call s:hi("@boolean", s:gui.orange, "", "", "", "")
+  call s:hi("@conditional", s:gui.cyan, "", "", "", "")
+  call s:hi("@constant", s:gui.yellow, "", "", "", "")
+  call s:hi("@constructor", s:gui.yellow, "", "", "", "")
+  call s:hi("@keyword", s:gui.cyan, "", "", "", "")
+  call s:hi("@keyword.operator", s:gui.cyan, "", "", "", "")
+  call s:hi("@label", s:gui.pink, "", "", "", "")
+  call s:hi("@operator", s:gui.purple, "", "", "", "")
+  call s:hi("@parameter", s:gui.red, "", "", "", "")
+  call s:hi("@property", s:gui.pale_blue, "", "", "", "")
+  call s:hi("@punctuation.bracket", s:gui.cyan, "", "", "", "")
+  call s:hi("@punctuation.delimiter", s:gui.cyan, "", "", "", "")
+  call s:hi("@punctuation.special", s:gui.cyan, "", "", "", "")
+  call s:hi("@symbol", s:gui.orange, "", "", "", "")
+  call s:hi("@tag", s:gui.pink, "", "", "", "")
+  call s:hi("@tag.attribute", s:gui.purple, "", "", "", "")
+  call s:hi("@tag.delimiter", s:gui.cyan, "", "", "", "")
+  call s:hi("@type", s:gui.yellow, "", "", "", "")
+  call s:hi("@variable", s:gui.foreground, "", "", "", "")
+  call s:hi("@variable.builtin", s:gui.red, "", "", "", "")
+  call s:hi("@variable.member", s:gui.pink, "", "", "", "")
+  call s:hi("@text.title", s:gui.yellow, "", "", "", "")
+  call s:hi("@text.literal", s:gui.pink, "", "", "", "")
+  call s:hi("@text.literal.block", s:gui.foreground, "", "", "", "")
+  call s:hi("@text.title.1.marker", s:gui.comment, "", "", "", "")
+  call s:hi("@text.title.2.marker", s:gui.comment, "", "", "", "")
+  call s:hi("@text.title.3.marker", s:gui.comment, "", "", "", "")
+  call s:hi("@text.reference", s:gui.purple, "", "", "", "")
+  call s:hi("@text.uri", s:gui.blue, "", "", "", "underline")
+  call s:hi("@text.todo", s:gui.cyan, "", "", "", "")
+endif
 
 " Treesitter html
 call s:hi("htmlEventDQ", s:gui.blue, "", "", "", "")
@@ -268,3 +287,6 @@ call s:hi("cssTSProperty", s:gui.yellow, "", "", "", "")
 " Treesitter javascript
 call s:hi("javascriptParens", s:gui.cyan, "", "", "", "")
 call s:hi("javascriptValue", s:gui.orange, "", "", "", "")
+
+" nvim-cmp
+call s:hi("CmpItemAbbrMatch", s:gui.blue, "", "", "", "")

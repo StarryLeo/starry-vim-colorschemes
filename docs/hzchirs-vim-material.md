@@ -7,8 +7,8 @@ __   _(_)_ __ ___        _ __ ___   __ _| |_ ___ _ __(_) __ _| |
 ```
 
 # vim-material
-[equinusocio's Material Theme](https://github.com/equinusocio/vsc-material-theme) port
-for vim.
+[Visual Studio Code Material Theme](https://github.com/material-theme/vsc-material-theme) port
+for Vim / Neovim.
 
 * supports true color terminal and gvim only.
 * supports [treesitter](https://github.com/nvim-treesitter/nvim-treesitter).
@@ -34,6 +34,9 @@ Installation
 * [vim-plug](https://github.com/junegunn/vim-plug)
 ```vim
 Plug 'hzchirs/vim-material'
+
+" nvim version < 8.0
+Plug 'hzchirs/vim-material', { 'tag': 'v1.0' }
 
 " Dark
 set background=dark

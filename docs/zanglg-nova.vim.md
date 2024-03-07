@@ -1,73 +1,56 @@
-# NOVA
-Another VIM color theme, but only supports true color for neovim / vim.
+# nova colorscheme for neovim
 
-## Palette
-![palette](/screenshots/palette.png?raw=true)
+*A (very) WIP colorscheme for neovim.*
 
-## Limited
-### Terminal
-WARNING: This color scheme only supports true color.
+## 🎨 Preview
 
-Check if your terminal supports true color here: [terminal](https://gist.github.com/XVilka/8346728)
-### Tmux
-* Tmux version must >= v2.2
-* set your $TERM to "xterm-256color"
-* add this line to your .tmux.conf:
+**The color and group was not fixed finally, so screenshot may have a big change.**
 
-    ```tmux
-    set-option -ga terminal-overrides ",xterm-256color:Tc"
-    ```
+- **dark mode:**
 
-## Installation
-### Manual install
-```vim
-git clone https://github.com/zanglg/nova.vim
-```
-for NeoVIM:
-```vim
-mv nova.vim/colors/nova.vim ~/.config/nvim/colors/
-```
-for VIM:
-```vim
-mv nova.vim/colors/nova.vim ~/.vim/colors/
+<img width="2025" alt="dark" src="https://github.com/zanglg/nova.nvim/assets/4172061/8039f577-231b-46bf-babc-5e057396d4ec">
+
+- **light mode:**
+
+<img width="2025" alt="light" src="https://github.com/zanglg/nova.nvim/assets/4172061/ef1428b0-1c2d-4cc2-a74c-ec0b134ce55e">
+
+## 📦 Instalation
+
+You can use your favorite plugin manager for this. Here is an example with
+lazy.nvim:
+
+#### lazy.nvim
+
+```lua
+{
+    "zanglg/nova.nvim",
+    opts = {
+        theme = "dark",
+    },
+}
 ```
 
-### Plugin manager:
-[vim-plug](https://github.com/junegunn/vim-plug)
-```vim
-Plug 'zanglg/nova.vim'
+## 🚀 Usage
+
+#### Lua
+
+```lua
+vim.cmd([[colorscheme nova]])
 ```
-[Vundle](https://github.com/VundleVim/Vundle.vim)
-```vim
-Plugin 'zanglg/nova.vim'
+#### [Lualine](https://github.com/nvim-lualine/lualine.nvim)
+
+```lua
+require("lualine").setup({
+    options = {
+        theme = "nova",
+    },
+})
 ```
 
-Then, update your plugin and put this in your init.vim or .vimrc
-```vim
-set termguicolors
-colorscheme nova
-```
-light version:
-```
-set background=light
-```
-dark version:
-```
-set background=dark
-```
+## 🔧 Configurations
 
-## Support Languages and plugins
-I have only tested for C/C++.
-But I add all the standard highlight groups. I think it will work well for other languages.
-If you want to add more highlight group, please feel kind to submit a pull request.
+- todo.
 
-### Language
-* C/C++
+## 🪓 Overriding Colors & Highlight Groups
 
-### Plugin
-* NONE
-
-## ScreenShot
-### C/C++
-![light_cpp](/screenshots/light_cpp.jpeg?raw=true)
-![dark_cpp](/screenshots/dark_cpp.jpeg?raw=true)
+- todo.
